@@ -1,0 +1,100 @@
+﻿{
+  "home": {
+    "title": "Bienvenido a la Plataforma de Tutoriales",
+    "subTitle": "Encuentra, crea y gestiona tus tutoriales fácilmente.",
+    "viewProfile": "Ver perfil",
+    "settings": "Ajustes",
+    "myClaims": "Mis reclamos",
+    "plans": "Planes",
+    "newClaim": "Nuevo Reclamo",
+    "history": "Historial de Reclamos",
+    "reminders": "Prevenciones y Recordatorios",
+    "simulator": "Simulador de Reembolso",
+    "teleconsult": "Teleconsulta",
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "guest": "Invitado"
+  },
+
+
+  "teleconsultations": {
+    "title": "Reserva una teleconsulta",
+    "header": "Teleconsultas",
+    "service": "Servicio",
+    "selectService": "Selecciona un servicio",
+    "nutrition": "Nutrición",
+    "general": "Medicina General",
+    "psychology": "Psicología",
+    "date": "Fecha",
+    "time": "Hora",
+    "selectTime": "Selecciona una hora",
+    "description": "Descripción",
+    "submit": "Enviar Consulta",
+    "success": "¡Tu consulta ha sido reservada con éxito!",
+    "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
+  },
+
+
+
+"layout": {
+    "header": {
+      "logo": "ResiCare"
+    }
+  },
+  "common": {
+    "selectLanguage": "Seleccionar Idioma",
+    "submit": "Enviar",
+    "back": "Volver"
+  },
+  "tutorial": {
+    "list": {
+      "title": "Tutoriales",
+      "createButton": "Crear Nuevo Tutorial"
+    },
+    "create": {
+      "title": "Crear Nuevo Tutorial",
+      "description": "Completa el formulario a continuación para crear un nuevo tutorial"
+    },
+    "form": {
+      "basicInfo": "Información Básica",
+      "details": "Detalles",
+      "options": "Opciones",
+      "title": "Título del Tutorial",
+      "category": "Categoría",
+      "difficulty": "Dificultad",
+      "description": "Descripción",
+      "duration": "Duración (minutos)",
+      "releaseDate": "Fecha de Lanzamiento",
+      "uploadFile": "Subir Archivo",
+      "tags": "Etiquetas",
+      "published": "Publicado",
+      "success": "¡Datos enviados! El tutorial se guardó correctamente.",
+      "loading": "Cargando datos del formulario..."
+    }
+  },
+  "aria": {
+    "navigation": "Navegación principal",
+    "header": "Encabezado principal",
+    "logo": "Logo del Centro de Aprendizaje",
+    "languageSelector": "Selector de idioma desplegable",
+    "mainForm": "Formulario de creación de tutorial",
+    "basicInfoSection": "Sección de información básica",
+    "detailsSection": "Sección de detalles",
+    "optionsSection": "Sección de opciones",
+    "titleField": "Campo de entrada del título del tutorial",
+    "categoryField": "Menú desplegable de selección de categoría",
+    "difficultyGroup": "Selección de nivel de dificultad",
+    "descriptionField": "Área de texto de descripción del tutorial",
+    "durationField": "Campo de entrada de duración en minutos",
+    "releaseDateField": "Selector de fecha de lanzamiento",
+    "fileUploadField": "Campo de subida de archivos",
+    "tagsField": "Menú desplegable de selección de etiquetas",
+    "publishedField": "Casilla de verificación del estado de publicación",
+    "submitButton": "Enviar formulario del tutorial"
+  },
+  "notFound": {
+    "title": "¡Ups! Página No Encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "goHome": "Ir al Inicio",
+    "goBack": "Volver"
+  }
+}

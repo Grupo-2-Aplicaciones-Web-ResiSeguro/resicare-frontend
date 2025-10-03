@@ -1,0 +1,74 @@
+﻿{
+
+  "home": {
+    "title": "Welcome to the Tutorial Platform",
+    "subTitle": "Find, create, and manage your tutorials easily.",
+    "viewProfile": "View profile",
+    "settings": "Settings",
+    "myClaims": "My claims",
+    "plans": "Plans",
+    "newClaim": "New claim",
+    "history": "Claims history",
+    "reminders": "Reminders & Alerts",
+    "simulator": "Reimbursement simulator",
+    "teleconsult": "Teleconsultation",
+    "welcomeBack": "Welcome back!",
+    "guest": "Guest"
+  },
+
+
+  "teleconsultations": {
+    "title": "Reserve a teleconsultation",
+    "header": "Teleconsultations",
+    "service": "Service",
+    "selectService": "Select a service",
+    "nutrition": "Nutrition",
+    "general": "General Medicine",
+    "psychology": "Psychology",
+    "date": "Date",
+    "time": "Time",
+    "selectTime": "Select a time",
+    "description": "Description",
+    "submit": "Submit Consultation",
+    "success": "Your consultation has been booked successfully!",
+    "error": "There was an error booking your consultation. Please try again."
+  },
+
+"layout": {
+    "header": {
+      "logo": "ResiCare"
+    }
+  },
+  "common": {
+    "selectLanguage": "Select Language",
+    "submit": "Submit",
+    "back": "Back"
+  },
+
+  "aria": {
+    "navigation": "Main navigation",
+    "header": "Main header",
+    "logo": "Learning Center logo",
+    "languageSelector": "Language selector dropdown",
+    "mainForm": "Tutorial creation form",
+    "basicInfoSection": "Basic information section",
+    "detailsSection": "Details section",
+    "optionsSection": "Options section",
+    "titleField": "Tutorial title input field",
+    "categoryField": "Category selection dropdown",
+    "difficultyGroup": "Difficulty level selection",
+    "descriptionField": "Tutorial description text area",
+    "durationField": "Duration in minutes input field",
+    "releaseDateField": "Release date picker",
+    "fileUploadField": "File upload input",
+    "tagsField": "Tags selection dropdown",
+    "publishedField": "Published status checkbox",
+    "submitButton": "Submit tutorial form"
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  }
+}

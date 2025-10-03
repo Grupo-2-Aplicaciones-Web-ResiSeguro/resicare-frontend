@@ -1,0 +1,33 @@
+{
+  "profiles": [
+    {
+      "id": "1",
+      "nombre": "Jhonny",
+      "edad": 30,
+      "residencia": "Lima",
+      "correo": "jhonny@example.com",
+      "telefono": "987654321",
+      "contrasena": "123456",
+      "genero": "Masculino",
+      "nivelInstruccion": "Universitario",
+      "fotoDni": "",
+      "fotoCredencial": ""
+    }
+  ],
+  "consultations": [
+    {
+      "id": "d4c9",
+      "service": "general",
+      "date": "2025-10-17",
+      "time": "09:00",
+      "description": "dfdf"
+    },
+    {
+      "id": "3623",
+      "service": "",
+      "date": "",
+      "time": "",
+      "description": ""
+    }
+  ]
+}

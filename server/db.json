@@ -1,0 +1,63 @@
+{
+  "profiles": [
+    {
+      "id": "1",
+      "nombre": "Jhonny",
+      "edad": 30,
+      "residencia": "Lima",
+      "correo": "jhonny@example.com",
+      "telefono": "987654321",
+      "contrasena": "123456",
+      "genero": "Masculino",
+      "nivelInstruccion": "Universitario",
+      "fotoDni": "",
+      "fotoCredencial": ""
+    }
+  ],
+  "consultations": [
+    {
+      "id": "d4c9",
+      "service": "general",
+      "date": "2025-10-17",
+      "time": "09:00",
+      "description": "dfdf"
+    },
+    {
+      "id": "3623",
+      "service": "",
+      "date": "",
+      "time": "",
+      "description": ""
+    }
+  ],
+  "claims": [
+    {
+      "id": "00123",
+      "number": "00123",
+      "type": "robo",
+      "status": "Concluido",
+      "incidentDate": "02/10/2023",
+      "creationDate": "03/10/2023",
+      "description": "El reclamante sufrió un robo en la vía pública y necesita reposición del artículo.",
+      "objectRegistered": {
+        "title": "celular poco f6",
+        "subtitle": "Auriculares bluetooth",
+        "image": "/images/poco-f6.jpeg"
+      }
+    },
+    {
+      "id": "00789",
+      "number": "00789",
+      "type": "pérdida",
+      "status": "Rechazado",
+      "incidentDate": "20/05/2023",
+      "creationDate": "20/05/2023",
+      "description": "Objeto perdido en transporte público.",
+      "objectRegistered": {
+        "title": "documentos personales",
+        "subtitle": "carpeta azul",
+        "image": "/images/carpetaazul.jpeg"
+      }
+    }
+  ]
+}

@@ -1,23 +1,17 @@
 {
-  "users": [
-    {
-      "id": "c282",
-      "name": "1",
-      "email": "1",
-      "password": "1"
-    }
-  ],
   "profiles": [
     {
-      "id": "aa9b",
-      "userId": "c282",
-      "nombre": "1",
-      "correo": "1",
-      "telefono": "1",
-      "residencia": "1",
-      "edad": 1,
+      "id": "1",
+      "nombre": "Marcelino",
+      "edad": 30,
+      "residencia": "Lima",
+      "correo": "MarcelinoElMasRetrasado@example.com",
+      "telefono": "987654321",
+      "contrasena": "123456",
       "genero": "Masculino",
-      "nivelInstruccion": "1"
+      "nivelInstruccion": "Inicial",
+      "fotoDni": "",
+      "fotoCredencial": ""
     }
   ],
   "consultations": [
@@ -34,6 +28,35 @@
       "date": "",
       "time": "",
       "description": ""
+    }
+  ],
+  "claims": [
+    {
+      "id": "1",
+      "tipo": "accidente",
+      "fechaIncidente": "2025-10-01",
+      "descripcionBreve": "Accidente de tráfico en la avenida principal",
+      "objetoRegistrado": "objeto1",
+      "fotosDocumentos": [],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    }
+  ],
+  "registeredObjects": [
+    {
+      "id": "objeto1",
+      "nombre": "La mas chatita",
+      "descripcion": "Descripción del objeto 1"
+    },
+    {
+      "id": "objeto2",
+      "nombre": "Objeto 2",
+      "descripcion": "Descripción del objeto 2"
+    },
+    {
+      "id": "objeto3",
+      "nombre": "Objeto 3",
+      "descripcion": "Descripción del objeto 3"
     }
   ]
 }

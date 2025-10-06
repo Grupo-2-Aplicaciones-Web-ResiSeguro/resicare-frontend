@@ -23,7 +23,7 @@
     <div class="action-buttons" role="toolbar" aria-label="Acciones principales">
       <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" />
       <pv-button class="btn-outline" :label="t('home.plans') || 'Planes'" icon="pi pi-briefcase" />
-      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" />
+      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" @click="goToNewClaim" />
     </div>
 
 
@@ -68,15 +68,39 @@ const user = reactive({
   plan: '',
 })
 
+function getCurrentUserId() {
+  // El token guardado es el id del usuario autenticado
+  return localStorage.getItem('accessToken_v1')
+}
+
 onMounted(async () => {
   try {
-    const response = await profileApi.getById(1)
-    Object.assign(user, {
-      ...response.data,
-      name: response.data.nombre || '',
-    })
+    let userId = getCurrentUserId()
+    const response = await profileApi.getAll()
+    const profiles = response.data
+
+    // Si hay userId, busca el perfil correspondiente
+    let profile = null
+    if (userId) {
+      profile = profiles.find(p => p.userId === userId)
+    }
+    // Si no hay userId o no se encuentra, toma el primer perfil disponible
+    if (!profile && profiles.length > 0) {
+      profile = profiles[0]
+    }
+    if (profile) {
+      Object.assign(user, {
+        id: profile.userId,
+        name: profile.nombre || '',
+        avatar: '', // Si tienes campo de avatar, ponlo aquí
+        plan: '',   // Si tienes campo de plan, ponlo aquí
+      })
+    } else {
+      user.name = ''
+    }
   } catch (error) {
     console.error('Error al cargar el perfil:', error)
+    user.name = ''
   }
 })
 
@@ -100,6 +124,16 @@ function onAction(key) {
     router.push({ name: 'teleconsultations' })
     return
   }
+
+  if (key === 'reminders') {
+    router.push({ name: 'reminders' })
+    return
+  }
+
+}
+
+function goToNewClaim() {
+  router.push({ name: 'new-claim' })
 
 }
 

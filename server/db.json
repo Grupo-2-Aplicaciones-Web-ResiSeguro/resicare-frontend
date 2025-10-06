@@ -5,11 +5,11 @@
       "nombre": "Jhonny",
       "edad": 30,
       "residencia": "Lima",
-      "correo": "jhonny@example.com",
+      "correo": "JhonnyKbro@example.com",
       "telefono": "987654321",
       "contrasena": "123456",
       "genero": "Masculino",
-      "nivelInstruccion": "Universitario",
+      "nivelInstruccion": "Inicial",
       "fotoDni": "",
       "fotoCredencial": ""
     }
@@ -28,6 +28,72 @@
       "date": "",
       "time": "",
       "description": ""
+    }
+  ],
+  "claims": [
+    {
+      "id": "1",
+      "tipo": "accidente",
+      "fechaIncidente": "2025-10-01",
+      "descripcionBreve": "Accidente de tráfico en la avenida principal",
+      "objetoRegistrado": "objeto1",
+      "fotosDocumentos": [],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    }
+  ],
+  "registeredObjects": [
+    {
+      "id": "objeto1",
+      "nombre": "La suset",
+      "descripcion": "Descripción del objeto 1"
+    },
+    {
+      "id": "objeto2",
+      "nombre": "Objeto 2",
+      "descripcion": "Descripción del objeto 2"
+    },
+    {
+      "id": "objeto3",
+      "nombre": "Objeto 3",
+      "descripcion": "Descripción del objeto 3"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "r-1",
+      "title": "Tomar medicamento A",
+      "type": "medicación",
+      "date": "2025-10-17",
+      "time": "09:00",
+      "notes": "Con el desayuno",
+      "createdAt": "2025-10-01T08:00:00Z",
+      "updatedAt": "2025-10-01T08:00:00Z",
+      "userId": "1"
+    },
+    {
+      "id": "r-2",
+      "title": "Pago de plan",
+      "type": "pago",
+      "date": "2025-10-20",
+      "time": "10:00",
+      "notes": "",
+      "createdAt": "2025-10-02T12:00:00Z",
+      "updatedAt": "2025-10-02T12:00:00Z",
+      "userId": "1"
+    }
+  ],
+  "simulators": [
+    {
+      "id": "1",
+      "planElegido": "Plan Básico",
+      "duracionCobertura": "1mes",
+      "frecuenciaPago": "monthly",
+      "objetosAsegurados": "laptop, tablet",
+      "montoTotal": 100,
+      "descuento": 0,
+      "montoFinal": 100,
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
     }
   ]
 }

@@ -1,17 +1,23 @@
 {
+  "users": [
+    {
+      "id": "c282",
+      "name": "1",
+      "email": "1",
+      "password": "1"
+    }
+  ],
   "profiles": [
     {
-      "id": "1",
-      "nombre": "Jhonny",
-      "edad": 30,
-      "residencia": "Lima",
-      "correo": "jhonny@example.com",
-      "telefono": "987654321",
-      "contrasena": "123456",
+      "id": "aa9b",
+      "userId": "c282",
+      "nombre": "1",
+      "correo": "1",
+      "telefono": "1",
+      "residencia": "1",
+      "edad": 1,
       "genero": "Masculino",
-      "nivelInstruccion": "Universitario",
-      "fotoDni": "",
-      "fotoCredencial": ""
+      "nivelInstruccion": "1"
     }
   ],
   "consultations": [

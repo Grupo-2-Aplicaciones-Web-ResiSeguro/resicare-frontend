@@ -85,6 +85,28 @@
     "objectRegisteredSuccess": "Object registered successfully!",
     "objectRegisteredError": "Error registering object. Please try again."
   },
+  "simulator": {
+    "title": "Try Our Calculator",
+    "selectedPlan": "Selected Plan",
+    "noPlanSelected": "No plan selected",
+    "change": "Change",
+    "selectPlan": "Select Plan",
+    "coverageDuration": "Coverage Duration",
+    "month": "month",
+    "semester": "semester",
+    "year": "year",
+    "career": "Career",
+    "paymentFrequency": "Payment Frequency",
+    "monthly": "Monthly",
+    "annual": "Annual (-10%)",
+    "insureRegisteredObject": "Insure registered object",
+    "objectPlaceholder": "Ex: laptop, tablet, cellphone",
+    "calculateInsurance": "Calculate Insurance",
+    "skip": "Skip",
+    "pleaseCompleteForm": "Please complete all required fields",
+    "calculationSuccess": "Calculation completed successfully!",
+    "calculationError": "Error calculating insurance. Please try again."
+  },
 
 "layout": {
     "header": {

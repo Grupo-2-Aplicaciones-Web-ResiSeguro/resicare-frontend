@@ -9,6 +9,9 @@ import NewReminderPage from '@/contexts/reminders/presentation/pages/new-reminde
 import NewClaimPage from '@/contexts/claims/presentation/pages/new-claim.page.vue'
 import RegisterObjectPage from '@/contexts/registered-objects/presentation/pages/register-object.page.vue'
 
+import ReimbursementSimulatorPage from '@/contexts/reimbursement-simulator/presentation/pages/reimbursement-simulator.page.vue'
+
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -21,6 +24,10 @@ const routes = [
   
     { path: '/reminders', name: 'reminders', component: RemindersPage, exact: true },
     { path: '/reminders/new', name: 'new-reminder', component: NewReminderPage, exact: true },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
+    { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, exact: true },
+
+
 ]
 
 const router = createRouter({

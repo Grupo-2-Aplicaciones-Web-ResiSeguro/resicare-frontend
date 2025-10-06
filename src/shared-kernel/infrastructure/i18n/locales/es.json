@@ -84,6 +84,28 @@
     "objectRegisteredSuccess": "¡Objeto registrado exitosamente!",
     "objectRegisteredError": "Error al registrar el objeto. Por favor, intenta nuevamente."
   },
+  "simulator": {
+    "title": "Prueba Nuestra Calculadora",
+    "selectedPlan": "Plan Elegido",
+    "noPlanSelected": "Ningún plan seleccionado",
+    "change": "Cambiar",
+    "selectPlan": "Seleccionar Plan",
+    "coverageDuration": "Duración de la Cobertura",
+    "month": "mes",
+    "semester": "semestre",
+    "year": "año",
+    "career": "Carrera",
+    "paymentFrequency": "Frecuencia de Pago",
+    "monthly": "Mensual",
+    "annual": "Anual (-10%)",
+    "insureRegisteredObject": "Asegurar objeto registrado",
+    "objectPlaceholder": "Ej: laptop, tablet, celular",
+    "calculateInsurance": "Calcular Seguro",
+    "skip": "Omitir",
+    "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
+    "calculationSuccess": "¡Cálculo realizado exitosamente!",
+    "calculationError": "Error al calcular el seguro. Por favor, intenta nuevamente."
+  },
 
 
 

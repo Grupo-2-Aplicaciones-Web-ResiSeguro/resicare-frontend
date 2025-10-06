@@ -82,5 +82,18 @@
       "updatedAt": "2025-10-02T12:00:00Z",
       "userId": "1"
     }
+  ],
+  "simulators": [
+    {
+      "id": "1",
+      "planElegido": "Plan Básico",
+      "duracionCobertura": "1mes",
+      "frecuenciaPago": "monthly",
+      "objetosAsegurados": "laptop, tablet",
+      "montoTotal": 100,
+      "descuento": 0,
+      "montoFinal": 100,
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    }
   ]
 }

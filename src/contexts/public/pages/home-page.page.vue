@@ -100,7 +100,10 @@ function onAction(key) {
     router.push({ name: 'teleconsultations' })
     return
   }
-
+  if (key === 'reminders') {
+    router.push({ name: 'reminders' })
+    return
+  }
 }
 
 

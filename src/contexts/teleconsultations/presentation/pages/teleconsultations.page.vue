@@ -20,11 +20,19 @@
       <description-input v-model="consultation.description" />
     </div>
     <submit-button :consultation="consultation" @submit="onSubmit" />
+
+    <teleconsultation-list
+        :scheduled="scheduled"
+        :loading="loading"
+        :error="error"
+        :formatService="formatService"
+        :formatDateTime="formatDateTime"
+    />
   </section>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import ServiceSelector from '../components/service-selector.component.vue'
@@ -32,7 +40,9 @@ import DateSelector from '../components/date-selector.component.vue'
 import TimeSelector from '../components/time-selector.component.vue'
 import DescriptionInput from '../components/description-input.component.vue'
 import SubmitButton from '../components/submit-button.component.vue'
+import TeleconsultationList from '../components/teleconsultation-list.component.vue'
 import { TeleconsultationApiService } from '../../infraestructure/teleconsultation-api.service.js'
+import { ConsultationAssembler } from '../../domain/teleconsultation.assembler.js'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -42,7 +52,8 @@ const consultation = reactive({
   service: '',
   date: '',
   time: '',
-  description: ''
+  description: '',
+  userId: ''
 })
 
 async function onSubmit(consultationData) {
@@ -61,6 +72,72 @@ async function onSubmit(consultationData) {
 
 function goBack() {
   router.back()
+}
+
+const consultations = ref([])
+const loading = ref(true)
+const error = ref(null)
+
+function todayISO() {
+  const d = new Date()
+  const yyyy = d.getFullYear()
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${yyyy}-${mm}-${dd}`
+}
+
+async function loadConsultations() {
+  loading.value = true
+  error.value = null
+  try {
+    const resp = await api.getAll()
+    if (resp && resp.status === 200) {
+      const raw = Array.isArray(resp.data) ? resp.data : []
+      consultations.value = raw.map(item => ConsultationAssembler.toEntityFromResource(item))
+    } else {
+      consultations.value = []
+    }
+  } catch (err) {
+    console.error('Error cargando consultas:', err)
+    error.value = err.message || String(err)
+    consultations.value = []
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(loadConsultations)
+
+const scheduled = computed(() => {
+  const today = todayISO()
+  return consultations.value.filter(c => {
+    if (!c || !c.date) return false
+    return String(c.date) >= String(today)
+  }).sort((a, b) => {
+    if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
+    return String(a.date).localeCompare(String(b.date))
+  })
+})
+
+function formatDateTime(date, time) {
+  if (!date) return ''
+  try {
+    const parts = date.split('-').map(Number)
+    const dt = new Date(parts[0], parts[1] - 1, parts[2])
+    const dateStr = dt.toLocaleDateString()
+    return time ? `${dateStr} · ${time}` : dateStr
+  } catch (e) {
+    return `${date} ${time || ''}`.trim()
+  }
+}
+
+function formatService(key) {
+  const map = {
+    nutrition: t('teleconsultations.nutrition'),
+    general: t('teleconsultations.general'),
+    psychology: t('teleconsultations.psychology')
+  }
+  return map[key] || key || '-'
 }
 </script>
 

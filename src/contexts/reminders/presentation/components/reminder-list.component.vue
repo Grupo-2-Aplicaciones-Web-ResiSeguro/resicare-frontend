@@ -2,7 +2,9 @@
   <section>
     <h3>Recordatorios Activos</h3>
 
-    <div v-if="reminders.length">
+    <div v-if="loading" class="text-gray-500">Cargando recordatorios...</div>
+
+    <div v-else-if="reminders.length">
       <reminder-item
           v-for="r in reminders"
           :key="r.id"
@@ -23,23 +25,32 @@
 import { ref, onMounted } from 'vue';
 import ReminderItem from './reminder-item.component.vue';
 import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js';
+import { http } from '@/shared-kernel/infrastructure/http/http.js';
 
 const reminders = ref([]);
+const loading = ref(true);
 
-function loadReminders() {
-  reminders.value = ReminderStorageService.getAll();
+async function loadReminders() {
+  loading.value = true;
+  try {
+    const res = await http.get('/reminders');
+    reminders.value = res.data;
+  } catch (e) {
+    reminders.value = ReminderStorageService.getAll();
+  }
+  loading.value = false;
 }
 
 function deleteReminder(id) {
   if (confirm('¿Estás seguro de eliminar este recordatorio?')) {
+    http.delete(`/reminders/${id}`).catch(() => {});
     ReminderStorageService.delete(id);
-    loadReminders(); // refresca la lista
+    loadReminders();
   }
 }
 
 onMounted(loadReminders);
 </script>
-
 
 <style scoped>
 h3 {

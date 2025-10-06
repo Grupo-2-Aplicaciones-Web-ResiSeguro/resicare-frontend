@@ -1,10 +1,11 @@
 <template>
   <div class="reminder-item">
-    <div class="icon">{{ emoji }}</div>
+    <div class="icon" aria-hidden="true">{{ emoji }}</div>
 
     <div class="details">
       <p class="title">{{ reminder.title }}</p>
       <p class="subtitle">{{ formattedDate }}</p>
+      <p v-if="reminder.notes" class="notes">{{ reminder.notes }}</p>
     </div>
 
     <button class="delete-btn" @click="$emit('delete', reminder.id)" aria-label="Eliminar recordatorio">
@@ -30,7 +31,8 @@ const emoji = computed(() => {
 
 const formattedDate = computed(() => {
   if (!props.reminder.date) return '';
-  return `${props.reminder.date} – ${props.reminder.time}`;
+  const t = props.reminder.time || '';
+  return `${props.reminder.date}${t ? ' – ' + t : ''}`;
 });
 </script>
 
@@ -55,6 +57,12 @@ const formattedDate = computed(() => {
 .subtitle {
   color: #666;
   font-size: 0.9rem;
+}
+.notes {
+  color: #444;
+  font-size: 0.95rem;
+  margin-top: 2px;
+  white-space: pre-line;
 }
 .delete-btn {
   background: none;

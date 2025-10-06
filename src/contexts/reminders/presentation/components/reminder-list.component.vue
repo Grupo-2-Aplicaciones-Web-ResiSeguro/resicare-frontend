@@ -1,8 +1,10 @@
 <template>
   <section>
-    <h3>Recordatorios Activos</h3>
+    <h3>{{ t('reminders.activeReminders') }}</h3>
 
-    <div v-if="loading" class="text-gray-500">Cargando recordatorios...</div>
+    <div v-if="loading" class="text-gray-500">
+      {{ t('reminders.loading') || 'Cargando recordatorios...' }}
+    </div>
 
     <div v-else-if="reminders.length">
       <reminder-item
@@ -13,49 +15,53 @@
       />
     </div>
 
-    <p v-else>No tienes recordatorios activos.</p>
+    <p v-else>{{ t('reminders.noReminders') }}</p>
 
     <button class="add-btn" @click="$router.push('/reminders/new')">
-      Agregar recordatorio
+      {{ t('reminders.addReminder') }}
     </button>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import ReminderItem from './reminder-item.component.vue';
-import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js';
-import { http } from '@/shared-kernel/infrastructure/http/http.js';
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import ReminderItem from './reminder-item.component.vue'
+import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js'
+import { http } from '@/shared-kernel/infrastructure/http/http.js'
 
-const reminders = ref([]);
-const loading = ref(true);
+const { t } = useI18n() // ✅ Importante: define t() para las traducciones
+
+const reminders = ref([])
+const loading = ref(true)
 
 async function loadReminders() {
-  loading.value = true;
+  loading.value = true
   try {
-    const res = await http.get('/reminders');
-    reminders.value = res.data;
+    const res = await http.get('/reminders')
+    reminders.value = res.data
   } catch (e) {
-    reminders.value = ReminderStorageService.getAll();
+    reminders.value = ReminderStorageService.getAll()
   }
-  loading.value = false;
+  loading.value = false
 }
 
 function deleteReminder(id) {
-  if (confirm('¿Estás seguro de eliminar este recordatorio?')) {
-    http.delete(`/reminders/${id}`).catch(() => {});
-    ReminderStorageService.delete(id);
-    loadReminders();
+  if (confirm(t('reminders.confirmDelete') || '¿Estás seguro de eliminar este recordatorio?')) {
+    http.delete(`/reminders/${id}`).catch(() => {})
+    ReminderStorageService.delete(id)
+    loadReminders()
   }
 }
 
-onMounted(loadReminders);
+onMounted(loadReminders)
 </script>
 
 <style scoped>
 h3 {
   margin-bottom: 0.5rem;
 }
+
 .add-btn {
   margin-top: 1rem;
   width: 100%;

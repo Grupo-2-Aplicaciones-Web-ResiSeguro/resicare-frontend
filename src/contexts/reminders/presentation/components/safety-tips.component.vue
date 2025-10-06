@@ -1,15 +1,19 @@
-
-
 <template>
   <section>
-    <h3>Prevenciones y Sugerencias de Seguridad</h3>
+    <h3>{{ t('reminders.safetyTips') }}</h3>
     <ul>
-      <li>📞 Guarda números de emergencia a la mano</li>
-      <li>🏠 Verifica salidas de emergencia en tu edificio</li>
-      <li>🪖 Usa casco y cinturón de seguridad siempre</li>
+      <li>📞 {{ t('reminders.tip1') }}</li>
+      <li>🏠 {{ t('reminders.tip2') }}</li>
+      <li>🪖 {{ t('reminders.tip3') }}</li>
     </ul>
   </section>
 </template>
+
+<script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
 
 <style scoped>
 h3 {
@@ -23,3 +27,4 @@ li {
   gap: 8px;
 }
 </style>
+

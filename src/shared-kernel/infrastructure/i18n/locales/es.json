@@ -33,7 +33,44 @@
     "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
   },
 
-  "claims": {
+
+  "reminders": {
+    "title": "Prevenciones y Recordatorios",
+    "newTitle": "Nuevo Recordatorio",
+    "activeReminders": "Recordatorios activos",
+    "noReminders": "No tienes recordatorios activos",
+    "addReminder": "Agregar recordatorio",
+    "safetyTips": "Prevenciones y sugerencias de seguridad",
+    "tip1": "Guarda números de emergencia a la mano",
+    "tip2": "Verifica las salidas de emergencia en tu edificio",
+    "tip3": "Usa casco y cinturón de seguridad siempre",
+    "form": {
+      "name": "Nombre del recordatorio",
+      "type": "Tipo de recordatorio",
+      "date": "Fecha",
+      "time": "Hora",
+      "notes": "Notas adicionales",
+      "save": "Guardar recordatorio"
+    },
+    "errors": {
+      "requiredFields": "Por favor completa todos los campos obligatorios.",
+      "invalidDate": "Formato de fecha inválido.",
+      "invalidTime": "Formato de hora inválido.",
+      "serverSave": "No se pudo guardar en el servidor, solo local."
+    },
+    "messages": {
+      "created": "Recordatorio creado correctamente."
+    },
+    "types": {
+      "medicación": "Medicación",
+      "chequeo": "Chequeo",
+      "pago": "Pago",
+      "prevención": "Prevención",
+      "seguridad": "Seguridad"
+    }
+  },
+
+"claims": {
     "newClaim": "Nuevo Reclamo",
     "claimType": "Tipo de Reclamo",
     "accident": "Accidente",

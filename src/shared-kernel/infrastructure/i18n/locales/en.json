@@ -33,8 +33,44 @@
     "success": "Your consultation has been booked successfully!",
     "error": "There was an error booking your consultation. Please try again."
   },
+  
+  "reminders": {
+    "title": "Reminders & Alerts",
+    "newTitle": "New Reminder",
+    "activeReminders": "Active reminders",
+    "noReminders": "No active reminders",
+    "addReminder": "Add reminder",
+    "safetyTips": "Safety and Prevention Tips",
+    "tip1": "Keep emergency numbers handy",
+    "tip2": "Check emergency exits in your building",
+    "tip3": "Always wear a helmet and seatbelt",
+    "form": {
+      "name": "Reminder name",
+      "type": "Reminder type",
+      "date": "Date",
+      "time": "Time",
+      "notes": "Additional notes",
+      "save": "Save reminder"
+    },
+    "errors": {
+      "requiredFields": "Please complete all required fields.",
+      "invalidDate": "Invalid date format.",
+      "invalidTime": "Invalid time format.",
+      "serverSave": "Could not save to the server, only locally."
+    },
+    "messages": {
+      "created": "Reminder created successfully."
+    },
+    "types": {
+      "medicación": "Medication",
+      "chequeo": "Check-up",
+      "pago": "Payment",
+      "prevención": "Prevention",
+      "seguridad": "Safety"
+    }
+  },
 
-  "claims": {
+"claims": {
     "newClaim": "New Claim",
     "claimType": "Claim Type",
     "accident": "Accident",

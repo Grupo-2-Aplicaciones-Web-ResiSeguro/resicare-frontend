@@ -23,7 +23,7 @@
     <div class="action-buttons" role="toolbar" aria-label="Acciones principales">
       <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" />
       <pv-button class="btn-outline" :label="t('home.plans') || 'Planes'" icon="pi pi-briefcase" />
-      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" />
+      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" @click="goToNewClaim" />
     </div>
 
 
@@ -100,10 +100,17 @@ function onAction(key) {
     router.push({ name: 'teleconsultations' })
     return
   }
+
   if (key === 'reminders') {
     router.push({ name: 'reminders' })
     return
   }
+
+}
+
+function goToNewClaim() {
+  router.push({ name: 'new-claim' })
+
 }
 
 

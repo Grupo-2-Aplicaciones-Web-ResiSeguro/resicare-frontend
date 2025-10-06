@@ -33,6 +33,58 @@
     "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
   },
 
+  "claims": {
+    "newClaim": "Nuevo Reclamo",
+    "claimType": "Tipo de Reclamo",
+    "accident": "Accidente",
+    "theft": "Robo",
+    "loss": "Pérdida",
+    "damage": "Daños",
+    "incidentDate": "Fecha del Incidente",
+    "selectDate": "Selecciona la fecha",
+    "briefDescription": "Descripción Breve",
+    "descriptionPlaceholder": "Escribe una breve descripción",
+    "registeredObject": "Objeto Registrado",
+    "registerObject": "Registrar objeto",
+    "selectPreviouslyRegistered": "Selecciona un objeto registrado previamente",
+    "attachPhotos": "Adjuntar Fotos o Documentos",
+    "selectFiles": "Seleccionar archivos",
+    "uploadHint": "Imágenes (JPG, PNG), PDF o documentos (DOC, DOCX) - Máx. 5MB por archivo",
+    "submitClaim": "Enviar Reclamo",
+    "importantInfo": "Tu reclamo será revisado y recibirás una notificación del estado.",
+    "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
+    "claimSubmittedSuccess": "¡Reclamo enviado exitosamente!",
+    "claimSubmitError": "Error al enviar el reclamo. Por favor, intenta nuevamente.",
+    "attachFilesNotImplemented": "Funcionalidad de adjuntar archivos próximamente",
+    "registerObjectNotImplemented": "Funcionalidad de registrar objetos próximamente"
+  },
+
+  "registerObject": {
+    "title": "Registrar Objeto",
+    "searchPlaceholder": "Buscar por tipo de objeto",
+    "objectType": "Tipo de Objeto",
+    "selectObjectType": "Elige un tipo de objeto de la lista",
+    "electronic": "Electrónico",
+    "suitcase": "Maleta",
+    "books": "Libros",
+    "supplies": "Útiles",
+    "others": "Otros",
+    "objectName": "Nombre del objeto",
+    "namePlaceholder": "Ingresa el nombre del objeto",
+    "briefDescription": "Descripción breve",
+    "descriptionPlaceholder": "Ingresa una breve descripción",
+    "price": "Precio",
+    "pricePlaceholder": "Ingresa el precio",
+    "serialNumber": "Número de serie o código",
+    "serialPlaceholder": "Campo opcional",
+    "uploadPhotoPrompt": "Sube o toma una foto del objeto",
+    "objectPhoto": "Foto del objeto",
+    "addToList": "Agregar a la lista",
+    "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
+    "objectRegisteredSuccess": "¡Objeto registrado exitosamente!",
+    "objectRegisteredError": "Error al registrar el objeto. Por favor, intenta nuevamente."
+  },
+
 
 
 "layout": {

@@ -14,6 +14,8 @@ import Rating from 'primevue/rating'
 import Dropdown from 'primevue/dropdown'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
+import Textarea from 'primevue/textarea'
+import Message from 'primevue/message'
 
 export const themes = {
   aura: Aura,
@@ -39,4 +41,6 @@ export function setupPrimeVue(app, selectedTheme = 'aura') {
   app.component('pv-dropdown', Dropdown)
   app.component('pv-dialog', Dialog)
   app.component('pv-input-text', InputText)
+  app.component('pv-textarea', Textarea)
+  app.component('pv-message', Message)
 }

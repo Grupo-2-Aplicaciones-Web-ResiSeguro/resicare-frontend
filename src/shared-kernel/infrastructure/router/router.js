@@ -2,42 +2,77 @@
 import AboutPage from '@/contexts/public/pages/about-page.page.vue'
 import NotFoundComponent from '@/shared-kernel/presentation/ui/components/not-found.component.vue'
 import TeleconsultationsPage from '@/contexts/teleconsultations/presentation/pages/teleconsultations.page.vue'
-
 import RemindersPage from '@/contexts/reminders/presentation/pages/reminders.page.vue'
 import NewReminderPage from '@/contexts/reminders/presentation/pages/new-reminder.page.vue'
-
+// Claims context (unified)
+import ClaimsListPage from '@/contexts/claims/presentation/pages/claims-list.page.vue'
 import NewClaimPage from '@/contexts/claims/presentation/pages/new-claim.page.vue'
+import ClaimDetailPage from '@/contexts/claims/presentation/pages/claim-detail.page.vue'
+import ClaimDownloadPage from '@/contexts/claims/presentation/pages/claim-download.page.vue'
+
 import RegisterObjectPage from '@/contexts/registered-objects/presentation/pages/register-object.page.vue'
-
 import ReimbursementSimulatorPage from '@/contexts/reimbursement-simulator/presentation/pages/reimbursement-simulator.page.vue'
-
-import MyClaimsPage from '@/contexts/myclaims/presentation/pages/myclaims.page.vue'
-
+import LoginPage from '@/contexts/iam/presentation/Login.vue'
+import RegisterPage from '@/contexts/iam/presentation/Register.vue'
+import ProfilePage from '@/contexts/iam/presentation/profile.page.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
+import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
+
 
 const routes = [
-    { path: '/', component: HomePage },
-    { path: '/about', component: AboutPage, exact: true },
-    { path: '/teleconsultations', name: 'teleconsultations', component: TeleconsultationsPage, exact: true },
-  
-    { path: '/new-claim', name: 'new-claim', component: NewClaimPage, exact: true },
-    { path: '/register-object', name: 'register-object', component: RegisterObjectPage, exact: true },
-  
-    { path: '/reminders', name: 'reminders', component: RemindersPage, exact: true },
-    { path: '/reminders/new', name: 'new-reminder', component: NewReminderPage, exact: true },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
-    { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, exact: true },
+  { path: '/', redirect: '/login' },
 
-    { path: '/myclaims', name: 'myclaims', component: MyClaimsPage, exact: true },
-    
-    
+  { path: '/home', name: 'home', component: HomePage, meta: { requiresAuth: true } },
+
+  { path: '/about', component: AboutPage },
+  { path: '/teleconsultations', name: 'teleconsultations', component: TeleconsultationsPage },
+
+  { path: '/login', name: 'login', component: LoginPage },
+  { path: '/register', name: 'register', component: RegisterPage },
+
+  { path: '/profile/:userId', name: 'profile', component: ProfilePage, meta: { requiresAuth: true }, props: true },
+
+  { path: '/reminders', name: 'reminders', component: RemindersPage, meta: { requiresAuth: true } },
+  { path: '/reminders/new', name: 'new-reminder', component: NewReminderPage, meta: { requiresAuth: true } },
+
+  // Claims routes (unified)
+  { path: '/claims', name: 'claims', component: ClaimsListPage, meta: { requiresAuth: true } },
+  { path: '/claims/new', name: 'new-claim', component: NewClaimPage, meta: { requiresAuth: true } },
+  { path: '/claims/:id', name: 'claim-detail', component: ClaimDetailPage, props: true, meta: { requiresAuth: true } },
+  { path: '/claims/:id/download', name: 'claim-download', component: ClaimDownloadPage, props: true, meta: { requiresAuth: true } },
+
+  { path: '/register-object', name: 'register-object', component: RegisterObjectPage, meta: { requiresAuth: true } },
+  { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, meta: { requiresAuth: true } },
+
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes,
+  scrollBehavior() {
+    return { top: 0 }
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  const token = TokenService?.get ? TokenService.get() : localStorage.getItem('accessToken_v1')
+  const isAuthRoute = (to.path === '/login' || to.path === '/register')
+
+  if (!token && !isAuthRoute) {
+    return next({ path: '/login', query: { redirect: to.fullPath } })
+  }
+
+  if (token && isAuthRoute) {
+    return next({ path: '/home' })
+  }
+
+  if (to.meta?.requiresAuth && !token) {
+    return next({ path: '/login', query: { redirect: to.fullPath } })
+  }
+
+  next()
 })
 
 export default router
-

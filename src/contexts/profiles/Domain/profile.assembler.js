@@ -16,7 +16,7 @@ export class ProfileAssembler {
 
     static fromUserRegisteredEvent(evt) {
         return new Profile({
-            id: '', // puedes usar userId como id del profile o generar uno
+            id: '',
             userId: evt.data.userId,
             nombre: evt.data.nombre || '',
             correo: evt.data.email || '',

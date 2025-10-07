@@ -12,75 +12,169 @@
       "nivelInstruccion": "Inicial",
       "fotoDni": "",
       "fotoCredencial": ""
+    },
+    {
+      "userId": 1,
+      "nombre": "1",
+      "correo": "1",
+      "telefono": "1",
+      "residencia": "1",
+      "edad": 1,
+      "genero": {
+        "label": "Masculino",
+        "value": "Masculino"
+      },
+      "nivelInstruccion": "1",
+      "id": "90MbHGs"
     }
   ],
   "consultations": [
     {
-      "id": "d4c9",
       "service": "general",
-      "date": "2025-10-17",
-      "time": "09:00",
-      "description": "dfdf"
-    },
-    {
-      "id": "3623",
-      "service": "",
-      "date": "",
-      "time": "",
-      "description": ""
+      "date": "2025-10-23T05:00:00.000Z",
+      "time": "14:00",
+      "description": "Tengo fuertes dolores de cabeza",
+      "userId": "",
+      "id": 1
     }
   ],
   "claims": [
     {
       "id": "1",
-      "tipo": "accidente",
-      "fechaIncidente": "2025-10-01",
-      "descripcionBreve": "Accidente de tráfico en la avenida principal",
-      "objetoRegistrado": "objeto1",
-      "fotosDocumentos": [],
-      "estado": "pendiente",
-      "fechaCreacion": "2025-10-05T12:00:00.000Z"
+      "number": "CLM-0001",
+      "type": "loss",
+      "status": "pending",
+      "incidentDate": "2025-10-02T05:00:00.000Z",
+      "creationDate": "2025-10-02T05:00:00.000Z",
+      "description": "Lost it while on my way to classes",
+      "objectRegistered": 1,
+      "documents": [],
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "number": "CLM-0002",
+      "type": "accident",
+      "status": "pending",
+      "incidentDate": "2025-09-15",
+      "creationDate": "2025-10-07T13:00:00.000Z",
+      "description": "Minor collision with another vehicle at the corner of Av. Central.",
+      "objectRegistered": "Vehículo Toyota Corolla 2020",
+      "documents": [
+        "https://example.com/fotos/accidente1.jpg",
+        "https://example.com/documentos/parte-policial.pdf"
+      ],
+      "userId": "1"
+    },
+    {
+      "id": "3",
+      "number": "CLM-0003",
+      "type": "theft",
+      "status": "in_review",
+      "incidentDate": "2025-08-28",
+      "creationDate": "2025-10-05T14:32:00.000Z",
+      "description": "Cell phone theft on public transportation.",
+      "objectRegistered": "Celular Samsung Galaxy S22",
+      "documents": [
+        "https://example.com/fotos/denuncia.jpg"
+      ],
+      "userId": "1"
+    },
+    {
+      "id": "4",
+      "number": "CLM-0004",
+      "type": "loss",
+      "status": "rejected",
+      "incidentDate": "2025-09-02",
+      "creationDate": "2025-10-03T10:10:00.000Z",
+      "description": "Lost my wallet at the shopping center.",
+      "objectRegistered": "Billetera de cuero marrón",
+      "documents": [],
+      "userId": "1"
+    },
+    {
+      "id": "5",
+      "number": "CLM-0005",
+      "type": "damage",
+      "status": "approved",
+      "incidentDate": "2025-07-19",
+      "creationDate": "2025-09-25T17:40:00.000Z",
+      "description": "Moisture damage to TV after storm.",
+      "objectRegistered": "Televisor LG 55 pulgadas",
+      "documents": [
+        "https://example.com/fotos/televisor.jpg"
+      ],
+      "userId": "1"
+    },
+    {
+      "id": "6",
+      "number": "CLM-0006",
+      "type": "accident",
+      "status": "pending",
+      "incidentDate": "2025-09-30",
+      "creationDate": "2025-10-07T12:15:00.000Z",
+      "description": "Bicycle fall causing frame damage.",
+      "objectRegistered": "Bicicleta Trek FX 3",
+      "documents": [],
+      "userId": "1"
+    },
+    {
+      "id": "7",
+      "number": "CLM-0007",
+      "type": "theft",
+      "status": "in_review",
+      "incidentDate": "2025-09-28",
+      "creationDate": "2025-09-29",
+      "description": "Cell phone theft reported during commute to work.",
+      "objectRegistered": {
+        "id": "obj1",
+        "name": "Celular Samsung Galaxy S22",
+        "serialNumber": "SNX12345A",
+        "value": 3500
+      },
+      "documents": [],
+      "userId": "1"
+    },
+    {
+      "id": "8",
+      "number": "CLM-0008",
+      "type": "damage",
+      "status": "approved",
+      "incidentDate": "2025-10-01",
+      "creationDate": "2025-10-02",
+      "description": "TV screen damage due to electrical surge.",
+      "objectRegistered": {
+        "id": "obj2",
+        "name": "Televisor LG OLED 55\"",
+        "serialNumber": "LGOLED55X9",
+        "value": 4200
+      },
+      "documents": [],
+      "userId": "1"
     }
   ],
   "registeredObjects": [
     {
-      "id": "objeto1",
-      "nombre": "La suset",
-      "descripcion": "Descripción del objeto 1"
-    },
-    {
-      "id": "objeto2",
-      "nombre": "Objeto 2",
-      "descripcion": "Descripción del objeto 2"
-    },
-    {
-      "id": "objeto3",
-      "nombre": "Objeto 3",
-      "descripcion": "Descripción del objeto 3"
+      "tipo": "electronico",
+      "nombre": "xiaomi redmi note 13 pro",
+      "descripcionBreve": "celular gama alta de la marca xiaomi con imei 12938949384",
+      "precio": 300,
+      "numeroSerie": "34534534545",
+      "foto": "",
+      "id": 1
     }
   ],
   "reminders": [
     {
-      "id": "r-1",
-      "title": "Tomar medicamento A",
-      "type": "medicación",
-      "date": "2025-10-17",
-      "time": "09:00",
-      "notes": "Con el desayuno",
-      "createdAt": "2025-10-01T08:00:00Z",
-      "updatedAt": "2025-10-01T08:00:00Z",
-      "userId": "1"
-    },
-    {
-      "id": "r-2",
-      "title": "Pago de plan",
+      "id": "5106ca41-7829-49e8-9652-85eef430342e",
+      "title": "Revisar metodo de pago",
       "type": "pago",
-      "date": "2025-10-20",
-      "time": "10:00",
-      "notes": "",
-      "createdAt": "2025-10-02T12:00:00Z",
-      "updatedAt": "2025-10-02T12:00:00Z",
-      "userId": "1"
+      "date": "2025-10-08",
+      "time": "17:00",
+      "notes": "Debo revisar el metodo de pago para actualizar a la nueva tarjeta",
+      "createdAt": "2025-10-07T04:54:18.260Z",
+      "updatedAt": "2025-10-07T04:54:18.260Z",
+      "userId": null
     }
   ],
   "simulators": [
@@ -94,6 +188,24 @@
       "descuento": 0,
       "montoFinal": 100,
       "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    },
+    {
+      "planElegido": "Plan Básico",
+      "duracionCobertura": "1año",
+      "frecuenciaPago": "annual",
+      "objetosAsegurados": "laptop",
+      "montoTotal": 100,
+      "descuento": 10,
+      "montoFinal": 90,
+      "id": "md_mYLZ"
+    }
+  ],
+  "users": [
+    {
+      "name": "1",
+      "email": "1",
+      "password": "1",
+      "id": 1
     }
   ]
 }

@@ -33,7 +33,45 @@
     "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
   },
 
-  "claims": {
+
+  "reminders": {
+    "title": "Prevenciones y Recordatorios",
+    "newTitle": "Nuevo Recordatorio",
+    "activeReminders": "Recordatorios activos",
+    "noReminders": "No tienes recordatorios activos",
+    "addReminder": "Agregar recordatorio",
+    "safetyTips": "Prevenciones y sugerencias de seguridad",
+    "tip1": "Guarda números de emergencia a la mano",
+    "tip2": "Verifica las salidas de emergencia en tu edificio",
+    "tip3": "Usa casco y cinturón de seguridad siempre",
+    "form": {
+      "name": "Nombre del recordatorio",
+      "type": "Tipo de recordatorio",
+      "date": "Fecha",
+      "time": "Hora",
+      "notes": "Notas adicionales",
+      "save": "Guardar recordatorio"
+    },
+    "errors": {
+      "requiredFields": "Por favor completa todos los campos obligatorios.",
+      "invalidDate": "Formato de fecha inválido.",
+      "invalidTime": "Formato de hora inválido.",
+      "serverSave": "No se pudo guardar en el servidor, solo local."
+    },
+    "messages": {
+      "created": "Recordatorio creado correctamente."
+    },
+    "types": {
+      "medicación": "Medicación",
+      "chequeo": "Chequeo",
+      "pago": "Pago",
+      "prevención": "Prevención",
+      "seguridad": "Seguridad"
+    }
+  },
+
+"claims": {
+  "title": "Historial de Reclamos",
     "newClaim": "Nuevo Reclamo",
     "claimType": "Tipo de Reclamo",
     "accident": "Accidente",
@@ -56,7 +94,23 @@
     "claimSubmittedSuccess": "¡Reclamo enviado exitosamente!",
     "claimSubmitError": "Error al enviar el reclamo. Por favor, intenta nuevamente.",
     "attachFilesNotImplemented": "Funcionalidad de adjuntar archivos próximamente",
-    "registerObjectNotImplemented": "Funcionalidad de registrar objetos próximamente"
+    "registerObjectNotImplemented": "Funcionalidad de registrar objetos próximamente",
+    "detailTitle": "Detalle del Reclamo",
+    "number": "Número de Reclamo",
+    "type": "Tipo de Reclamo",
+    "status": "Estado",
+    "incidentDate": "Fecha del Incidente",
+    "creationDate": "Fecha de Creación",
+    "description": "Descripción",
+    "objectRegistered": "Objeto Registrado",
+    "downloadProof": "Descargar Constancia",
+    "downloadTitle": "Descargar Constancia de Reclamo",
+    "pdfDownloaded": "El PDF de la constancia de tu reclamo ha sido generado.",
+    "viewPdf": "Ver PDF",
+    "proofTitle": "Constancia de Reclamo",
+    "previous": "Anterior",
+    "viewDetails": "Ver detalles",
+    "viewDetailsBig": "Ver detalle del reclamo"
   },
 
   "registerObject": {
@@ -85,6 +139,7 @@
     "objectRegisteredError": "Error al registrar el objeto. Por favor, intenta nuevamente."
   },
   "simulator": {
+    "chooseRegisteredObject": "Elige un objeto registrado",
     "title": "Prueba Nuestra Calculadora",
     "selectedPlan": "Plan Elegido",
     "noPlanSelected": "Ningún plan seleccionado",
@@ -99,7 +154,7 @@
     "monthly": "Mensual",
     "annual": "Anual (-10%)",
     "insureRegisteredObject": "Asegurar objeto registrado",
-    "objectPlaceholder": "Ej: laptop, tablet, celular",
+    "objectPlaceholder": "Selecciona un objeto",
     "calculateInsurance": "Calcular Seguro",
     "skip": "Omitir",
     "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
@@ -117,7 +172,8 @@
   "common": {
     "selectLanguage": "Seleccionar Idioma",
     "submit": "Enviar",
-    "back": "Volver"
+    "back": "Volver",
+    "hideDetail": "Ocultar detalle"
   },
   "tutorial": {
     "list": {

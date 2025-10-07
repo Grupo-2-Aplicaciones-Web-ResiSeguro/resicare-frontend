@@ -35,10 +35,10 @@ const localValue = computed({
 })
 
 const claimTypes = computed(() => [
-  { label: t('claims.accident'), value: 'accidente' },
-  { label: t('claims.theft'), value: 'robo' },
-  { label: t('claims.loss'), value: 'perdida' },
-  { label: t('claims.damage'), value: 'danos' }
+  { label: t('claims.accident'), value: 'accident' },
+  { label: t('claims.theft'), value: 'theft' },
+  { label: t('claims.loss'), value: 'loss' },
+  { label: t('claims.damage'), value: 'damage' }
 ])
 
 const selectType = (value) => {

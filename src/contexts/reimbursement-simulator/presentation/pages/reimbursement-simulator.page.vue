@@ -1,12 +1,9 @@
 <template>
   <div class="simulator-page">
     <header class="page-header">
-      <pv-button
-        icon="pi pi-arrow-left"
-        class="btn-back"
-        @click="goBack"
-        text
-      />
+      <button class="btn-back" type="button" @click="goBack">
+        ← {{ t('common.back') }}
+      </button>
       <h1>{{ t('simulator.title') }}</h1>
     </header>
 
@@ -26,6 +23,7 @@
 
       <InsuredObjectsInput
         v-model="formData.objetosAsegurados"
+        :registeredObjects="registeredObjects"
       />
 
       <div class="action-buttons">
@@ -33,12 +31,6 @@
           :label="t('simulator.calculateInsurance')"
           class="btn-calculate"
           @click="calculateInsurance"
-        />
-        <pv-button
-          :label="t('simulator.skip')"
-          class="btn-skip"
-          outlined
-          @click="skip"
         />
       </div>
     </div>
@@ -64,7 +56,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import PlanSelector from '../components/plan-selector.component.vue'
@@ -72,6 +64,7 @@ import CoverageDurationSelector from '../components/coverage-duration-selector.c
 import PaymentFrequencySelector from '../components/payment-frequency-selector.component.vue'
 import InsuredObjectsInput from '../components/insured-objects-input.component.vue'
 import { ReimbursementSimulatorApiService } from '@/contexts/reimbursement-simulator/infraestructure/reimbursement-simulator-api.service.js'
+import { http } from '@/shared-kernel/infrastructure/http/http.js'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -90,9 +83,21 @@ const formData = reactive({
 const showPlanDialog = ref(false)
 const availablePlans = ref([
   { id: 1, nombre: 'Plan Básico' },
-  { id: 2, nombre: 'Plan Premium' },
-  { id: 3, nombre: 'Plan La mas chatita' }
+  { id: 2, nombre: 'Plan Premium' }
 ])
+const registeredObjects = ref([])
+
+onMounted(async () => {
+  // Obtener objetos registrados desde la API
+  try {
+    const response = await http.get('/registeredObjects')
+    if (response.status === 200 && Array.isArray(response.data)) {
+      registeredObjects.value = response.data.map(obj => obj.nombre)
+    }
+  } catch (e) {
+    registeredObjects.value = []
+  }
+})
 
 function selectPlan(plan) {
   formData.planElegido = plan.nombre
@@ -122,10 +127,6 @@ async function calculateInsurance() {
   }
 }
 
-function skip() {
-  router.push({ name: 'home' })
-}
-
 function goBack() {
   router.back()
 }
@@ -147,7 +148,20 @@ function goBack() {
 }
 
 .btn-back {
-  color: var(--vt-c-indigo);
+  background: none;
+  border: none;
+  color: var(--vt-c-indigo, #646cff);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
 }
 
 h1 {
@@ -176,13 +190,6 @@ h1 {
   padding: 1rem;
   font-weight: 600;
   border: none;
-}
-
-.btn-skip {
-  width: 100%;
-  padding: 1rem;
-  border-color: var(--color-border);
-  color: var(--color-text);
 }
 
 .plan-options {

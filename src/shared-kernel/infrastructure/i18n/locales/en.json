@@ -33,8 +33,48 @@
     "success": "Your consultation has been booked successfully!",
     "error": "There was an error booking your consultation. Please try again."
   },
+  
+  "reminders": {
+    "title": "Reminders & Alerts",
+    "newTitle": "New Reminder",
+    "activeReminders": "Active reminders",
+    "noReminders": "No active reminders",
+    "addReminder": "Add reminder",
+    "safetyTips": "Safety and Prevention Tips",
+    "tip1": "Keep emergency numbers handy",
+    "tip2": "Check emergency exits in your building",
+    "tip3": "Always wear a helmet and seatbelt",
+    "form": {
+      "name": "Reminder name",
+      "type": "Reminder type",
+      "date": "Date",
+      "time": "Time",
+      "notes": "Additional notes",
+      "save": "Save reminder"
+    },
+    "errors": {
+      "requiredFields": "Please complete all required fields.",
+      "invalidDate": "Invalid date format.",
+      "invalidTime": "Invalid time format.",
+      "serverSave": "Could not save to the server, only locally."
+    },
+    "messages": {
+      "created": "Reminder created successfully."
+    },
+    "types": {
+      "medicación": "Medication",
+      "chequeo": "Check-up",
+      "pago": "Payment",
+      "prevención": "Prevention",
+      "seguridad": "Safety"
+    }
+  },
 
-  "claims": {
+"claims": {
+    "title": "Claims History",
+  "previous": "Previous",
+    "viewDetails": "View details",
+    "viewDetailsBig": "View claim details",
     "newClaim": "New Claim",
     "claimType": "Claim Type",
     "accident": "Accident",
@@ -57,7 +97,20 @@
     "claimSubmittedSuccess": "Claim submitted successfully!",
     "claimSubmitError": "Error submitting claim. Please try again.",
     "attachFilesNotImplemented": "File attachment feature coming soon",
-    "registerObjectNotImplemented": "Object registration feature coming soon"
+    "registerObjectNotImplemented": "Object registration feature coming soon",
+    "detailTitle": "Claim Details",
+    "number": "Claim Number",
+    "type": "Claim Type",
+    "status": "Status",
+    "incidentDate": "Incident Date",
+    "creationDate": "Creation Date",
+    "description": "Description",
+    "objectRegistered": "Registered Object",
+    "downloadProof": "Download Proof",
+    "downloadTitle": "Download Claim Proof",
+    "pdfDownloaded": "Your claim proof PDF has been generated.",
+    "viewPdf": "View PDF",
+    "proofTitle": "Claim Proof"
   },
 
   "registerObject": {
@@ -86,6 +139,7 @@
     "objectRegisteredError": "Error registering object. Please try again."
   },
   "simulator": {
+    "chooseRegisteredObject": "Choose a registered object",
     "title": "Try Our Calculator",
     "selectedPlan": "Selected Plan",
     "noPlanSelected": "No plan selected",
@@ -100,7 +154,7 @@
     "monthly": "Monthly",
     "annual": "Annual (-10%)",
     "insureRegisteredObject": "Insure registered object",
-    "objectPlaceholder": "Ex: laptop, tablet, cellphone",
+    "objectPlaceholder": "Select an object",
     "calculateInsurance": "Calculate Insurance",
     "skip": "Skip",
     "pleaseCompleteForm": "Please complete all required fields",
@@ -116,7 +170,8 @@
   "common": {
     "selectLanguage": "Select Language",
     "submit": "Submit",
-    "back": "Back"
+    "back": "Back",
+    "hideDetail": "Hide detail"
   },
 
   "aria": {

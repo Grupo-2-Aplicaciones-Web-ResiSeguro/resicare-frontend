@@ -263,6 +263,7 @@
       "object": "Objeto",
       "date": "Fecha"
     },
-    "hideDetail": "Ocultar detalle"
+    "hideDetail": "Ocultar detalle",
+    "statusTitle": "Estado del Reclamo"
   }
 }

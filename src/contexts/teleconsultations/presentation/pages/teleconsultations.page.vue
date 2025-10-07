@@ -56,14 +56,48 @@ const consultation = reactive({
   userId: ''
 })
 
+// Función para obtener el userId y sus consultas médicas
+function getCurrentUserId() {
+  try {
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    const token = localStorage.getItem('accessToken_v1')
+    if (!token) return null
+    if (token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+            Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    return String(token)
+  } catch {
+    return null
+  }
+}
+
 async function onSubmit(consultationData) {
   try {
+    consultationData.userId = getCurrentUserId()
     await api.create(consultationData)
     consultation.service = ''
     consultation.date = ''
     consultation.time = ''
     consultation.description = ''
     alert('Consulta enviada correctamente')
+    await loadConsultations()
   } catch (error) {
     alert('Error al enviar la consulta')
     console.error('Error al enviar la consulta:', error)
@@ -108,15 +142,17 @@ async function loadConsultations() {
 
 onMounted(loadConsultations)
 
+// Filtra solo las consultas del usuario actual
 const scheduled = computed(() => {
   const today = todayISO()
-  return consultations.value.filter(c => {
-    if (!c || !c.date) return false
-    return String(c.date) >= String(today)
-  }).sort((a, b) => {
-    if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
-    return String(a.date).localeCompare(String(b.date))
-  })
+  const userId = getCurrentUserId()
+  return consultations.value
+    .filter(c => c && c.userId && String(c.userId) === String(userId))
+    .filter(c => c.date && String(c.date) >= String(today))
+    .sort((a, b) => {
+      if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
+      return String(a.date).localeCompare(String(b.date))
+    })
 })
 
 function formatDateTime(date, time) {

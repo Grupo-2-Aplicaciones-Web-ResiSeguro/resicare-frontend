@@ -32,11 +32,23 @@ export const ReminderStorageService = {
     create(reminder) {
         // crea y devuelve el reminder con id si no tiene.
         const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `r-${Date.now()}`;
+        // Asegura que el userId esté presente
+        let userId = reminder.userId
+        if (!userId) {
+            try {
+                const currentUserRaw = localStorage.getItem('currentUser')
+                if (currentUserRaw) {
+                    const parsed = JSON.parse(currentUserRaw)
+                    userId = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+                }
+            } catch {}
+        }
         const toSave = {
             ...reminder,
             id,
             createdAt: reminder.createdAt || new Date().toISOString(),
-            updatedAt: reminder.updatedAt || new Date().toISOString()
+            updatedAt: reminder.updatedAt || new Date().toISOString(),
+            userId
         };
         const reminders = this.getAll();
         reminders.push(toSave);

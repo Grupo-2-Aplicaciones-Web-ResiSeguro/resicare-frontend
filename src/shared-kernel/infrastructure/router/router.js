@@ -11,6 +11,8 @@ import RegisterObjectPage from '@/contexts/registered-objects/presentation/pages
 
 import ReimbursementSimulatorPage from '@/contexts/reimbursement-simulator/presentation/pages/reimbursement-simulator.page.vue'
 
+import MyClaimsPage from '@/contexts/myclaims/presentation/pages/myclaims.page.vue'
+
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -27,7 +29,9 @@ const routes = [
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
     { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, exact: true },
 
-
+    { path: '/myclaims', name: 'myclaims', component: MyClaimsPage, exact: true },
+    
+    
 ]
 
 const router = createRouter({

@@ -21,7 +21,7 @@
     </section>
 
     <div class="action-buttons" role="toolbar" aria-label="Acciones principales">
-      <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" />
+      <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" @click="goToMyClaims"/>
       <pv-button class="btn-outline" :label="t('home.plans') || 'Planes'" icon="pi pi-briefcase" />
       <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" @click="goToNewClaim" />
     </div>
@@ -137,6 +137,10 @@ function goToNewClaim() {
 
 }
 
+function goToMyClaims() {
+  router.push({ name: 'myclaims' })
+
+}
 
 const svgAttrs = {
   xmlns: 'http://www.w3.org/2000/svg',

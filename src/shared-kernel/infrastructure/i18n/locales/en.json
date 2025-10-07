@@ -144,5 +144,43 @@
     "description": "The page you're looking for doesn't exist or has been moved.",
     "goHome": "Go Home",
     "goBack": "Go Back"
+  },
+  "myclaims": {
+    "title": "My Claims",
+    "noClaims": "You don't have any registered claims yet.",
+    "loading": "Loading your claims...",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "inReview": "In Review",
+      "closed": "Closed"
+    },
+    "detailTitle": "Claim Detail",
+    "infoTitle": "Claim Information",
+    "claimNumber": "Claim Number",
+    "claimType": "Claim Type",
+    "startDate": "Start Date",
+    "incidentDate": "Incident Date",
+    "descriptionTitle": "Incident Description",
+    "objectTitle": "Associated Object",
+    "contactSupport": "Contact Support",
+    "viewDetail": "View Details",
+    "claim": "Claim",
+    "back": "← Back",
+    "edit": "Edit Claim",
+    "delete": "Delete Claim",
+    "confirmDelete": "Are you sure you want to delete this claim?",
+    "deleted": "The claim has been successfully deleted.",
+    "errorLoading": "An error occurred while loading your claims.",
+    "updateSuccess": "The claim has been successfully updated.",
+    "field": {
+      "status": "Status",
+      "type": "Type",
+      "description": "Description",
+      "object": "Object",
+      "date": "Date"
+    },
+    "hideDetail": "Hide detail"
   }
 }

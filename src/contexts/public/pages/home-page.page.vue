@@ -57,6 +57,7 @@ import { computed, reactive, h, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ProfileApiService } from '@/contexts/profiles/infraestructure/profile-api.service.js'
+import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -70,8 +71,15 @@ const user = reactive({
 })
 
 function getCurrentUserId() {
-  // El token guardado es el id del usuario autenticado
-  return localStorage.getItem('accessToken_v1')
+  // El token guardado NO es el id, así que obtenemos el usuario guardado
+  const user = localStorage.getItem('currentUser')
+  if (!user) return null
+  try {
+    const parsed = JSON.parse(user)
+    return parsed.id
+  } catch {
+    return null
+  }
 }
 
 onMounted(async () => {
@@ -80,12 +88,10 @@ onMounted(async () => {
     const response = await profileApi.getAll()
     const profiles = response.data
 
-    // Si hay userId, busca el perfil correspondiente
     let profile = null
     if (userId) {
-      profile = profiles.find(p => p.userId === userId)
+      profile = profiles.find(p => String(p.userId) === String(userId))
     }
-    // Si no hay userId o no se encuentra, toma el primer perfil disponible
     if (!profile && profiles.length > 0) {
       profile = profiles[0]
     }
@@ -93,8 +99,8 @@ onMounted(async () => {
       Object.assign(user, {
         id: profile.userId,
         name: profile.nombre || '',
-        avatar: '', // Si tienes campo de avatar, ponlo aquí
-        plan: '',   // Si tienes campo de plan, ponlo aquí
+        avatar: '',
+        plan: '',
       })
     } else {
       user.name = ''

@@ -1,18 +1,22 @@
 export class Profile {
     constructor({
-                    id = '',
-                    nombre = '',
-                    edad = 0,
-                    residencia = '',
-                    correo = '',
-                    telefono = '',
-                    contrasena = '',
-                    genero = '',
-                    nivelInstruccion = '',
-                    fotoDni = '',
-                    fotoCredencial = '',
-                }) {
+        id = '',
+        userId = '',
+        nombre = '',
+        edad = 0,
+        residencia = '',
+        correo = '',
+        telefono = '',
+        contrasena = '',
+        genero = '',
+        nivelInstruccion = '',
+        fotoDni = '',
+        fotoCredencial = '',
+        createdAt = null,
+        lastSyncedAt = null
+    } = {}) {
         this.id = id
+        this.userId = userId
         this.nombre = nombre
         this.edad = edad
         this.residencia = residencia
@@ -23,5 +27,8 @@ export class Profile {
         this.nivelInstruccion = nivelInstruccion
         this.fotoDni = fotoDni
         this.fotoCredencial = fotoCredencial
+        this.createdAt = createdAt
+        this.lastSyncedAt = lastSyncedAt
     }
 }
+

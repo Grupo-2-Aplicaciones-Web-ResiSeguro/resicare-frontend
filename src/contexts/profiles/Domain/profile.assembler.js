@@ -13,4 +13,19 @@ export class ProfileAssembler {
     static toEntityFromResource(resource) {
         return new Profile(resource)
     }
+
+    static fromUserRegisteredEvent(evt) {
+        return new Profile({
+            id: '', // puedes usar evt.data.userId como id del profile o generar uno
+            userId: evt.data.userId,
+            nombre: evt.data.nombre || '',
+            correo: evt.data.email || '',
+            edad: 0,
+            residencia: '',
+            fotoDni: '',
+            fotoCredencial: '',
+            createdAt: evt.data.createdAt || new Date().toISOString(),
+            lastSyncedAt: new Date().toISOString()
+        })
+    }
 }

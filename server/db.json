@@ -32,12 +32,22 @@
   ],
   "claims": [
     {
+      "id": "1",
+      "tipo": "accidente",
+      "fechaIncidente": "2025-10-01",
+      "descripcionBreve": "Accidente de tráfico en la avenida principal",
+      "objetoRegistrado": "objeto1",
+      "fotosDocumentos": [],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    },
+    {
       "id": "00123",
       "number": "00123",
       "type": "robo",
       "status": "Concluido",
-      "incidentDate": "02/10/2023",
-      "creationDate": "03/10/2023",
+      "incidentDate": "2023-10-02",
+      "creationDate": "2023-10-03",
       "description": "El reclamante sufrió un robo en la vía pública y necesita reposición del artículo.",
       "objectRegistered": {
         "title": "celular poco f6",
@@ -50,14 +60,68 @@
       "number": "00789",
       "type": "pérdida",
       "status": "Rechazado",
-      "incidentDate": "20/05/2023",
-      "creationDate": "20/05/2023",
+      "incidentDate": "2023-05-20",
+      "creationDate": "2023-05-20",
       "description": "Objeto perdido en transporte público.",
       "objectRegistered": {
         "title": "documentos personales",
         "subtitle": "carpeta azul",
         "image": "/images/carpetaazul.jpeg"
       }
+    }
+  ],
+  "registeredObjects": [
+    {
+      "id": "objeto1",
+      "nombre": "La suset",
+      "descripcion": "Descripción del objeto 1"
+    },
+    {
+      "id": "objeto2",
+      "nombre": "Objeto 2",
+      "descripcion": "Descripción del objeto 2"
+    },
+    {
+      "id": "objeto3",
+      "nombre": "Objeto 3",
+      "descripcion": "Descripción del objeto 3"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "r-1",
+      "title": "Tomar medicamento A",
+      "type": "medicación",
+      "date": "2025-10-17",
+      "time": "09:00",
+      "notes": "Con el desayuno",
+      "createdAt": "2025-10-01T08:00:00Z",
+      "updatedAt": "2025-10-01T08:00:00Z",
+      "userId": "1"
+    },
+    {
+      "id": "r-2",
+      "title": "Pago de plan",
+      "type": "pago",
+      "date": "2025-10-20",
+      "time": "10:00",
+      "notes": "",
+      "createdAt": "2025-10-02T12:00:00Z",
+      "updatedAt": "2025-10-02T12:00:00Z",
+      "userId": "1"
+    }
+  ],
+  "simulators": [
+    {
+      "id": "1",
+      "planElegido": "Plan Básico",
+      "duracionCobertura": "1mes",
+      "frecuenciaPago": "monthly",
+      "objetosAsegurados": "laptop, tablet",
+      "montoTotal": 100,
+      "descuento": 0,
+      "montoFinal": 100,
+      "fechaCreacion": "2025-10-05T12:00:00.000Z"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { Consultation } from './teleconsultation.entity.js'
+import { Teleconsultation } from './teleconsultation.entity.js'
 
 export class ConsultationAssembler {
     static toEntitiesFromResponse(response) {
@@ -10,7 +10,14 @@ export class ConsultationAssembler {
         return consultationsResponse.map((consultation) => this.toEntityFromResource(consultation))
     }
 
-    static toEntityFromResource(resource) {
-        return new Consultation(resource)
+    static toEntityFromResource(resource = {}) {
+        return new Teleconsultation({
+            id: resource.id,
+            service: resource.service,
+            date: resource.date,
+            time: resource.time,
+            description: resource.description,
+            userId: resource.userId || ''
+        })
     }
 }

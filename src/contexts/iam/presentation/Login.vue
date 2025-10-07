@@ -1,11 +1,16 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <input v-model="email" placeholder="Email" required />
-    <input v-model="password" type="password" placeholder="Password" required />
-    <button type="submit">Iniciar sesión</button>
-    <button @click.prevent="goRegister">¿No tienes cuenta? Registrarse</button>
-    <p v-if="error">{{ error }}</p>
-  </form>
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="app-title">ResiCare</h1>
+      <form @submit.prevent="onSubmit" class="login-form">
+        <pv-input-text v-model="email" placeholder="Correo electrónico" class="input" required autofocus />
+        <pv-input-text v-model="password" type="password" placeholder="Contraseña" class="input" required />
+        <pv-button type="submit" label="Iniciar sesión" class="w-full mb-2" />
+        <pv-button label="¿No tienes cuenta? Registrarse" class="w-full p-button-outlined" @click="goRegister" />
+        <pv-message v-if="error" severity="error" :closable="false">{{ error }}</pv-message>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -41,3 +46,40 @@ function goRegister() {
   router.push('/register')
 }
 </script>
+
+<style scoped>
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+}
+.login-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.input {
+  width: 100%;
+}
+</style>

@@ -21,11 +21,10 @@
     </section>
 
     <div class="action-buttons" role="toolbar" aria-label="Acciones principales">
-      <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" @click="goToMyClaims"/>
-      <pv-button class="btn-outline" :label="t('home.plans') || 'Planes'" icon="pi pi-briefcase" />
-      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" @click="goToNewClaim" />
+      <pv-button class="btn-outline" :label="t('home.myClaims') " @click="goToMyClaims"/>
+      <pv-button class="btn-outline" :label="t('home.plans') " icon="pi pi-briefcase" />
+      <pv-button class="btn-primary" :label="t('home.newClaim') " icon="pi pi-plus" @click="goToNewClaim" />
     </div>
-
 
     <div class="icon-grid" role="group" aria-label="Accesos rápidos">
       <button class="icon-card" type="button" @click="onAction('history')">
@@ -68,35 +67,106 @@ const user = reactive({
   plan: '',
 })
 
+/**
+ * getCurrentUserId: función robusta para intentar extraer userId de varias fuentes:
+ * 1) localStorage.currentUser (JSON) -> parsed.id or parsed.userId
+ * 2) localStorage.accessToken_v1 -> si es JWT intenta decodificar payload y extraer sub|id|userId|uid
+ * 3) fallback: devolver el valor crudo de accessToken_v1 si no se pudo extraer nada más
+ */
 function getCurrentUserId() {
-  // El token guardado es el id del usuario autenticado
-  return localStorage.getItem('accessToken_v1')
+  try {
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        if (parsed) {
+          // Campos comunes donde se podría encontrar el id
+          const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+          if (candidate) {
+            console.debug('[home] found user id in currentUser JSON:', candidate)
+            return String(candidate)
+          }
+        }
+      } catch (e) {
+        // no JSON — seguir intentando con otras fuentes
+      }
+    }
+
+    // Intentar con accessToken_v1 (podría ser un id plano o un JWT)
+    const token = localStorage.getItem('accessToken_v1')
+    if (!token) {
+      return null
+    }
+
+    // Si parece un JWT (tiene dos puntos)
+    if (token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        // atob maneja base64; añadir padding si falta
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+            Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) {
+          console.debug('[home] found user id in JWT payload:', candidate)
+          return String(candidate)
+        }
+      } catch (err) {
+        console.warn('[home] jwt decode failed:', err)
+        // fallback: usar token crudo si no hay otra cosa
+      }
+    }
+
+    // Si no es JWT o no se pudo extraer id, devolver token crudo (por si backend guarda id plano)
+    return String(token)
+  } catch (err) {
+    console.error('[home] getCurrentUserId error:', err)
+    return null
+  }
+}
+
+/**
+ * helper: compara un profile contra userId probando varios campos y normalizando a string
+ */
+function profileMatchesUserId(profile, userId) {
+  if (!profile || userId == null) return false
+  const candidates = [profile.userId, profile.id, profile.userid, profile._id, profile.user_id]
+  return candidates.some(c => c != null && String(c) === String(userId))
 }
 
 onMounted(async () => {
   try {
-    let userId = getCurrentUserId()
-    const response = await profileApi.getAll()
-    const profiles = response.data
+    const userId = getCurrentUserId()
+    console.debug('[home] resolved userId ->', userId)
 
-    // Si hay userId, busca el perfil correspondiente
+    const response = await profileApi.getAll()
+    const profiles = response?.data ?? []
+
     let profile = null
     if (userId) {
-      profile = profiles.find(p => p.userId === userId)
+      profile = profiles.find(p => profileMatchesUserId(p, userId))
     }
-    // Si no hay userId o no se encuentra, toma el primer perfil disponible
+
+    // fallback: si no encontró, usar el primer perfil disponible
     if (!profile && profiles.length > 0) {
+      console.debug('[home] no matching profile found, using first available profile')
       profile = profiles[0]
     }
+
     if (profile) {
       Object.assign(user, {
-        id: profile.userId,
-        name: profile.nombre || '',
-        avatar: '', // Si tienes campo de avatar, ponlo aquí
-        plan: '',   // Si tienes campo de plan, ponlo aquí
+        id: profile.userId ?? profile.id ?? '',
+        name: profile.nombre ?? profile.name ?? profile.fullName ?? '',
+        avatar: profile.avatarUrl ?? profile.avatar ?? '',
+        plan: profile.plan ?? '',
       })
+      console.debug('[home] loaded profile ->', user)
     } else {
       user.name = ''
+      console.warn('[home] no profile available to load into home view')
     }
   } catch (error) {
     console.error('Error al cargar el perfil:', error)
@@ -108,7 +178,7 @@ const initials = computed(() => {
   if (!user.name) return '—'
   return user.name
       .split(' ')
-      .map((n) => n[0])
+      .map((n) => n[0] || '')
       .slice(0, 2)
       .join('')
       .toUpperCase()
@@ -117,7 +187,6 @@ const initials = computed(() => {
 const userSubtitle = computed(() => {
   return t('home.welcomeBack') || '¡Bienvenido de nuevo!'
 })
-
 
 function onAction(key) {
   if (key === 'teleconsult') {
@@ -129,17 +198,23 @@ function onAction(key) {
     router.push({ name: 'reminders' })
     return
   }
+  if (key === 'history') {
+    router.push({ name: 'claims' })
+    return
+  }
 
+  if (key === 'simulator') {
+    router.push({ name: 'reimbursement-simulator' })
+    return
+  }
 }
 
 function goToNewClaim() {
   router.push({ name: 'new-claim' })
-
 }
 
 function goToMyClaims() {
   router.push({ name: 'myclaims' })
-
 }
 
 const svgAttrs = {
@@ -182,7 +257,6 @@ const StethoscopeIcon = (props) =>
       h('path', { d: 'M20 14v2a3 3 0 1 1-6 0v-2', stroke: 'currentColor', 'stroke-width': '1.25', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', fill: 'none' }),
       h('path', { d: 'M14 10a4 4 0 0 0-8 0v1', stroke: 'currentColor', 'stroke-width': '1.25', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', fill: 'none' }),
     ])
-
 </script>
 
 <style scoped>

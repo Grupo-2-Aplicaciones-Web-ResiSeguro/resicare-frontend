@@ -15,7 +15,7 @@ import RegisterPage from '@/contexts/iam/presentation/Register.vue'
 import ProfilePage from '@/contexts/iam/presentation/profile.page.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
-
+import MyClaimsPage from '@/contexts/myclaims/presentation/pages/myclaims.page.vue'
 import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
 
 
@@ -44,6 +44,7 @@ const routes = [
   { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, meta: { requiresAuth: true } },
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
+  { path: '/myclaims', name: 'myclaims', component: MyClaimsPage, exact: true },
 ]
 
 const router = createRouter({

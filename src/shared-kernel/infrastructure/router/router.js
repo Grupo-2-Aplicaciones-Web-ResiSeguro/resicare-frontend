@@ -1,4 +1,4 @@
-import HomePage from '@/contexts/public/pages/home-page.page.vue'
+﻿import HomePage from '@/contexts/public/pages/home-page.page.vue'
 import AboutPage from '@/contexts/public/pages/about-page.page.vue'
 import NotFoundComponent from '@/shared-kernel/presentation/ui/components/not-found.component.vue'
 import TeleconsultationsPage from '@/contexts/teleconsultations/presentation/pages/teleconsultations.page.vue'

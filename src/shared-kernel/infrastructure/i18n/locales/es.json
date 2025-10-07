@@ -172,7 +172,8 @@
   "common": {
     "selectLanguage": "Seleccionar Idioma",
     "submit": "Enviar",
-    "back": "Volver"
+    "back": "Volver",
+    "hideDetail": "Ocultar detalle"
   },
   "tutorial": {
     "list": {
@@ -225,5 +226,43 @@
     "description": "La página que buscas no existe o ha sido movida.",
     "goHome": "Ir al Inicio",
     "goBack": "Volver"
+  },
+  "myclaims": {
+    "title": "Mis Reclamos",
+    "noClaims": "No tienes reclamos registrados aún.",
+    "loading": "Cargando tus reclamos...",
+    "status": {
+      "pending": "Pendiente",
+      "approved": "Aprobado",
+      "rejected": "Rechazado",
+      "inReview": "En revisión",
+      "closed": "Cerrado"
+    },
+    "detailTitle": "Detalle del Reclamo",
+    "infoTitle": "Información del Reclamo",
+    "claimNumber": "Número de Reclamo",
+    "claimType": "Tipo de Reclamo",
+    "startDate": "Fecha de Inicio",
+    "incidentDate": "Fecha del Incidente",
+    "descriptionTitle": "Descripción del Incidente",
+    "objectTitle": "Objeto Asociado al Reclamo",
+    "contactSupport": "Contactar Soporte",
+    "viewDetail": "Ver detalle",
+    "claim": "Reclamo",
+    "back": "← Volver",
+    "edit": "Editar Reclamo",
+    "delete": "Eliminar Reclamo",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este reclamo?",
+    "deleted": "El reclamo ha sido eliminado correctamente.",
+    "errorLoading": "Ocurrió un error al cargar tus reclamos.",
+    "updateSuccess": "El reclamo ha sido actualizado correctamente.",
+    "field": {
+      "status": "Estado",
+      "type": "Tipo",
+      "description": "Descripción",
+      "object": "Objeto",
+      "date": "Fecha"
+    },
+    "hideDetail": "Ocultar detalle"
   }
 }

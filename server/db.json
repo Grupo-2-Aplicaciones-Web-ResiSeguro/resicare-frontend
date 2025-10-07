@@ -112,5 +112,64 @@
       "montoFinal": 90,
       "id": "md_mYLZ"
     }
+  ],
+  "myclaims": [
+    {
+      "id": "1",
+      "tipo": "Accidente",
+      "fechaIncidente": "2025-09-15",
+      "descripcionBreve": "Colisión menor con otro vehículo en la esquina de Av. Central.",
+      "objetoRegistrado": "Vehículo Toyota Corolla 2020",
+      "fotosDocumentos": [
+        "https://example.com/fotos/accidente1.jpg",
+        "https://example.com/documentos/parte-policial.pdf"
+      ],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-07T13:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "tipo": "Robo",
+      "fechaIncidente": "2025-08-28",
+      "descripcionBreve": "Robo de celular en el transporte público.",
+      "objetoRegistrado": "Celular Samsung Galaxy S22",
+      "fotosDocumentos": [
+        "https://example.com/fotos/denuncia.jpg"
+      ],
+      "estado": "en revisión",
+      "fechaCreacion": "2025-10-05T14:32:00.000Z"
+    },
+    {
+      "id": "3",
+      "tipo": "Pérdida",
+      "fechaIncidente": "2025-09-02",
+      "descripcionBreve": "Extravié mi billetera en el centro comercial.",
+      "objetoRegistrado": "Billetera de cuero marrón",
+      "fotosDocumentos": [],
+      "estado": "rechazado",
+      "fechaCreacion": "2025-10-03T10:10:00.000Z"
+    },
+    {
+      "id": "4",
+      "tipo": "Daños",
+      "fechaIncidente": "2025-07-19",
+      "descripcionBreve": "Daño por humedad en televisor tras tormenta.",
+      "objetoRegistrado": "Televisor LG 55 pulgadas",
+      "fotosDocumentos": [
+        "https://example.com/fotos/televisor.jpg"
+      ],
+      "estado": "aprobado",
+      "fechaCreacion": "2025-09-25T17:40:00.000Z"
+    },
+    {
+      "id": "5",
+      "tipo": "Accidente",
+      "fechaIncidente": "2025-09-30",
+      "descripcionBreve": "Caída de bicicleta provocando daños en el marco.",
+      "objetoRegistrado": "Bicicleta Trek FX 3",
+      "fotosDocumentos": [],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-07T12:15:00.000Z"
+    }
   ]
 }

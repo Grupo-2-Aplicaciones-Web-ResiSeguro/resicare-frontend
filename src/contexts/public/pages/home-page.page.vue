@@ -21,32 +21,31 @@
     </section>
 
     <div class="action-buttons" role="toolbar" aria-label="Acciones principales">
-
-      <pv-button class="btn-outline" :label="t('home.myClaims')" icon="pi pi-list" />
-      <pv-button class="btn-outline" :label="t('home.plans') " icon="pi pi-briefcase" />
-      <pv-button class="btn-primary" :label="t('home.newClaim') " icon="pi pi-plus" @click="goToNewClaim" />
+      <pv-button class="btn-outline" :label="t('home.myClaims') || 'Mis reclamos'" icon="pi pi-list" @click="goToMyClaims"/>
+      <pv-button class="btn-outline" :label="t('home.plans') || 'Planes'" icon="pi pi-briefcase" />
+      <pv-button class="btn-primary" :label="t('home.newClaim') || 'Nuevo Reclamo'" icon="pi pi-plus" @click="goToNewClaim" />
     </div>
 
 
     <div class="icon-grid" role="group" aria-label="Accesos rápidos">
       <button class="icon-card" type="button" @click="onAction('history')">
         <div class="icon-wrap"><ClockIcon aria-hidden="true" /></div>
-        <div class="icon-label">{{ t('home.history') }}</div>
+        <div class="icon-label">{{ t('home.history') || 'Historial de Reclamos' }}</div>
       </button>
 
       <button class="icon-card" type="button" @click="onAction('reminders')">
         <div class="icon-wrap"><BellIcon aria-hidden="true" /></div>
-        <div class="icon-label">{{ t('home.reminders')  }}</div>
+        <div class="icon-label">{{ t('home.reminders') || 'Prevenciones y Recordatorios' }}</div>
       </button>
 
       <button class="icon-card" type="button" @click="onAction('simulator')">
         <div class="icon-wrap"><PencilIcon aria-hidden="true" /></div>
-        <div class="icon-label">{{ t('home.simulator')  }}</div>
+        <div class="icon-label">{{ t('home.simulator') || 'Simulador de Reembolso' }}</div>
       </button>
 
       <button class="icon-card" type="button" @click="onAction('teleconsult')">
         <div class="icon-wrap"><StethoscopeIcon aria-hidden="true" /></div>
-        <div class="icon-label">{{ t('home.teleconsult')  }}</div>
+        <div class="icon-label">{{ t('home.teleconsult') || 'Teleconsulta' }}</div>
       </button>
     </div>
   </section>
@@ -57,7 +56,6 @@ import { computed, reactive, h, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ProfileApiService } from '@/contexts/profiles/infraestructure/profile-api.service.js'
-import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -71,15 +69,8 @@ const user = reactive({
 })
 
 function getCurrentUserId() {
-  // El token guardado NO es el id, así que obtenemos el usuario guardado
-  const user = localStorage.getItem('currentUser')
-  if (!user) return null
-  try {
-    const parsed = JSON.parse(user)
-    return parsed.id
-  } catch {
-    return null
-  }
+  // El token guardado es el id del usuario autenticado
+  return localStorage.getItem('accessToken_v1')
 }
 
 onMounted(async () => {
@@ -88,10 +79,12 @@ onMounted(async () => {
     const response = await profileApi.getAll()
     const profiles = response.data
 
+    // Si hay userId, busca el perfil correspondiente
     let profile = null
     if (userId) {
-      profile = profiles.find(p => String(p.userId) === String(userId))
+      profile = profiles.find(p => p.userId === userId)
     }
+    // Si no hay userId o no se encuentra, toma el primer perfil disponible
     if (!profile && profiles.length > 0) {
       profile = profiles[0]
     }
@@ -99,8 +92,8 @@ onMounted(async () => {
       Object.assign(user, {
         id: profile.userId,
         name: profile.nombre || '',
-        avatar: '',
-        plan: '',
+        avatar: '', // Si tienes campo de avatar, ponlo aquí
+        plan: '',   // Si tienes campo de plan, ponlo aquí
       })
     } else {
       user.name = ''
@@ -131,24 +124,11 @@ function onAction(key) {
     router.push({ name: 'teleconsultations' })
     return
   }
-  if (key === 'history') {
-    router.push({ name: 'claims' })
-    return
-  }
 
   if (key === 'reminders') {
     router.push({ name: 'reminders' })
     return
   }
-
-
-  if (key === 'simulator') {
-    router.push({ name: 'reimbursement-simulator' })
-    return
-  }
-
-
-
 
 }
 
@@ -157,6 +137,10 @@ function goToNewClaim() {
 
 }
 
+function goToMyClaims() {
+  router.push({ name: 'myclaims' })
+
+}
 
 const svgAttrs = {
   xmlns: 'http://www.w3.org/2000/svg',

@@ -7,7 +7,6 @@ export class Profile {
         residencia = '',
         correo = '',
         telefono = '',
-        contrasena = '',
         genero = '',
         nivelInstruccion = '',
         fotoDni = '',
@@ -22,7 +21,6 @@ export class Profile {
         this.residencia = residencia
         this.correo = correo
         this.telefono = telefono
-        this.contrasena = contrasena
         this.genero = genero
         this.nivelInstruccion = nivelInstruccion
         this.fotoDni = fotoDni

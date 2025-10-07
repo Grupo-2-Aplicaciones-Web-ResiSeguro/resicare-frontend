@@ -1,4 +1,5 @@
-{
+﻿{
+
   "home": {
     "title": "Welcome to the Tutorial Platform",
     "subTitle": "Find, create, and manage your tutorials easily.",
@@ -14,6 +15,8 @@
     "welcomeBack": "Welcome back!",
     "guest": "Guest"
   },
+
+
   "teleconsultations": {
     "title": "Reserve a teleconsultation",
     "header": "Teleconsultations",
@@ -30,6 +33,7 @@
     "success": "Your consultation has been booked successfully!",
     "error": "There was an error booking your consultation. Please try again."
   },
+  
   "reminders": {
     "title": "Reminders & Alerts",
     "newTitle": "New Reminder",
@@ -65,7 +69,12 @@
       "seguridad": "Safety"
     }
   },
-  "claims": {
+
+"claims": {
+    "title": "Claims History",
+  "previous": "Previous",
+    "viewDetails": "View details",
+    "viewDetailsBig": "View claim details",
     "newClaim": "New Claim",
     "claimType": "Claim Type",
     "accident": "Accident",
@@ -89,24 +98,21 @@
     "claimSubmitError": "Error submitting claim. Please try again.",
     "attachFilesNotImplemented": "File attachment feature coming soon",
     "registerObjectNotImplemented": "Object registration feature coming soon",
-    "title": "Claims History",
-    "previous": "Previous Claims",
+    "detailTitle": "Claim Details",
     "number": "Claim Number",
-    "type": "Type of Claim",
+    "type": "Claim Type",
     "status": "Status",
     "incidentDate": "Incident Date",
     "creationDate": "Creation Date",
-    "description": "Description of Claim",
-    "objectRegistered": "Object Registered",
+    "description": "Description",
+    "objectRegistered": "Registered Object",
     "downloadProof": "Download Proof",
-    "viewDetails": "View details",
-    "viewDetailsBig": "View Details",
-    "detailTitle": "Claim Details",
-    "downloadTitle": "Confirmation of download",
-    "pdfDownloaded": "PDF downloaded\nYour PDF is now saved on your device.",
+    "downloadTitle": "Download Claim Proof",
+    "pdfDownloaded": "Your claim proof PDF has been generated.",
     "viewPdf": "View PDF",
-    "proofTitle": "Proof of Claim"
+    "proofTitle": "Claim Proof"
   },
+
   "registerObject": {
     "title": "Register Object",
     "searchPlaceholder": "Search by object type",
@@ -133,6 +139,7 @@
     "objectRegisteredError": "Error registering object. Please try again."
   },
   "simulator": {
+    "chooseRegisteredObject": "Choose a registered object",
     "title": "Try Our Calculator",
     "selectedPlan": "Selected Plan",
     "noPlanSelected": "No plan selected",
@@ -147,14 +154,15 @@
     "monthly": "Monthly",
     "annual": "Annual (-10%)",
     "insureRegisteredObject": "Insure registered object",
-    "objectPlaceholder": "Ex: laptop, tablet, cellphone",
+    "objectPlaceholder": "Select an object",
     "calculateInsurance": "Calculate Insurance",
     "skip": "Skip",
     "pleaseCompleteForm": "Please complete all required fields",
     "calculationSuccess": "Calculation completed successfully!",
     "calculationError": "Error calculating insurance. Please try again."
   },
-  "layout": {
+
+"layout": {
     "header": {
       "logo": "ResiCare"
     }
@@ -164,6 +172,7 @@
     "submit": "Submit",
     "back": "Back"
   },
+
   "aria": {
     "navigation": "Main navigation",
     "header": "Main header",

@@ -5,110 +5,89 @@
       "nombre": "Jhonny",
       "edad": 30,
       "residencia": "Lima",
-      "correo": "jhonny@example.com",
+      "correo": "JhonnyKbro@example.com",
       "telefono": "987654321",
       "contrasena": "123456",
       "genero": "Masculino",
-      "nivelInstruccion": "Universitario",
+      "nivelInstruccion": "Inicial",
       "fotoDni": "",
       "fotoCredencial": ""
     }
   ],
   "consultations": [
     {
-      "id": "d4c9",
       "service": "general",
-      "date": "2025-10-17",
-      "time": "09:00",
-      "description": "dfdf"
-    },
-    {
-      "id": "3623",
-      "service": "",
-      "date": "",
-      "time": "",
-      "description": ""
+      "date": "2025-10-23T05:00:00.000Z",
+      "time": "14:00",
+      "description": "Tengo fuertes dolores de cabeza",
+      "userId": "",
+      "id": 1
     }
   ],
   "claims": [
     {
-      "id": "1",
-      "tipo": "accidente",
-      "fechaIncidente": "2025-10-01",
-      "descripcionBreve": "Accidente de tráfico en la avenida principal",
-      "objetoRegistrado": "objeto1",
+      "tipo": "perdida",
+      "fechaIncidente": "2025-10-02T05:00:00.000Z",
+      "descripcionBreve": "Lo perdi mientras iba de camino a mis clases",
+      "objetoRegistrado": 1,
       "fotosDocumentos": [],
-      "estado": "pendiente",
-      "fechaCreacion": "2025-10-05T12:00:00.000Z"
-    },
+      "id": 1
+    }
+  ],
+  "claimsHistory": [
     {
-      "id": "00123",
-      "number": "00123",
-      "type": "robo",
-      "status": "Concluido",
-      "incidentDate": "2023-10-02",
-      "creationDate": "2023-10-03",
-      "description": "El reclamante sufrió un robo en la vía pública y necesita reposición del artículo.",
+      "id": "c1",
+      "number": "CLM-0001",
+      "type": "Robo",
+      "status": "En revisión",
+      "incidentDate": "2025-09-28",
+      "creationDate": "2025-09-29",
+      "description": "Se reportó el robo de un celular durante el trayecto al trabajo.",
       "objectRegistered": {
-        "title": "celular poco f6",
-        "subtitle": "Auriculares bluetooth",
-        "image": "/images/poco-f6.jpeg"
+        "id": "obj1",
+        "name": "Celular Samsung Galaxy S22",
+        "serialNumber": "SNX12345A",
+        "value": 3500
       }
     },
     {
-      "id": "00789",
-      "number": "00789",
-      "type": "pérdida",
-      "status": "Rechazado",
-      "incidentDate": "2023-05-20",
-      "creationDate": "2023-05-20",
-      "description": "Objeto perdido en transporte público.",
+      "id": "c2",
+      "number": "CLM-0002",
+      "type": "Daño",
+      "status": "Aprobado",
+      "incidentDate": "2025-10-01",
+      "creationDate": "2025-10-02",
+      "description": "Daño en la pantalla del televisor debido a una sobrecarga eléctrica.",
       "objectRegistered": {
-        "title": "documentos personales",
-        "subtitle": "carpeta azul",
-        "image": "/images/carpetaazul.jpeg"
+        "id": "obj2",
+        "name": "Televisor LG OLED 55\"",
+        "serialNumber": "LGOLED55X9",
+        "value": 4200
       }
     }
   ],
   "registeredObjects": [
     {
-      "id": "objeto1",
-      "nombre": "La suset",
-      "descripcion": "Descripción del objeto 1"
-    },
-    {
-      "id": "objeto2",
-      "nombre": "Objeto 2",
-      "descripcion": "Descripción del objeto 2"
-    },
-    {
-      "id": "objeto3",
-      "nombre": "Objeto 3",
-      "descripcion": "Descripción del objeto 3"
+      "tipo": "electronico",
+      "nombre": "xiaomi redmi note 13 pro",
+      "descripcionBreve": "celular gama alta de la marca xiaomi con imei 12938949384",
+      "precio": 300,
+      "numeroSerie": "34534534545",
+      "foto": "",
+      "id": 1
     }
   ],
   "reminders": [
     {
-      "id": "r-1",
-      "title": "Tomar medicamento A",
-      "type": "medicación",
-      "date": "2025-10-17",
-      "time": "09:00",
-      "notes": "Con el desayuno",
-      "createdAt": "2025-10-01T08:00:00Z",
-      "updatedAt": "2025-10-01T08:00:00Z",
-      "userId": "1"
-    },
-    {
-      "id": "r-2",
-      "title": "Pago de plan",
+      "id": "5106ca41-7829-49e8-9652-85eef430342e",
+      "title": "Revisar metodo de pago",
       "type": "pago",
-      "date": "2025-10-20",
-      "time": "10:00",
-      "notes": "",
-      "createdAt": "2025-10-02T12:00:00Z",
-      "updatedAt": "2025-10-02T12:00:00Z",
-      "userId": "1"
+      "date": "2025-10-08",
+      "time": "17:00",
+      "notes": "Debo revisar el metodo de pago para actualizar a la nueva tarjeta",
+      "createdAt": "2025-10-07T04:54:18.260Z",
+      "updatedAt": "2025-10-07T04:54:18.260Z",
+      "userId": null
     }
   ],
   "simulators": [
@@ -122,6 +101,16 @@
       "descuento": 0,
       "montoFinal": 100,
       "fechaCreacion": "2025-10-05T12:00:00.000Z"
+    },
+    {
+      "planElegido": "Plan Básico",
+      "duracionCobertura": "1año",
+      "frecuenciaPago": "annual",
+      "objetosAsegurados": "laptop",
+      "montoTotal": 100,
+      "descuento": 10,
+      "montoFinal": 90,
+      "id": "md_mYLZ"
     }
   ]
 }

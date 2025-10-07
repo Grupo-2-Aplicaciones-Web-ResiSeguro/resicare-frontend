@@ -1,4 +1,4 @@
-{
+﻿{
   "home": {
     "title": "Bienvenido a la Plataforma de Tutoriales",
     "subTitle": "Encuentra, crea y gestiona tus tutoriales fácilmente.",
@@ -14,6 +14,8 @@
     "welcomeBack": "¡Bienvenido de nuevo!",
     "guest": "Invitado"
   },
+
+
   "teleconsultations": {
     "title": "Reserva una teleconsulta",
     "header": "Teleconsultas",
@@ -30,6 +32,8 @@
     "success": "¡Tu consulta ha sido reservada con éxito!",
     "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
   },
+
+
   "reminders": {
     "title": "Prevenciones y Recordatorios",
     "newTitle": "Nuevo Recordatorio",
@@ -65,7 +69,9 @@
       "seguridad": "Seguridad"
     }
   },
-  "claims": {
+
+"claims": {
+  "title": "Historial de Reclamos",
     "newClaim": "Nuevo Reclamo",
     "claimType": "Tipo de Reclamo",
     "accident": "Accidente",
@@ -89,24 +95,24 @@
     "claimSubmitError": "Error al enviar el reclamo. Por favor, intenta nuevamente.",
     "attachFilesNotImplemented": "Funcionalidad de adjuntar archivos próximamente",
     "registerObjectNotImplemented": "Funcionalidad de registrar objetos próximamente",
-    "title": "Historial de Reclamos",
-    "previous": "Reclamos Anteriores",
+    "detailTitle": "Detalle del Reclamo",
     "number": "Número de Reclamo",
     "type": "Tipo de Reclamo",
-    "status": "Estado del Reclamo",
+    "status": "Estado",
     "incidentDate": "Fecha del Incidente",
     "creationDate": "Fecha de Creación",
-    "description": "Descripción del Reclamo",
+    "description": "Descripción",
     "objectRegistered": "Objeto Registrado",
-    "downloadProof": "Descargar Comprobante",
-    "viewDetails": "Ver Detalles",
-    "viewDetailsBig": "Ver Detalles",
-    "detailTitle": "Detalle del Reclamo",
-    "downloadTitle": "Confirmación de descarga",
-    "pdfDownloaded": "PDF descargado\nTu PDF ahora está guardado en tu dispositivo.",
+    "downloadProof": "Descargar Constancia",
+    "downloadTitle": "Descargar Constancia de Reclamo",
+    "pdfDownloaded": "El PDF de la constancia de tu reclamo ha sido generado.",
     "viewPdf": "Ver PDF",
-    "proofTitle": "Comprobante de Reclamo"
+    "proofTitle": "Constancia de Reclamo",
+    "previous": "Anterior",
+    "viewDetails": "Ver detalles",
+    "viewDetailsBig": "Ver detalle del reclamo"
   },
+
   "registerObject": {
     "title": "Registrar Objeto",
     "searchPlaceholder": "Buscar por tipo de objeto",
@@ -133,6 +139,7 @@
     "objectRegisteredError": "Error al registrar el objeto. Por favor, intenta nuevamente."
   },
   "simulator": {
+    "chooseRegisteredObject": "Elige un objeto registrado",
     "title": "Prueba Nuestra Calculadora",
     "selectedPlan": "Plan Elegido",
     "noPlanSelected": "Ningún plan seleccionado",
@@ -147,14 +154,17 @@
     "monthly": "Mensual",
     "annual": "Anual (-10%)",
     "insureRegisteredObject": "Asegurar objeto registrado",
-    "objectPlaceholder": "Ej: laptop, tablet, celular",
+    "objectPlaceholder": "Selecciona un objeto",
     "calculateInsurance": "Calcular Seguro",
     "skip": "Omitir",
     "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
     "calculationSuccess": "¡Cálculo realizado exitosamente!",
     "calculationError": "Error al calcular el seguro. Por favor, intenta nuevamente."
   },
-  "layout": {
+
+
+
+"layout": {
     "header": {
       "logo": "ResiCare"
     }

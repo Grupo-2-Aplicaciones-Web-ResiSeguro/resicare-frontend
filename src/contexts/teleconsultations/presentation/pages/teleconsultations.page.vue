@@ -21,12 +21,13 @@
     </div>
     <submit-button :consultation="consultation" @submit="onSubmit" />
 
+    <!-- ✅ Conservamos el listado de teleconsultas programadas -->
     <teleconsultation-list
-        :scheduled="scheduled"
-        :loading="loading"
-        :error="error"
-        :formatService="formatService"
-        :formatDateTime="formatDateTime"
+      :scheduled="scheduled"
+      :loading="loading"
+      :error="error"
+      :formatService="formatService"
+      :formatDateTime="formatDateTime"
     />
   </section>
 </template>
@@ -48,6 +49,7 @@ const { t } = useI18n()
 const router = useRouter()
 const api = new TeleconsultationApiService()
 
+// Estado reactivo de la consulta
 const consultation = reactive({
   service: '',
   date: '',
@@ -56,6 +58,7 @@ const consultation = reactive({
   userId: ''
 })
 
+// Enviar nueva teleconsulta
 async function onSubmit(consultationData) {
   try {
     await api.create(consultationData)
@@ -64,6 +67,7 @@ async function onSubmit(consultationData) {
     consultation.time = ''
     consultation.description = ''
     alert('Consulta enviada correctamente')
+    await loadConsultations() // recarga la lista después de enviar
   } catch (error) {
     alert('Error al enviar la consulta')
     console.error('Error al enviar la consulta:', error)
@@ -74,6 +78,7 @@ function goBack() {
   router.back()
 }
 
+// --- 🔄 Manejo de consultas existentes ---
 const consultations = ref([])
 const loading = ref(true)
 const error = ref(null)
@@ -108,17 +113,18 @@ async function loadConsultations() {
 
 onMounted(loadConsultations)
 
+// 📅 Consultas programadas (futuras)
 const scheduled = computed(() => {
   const today = todayISO()
-  return consultations.value.filter(c => {
-    if (!c || !c.date) return false
-    return String(c.date) >= String(today)
-  }).sort((a, b) => {
-    if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
-    return String(a.date).localeCompare(String(b.date))
-  })
+  return consultations.value
+    .filter(c => c?.date && String(c.date) >= String(today))
+    .sort((a, b) => {
+      if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
+      return String(a.date).localeCompare(String(b.date))
+    })
 })
 
+// 🕒 Formateadores
 function formatDateTime(date, time) {
   if (!date) return ''
   try {
@@ -126,7 +132,7 @@ function formatDateTime(date, time) {
     const dt = new Date(parts[0], parts[1] - 1, parts[2])
     const dateStr = dt.toLocaleDateString()
     return time ? `${dateStr} · ${time}` : dateStr
-  } catch (e) {
+  } catch {
     return `${date} ${time || ''}`.trim()
   }
 }
@@ -135,7 +141,7 @@ function formatService(key) {
   const map = {
     nutrition: t('teleconsultations.nutrition'),
     general: t('teleconsultations.general'),
-    psychology: t('teleconsultations.psychology')
+    psychology: t('teleconsultations.psychology'),
   }
   return map[key] || key || '-'
 }
@@ -156,17 +162,6 @@ function formatService(key) {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.form-control {
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
 }
 
 .page-header {

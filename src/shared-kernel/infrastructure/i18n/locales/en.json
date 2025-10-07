@@ -1,5 +1,4 @@
-﻿{
-
+{
   "home": {
     "title": "Welcome to the Tutorial Platform",
     "subTitle": "Find, create, and manage your tutorials easily.",
@@ -15,8 +14,6 @@
     "welcomeBack": "Welcome back!",
     "guest": "Guest"
   },
-
-
   "teleconsultations": {
     "title": "Reserve a teleconsultation",
     "header": "Teleconsultations",
@@ -33,7 +30,6 @@
     "success": "Your consultation has been booked successfully!",
     "error": "There was an error booking your consultation. Please try again."
   },
-  
   "reminders": {
     "title": "Reminders & Alerts",
     "newTitle": "New Reminder",
@@ -69,8 +65,7 @@
       "seguridad": "Safety"
     }
   },
-
-"claims": {
+  "claims": {
     "newClaim": "New Claim",
     "claimType": "Claim Type",
     "accident": "Accident",
@@ -93,9 +88,25 @@
     "claimSubmittedSuccess": "Claim submitted successfully!",
     "claimSubmitError": "Error submitting claim. Please try again.",
     "attachFilesNotImplemented": "File attachment feature coming soon",
-    "registerObjectNotImplemented": "Object registration feature coming soon"
+    "registerObjectNotImplemented": "Object registration feature coming soon",
+    "title": "Claims History",
+    "previous": "Previous Claims",
+    "number": "Claim Number",
+    "type": "Type of Claim",
+    "status": "Status",
+    "incidentDate": "Incident Date",
+    "creationDate": "Creation Date",
+    "description": "Description of Claim",
+    "objectRegistered": "Object Registered",
+    "downloadProof": "Download Proof",
+    "viewDetails": "View details",
+    "viewDetailsBig": "View Details",
+    "detailTitle": "Claim Details",
+    "downloadTitle": "Confirmation of download",
+    "pdfDownloaded": "PDF downloaded\nYour PDF is now saved on your device.",
+    "viewPdf": "View PDF",
+    "proofTitle": "Proof of Claim"
   },
-
   "registerObject": {
     "title": "Register Object",
     "searchPlaceholder": "Search by object type",
@@ -143,8 +154,7 @@
     "calculationSuccess": "Calculation completed successfully!",
     "calculationError": "Error calculating insurance. Please try again."
   },
-
-"layout": {
+  "layout": {
     "header": {
       "logo": "ResiCare"
     }
@@ -154,7 +164,6 @@
     "submit": "Submit",
     "back": "Back"
   },
-
   "aria": {
     "navigation": "Main navigation",
     "header": "Main header",

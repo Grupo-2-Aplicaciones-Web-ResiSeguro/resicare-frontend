@@ -2,26 +2,29 @@ import { MyClaim } from './myclaim.entity';
 
 export const MyClaimAssembler = {
   fromApiResponse(apiResponse) {
+    // Mapea los campos reales del db.json
     return new MyClaim({
       id: apiResponse.id,
-      type: apiResponse.type,
-      description: apiResponse.description,
-      incidentDate: apiResponse.incident_date,
-      registeredObject: apiResponse.registered_object,
-      status: apiResponse.status,
-      attachments: apiResponse.attachments
+      tipo: apiResponse.tipo,
+      fechaIncidente: apiResponse.fechaIncidente,
+      descripcionBreve: apiResponse.descripcionBreve,
+      objetoRegistrado: apiResponse.objetoRegistrado,
+      fotosDocumentos: apiResponse.fotosDocumentos,
+      estado: apiResponse.estado,
+      fechaCreacion: apiResponse.fechaCreacion
     });
   },
 
   toApiRequest(myClaim) {
     return {
       id: myClaim.id,
-      type: myClaim.type,
-      description: myClaim.description,
-      incident_date: myClaim.incidentDate,
-      registered_object: myClaim.registeredObject,
-      status: myClaim.status,
-      attachments: myClaim.attachments
+      tipo: myClaim.tipo,
+      fechaIncidente: myClaim.fechaIncidente,
+      descripcionBreve: myClaim.descripcionBreve,
+      objetoRegistrado: myClaim.objetoRegistrado,
+      fotosDocumentos: myClaim.fotosDocumentos,
+      estado: myClaim.estado,
+      fechaCreacion: myClaim.fechaCreacion
     };
   }
 };

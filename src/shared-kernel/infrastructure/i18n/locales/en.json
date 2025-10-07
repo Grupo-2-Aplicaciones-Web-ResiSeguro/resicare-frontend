@@ -116,7 +116,8 @@
   "common": {
     "selectLanguage": "Select Language",
     "submit": "Submit",
-    "back": "Back"
+    "back": "Back",
+    "hideDetail": "Hide detail"
   },
 
   "aria": {

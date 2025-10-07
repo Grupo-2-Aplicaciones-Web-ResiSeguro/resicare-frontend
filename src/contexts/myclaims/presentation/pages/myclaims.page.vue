@@ -32,8 +32,16 @@
               <p><strong>{{ $t('myclaims.claimNumber') }}:</strong> {{ claim.id }}</p>
               <p><strong>{{ $t('myclaims.claimType') }}:</strong> {{ claim.tipo }}</p>
               <p><strong>{{ $t('myclaims.startDate') }}:</strong> {{ claim.fechaIncidente }}</p>
-              <p><strong>{{ $t('myclaims.descriptionTitle') }}:</strong> {{ claim.descripcionCompleta }}</p>
-              <p><strong>{{ $t('myclaims.objectTitle') }}:</strong> {{ claim.objetoAsociado }}</p>
+              <p><strong>{{ $t('myclaims.descriptionTitle') }}:</strong> {{ claim.descripcionBreve }}</p>
+              <p><strong>{{ $t('myclaims.objectTitle') }}:</strong> {{ claim.objetoRegistrado }}</p>
+              <div v-if="claim.fotosDocumentos && claim.fotosDocumentos.length">
+                <p><strong>Documentos/Fotos:</strong></p>
+                <ul>
+                  <li v-for="(doc, idx) in claim.fotosDocumentos" :key="idx">
+                    <a :href="doc" target="_blank">{{ doc }}</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </transition>
         </div>
@@ -53,7 +61,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { MyClaimApiService } from '../../infraestructure/myclaim-api.service.js'
+import { MyClaimApiServiceInstance } from '../../infraestructure/myclaim-api.service.js'
 
 const router = useRouter()
 const claims = ref([])
@@ -62,8 +70,7 @@ const expandedClaimId = ref(null)
 
 async function loadClaims() {
   try {
-    const data = await MyClaimApiService.fetchAll()
-    console.log('Reclamos cargados:', data)
+    const data = await MyClaimApiServiceInstance.fetchAll()
     claims.value = data
   } catch (error) {
     console.error('Error al obtener los reclamos:', error)

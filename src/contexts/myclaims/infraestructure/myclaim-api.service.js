@@ -1,32 +1,35 @@
 import { http } from '@/shared-kernel/infrastructure/http/http.js'
 import { MyClaimAssembler } from '../domain/myclaim.assembler.js'
 
-export class MyClaimApiService {
-  async getAll() {
+class MyClaimApiService {
+  async fetchAll() {
     const response = await http.get('/myclaims')
-    // Transforma la respuesta con el assembler si existe
-    return Array.isArray(response)
-      ? response.map(MyClaimAssembler.fromApiResponse)
+    // Corrige: axios retorna { data: [...] }
+    return Array.isArray(response.data)
+      ? response.data.map(MyClaimAssembler.fromApiResponse)
       : []
   }
 
-  async getById(id) {
+  async fetchById(id) {
     const response = await http.get(`/myclaims/${id}`)
-    return MyClaimAssembler.fromApiResponse(response)
+    return MyClaimAssembler.fromApiResponse(response.data)
   }
 
   async create(myClaim) {
     const response = await http.post('/myclaims', myClaim)
-    return response
+    return response.data
   }
 
   async update(id, myClaim) {
     const response = await http.patch(`/myclaims/${id}`, myClaim)
-    return response
+    return response.data
   }
 
   async delete(id) {
     const response = await http.delete(`/myclaims/${id}`)
-    return response
+    return response.data
   }
 }
+
+export const MyClaimApiServiceInstance = new MyClaimApiService()
+export { MyClaimApiService }

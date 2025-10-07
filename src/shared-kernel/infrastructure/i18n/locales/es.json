@@ -117,7 +117,8 @@
   "common": {
     "selectLanguage": "Seleccionar Idioma",
     "submit": "Enviar",
-    "back": "Volver"
+    "back": "Volver",
+    "hideDetail": "Ocultar detalle"
   },
   "tutorial": {
     "list": {

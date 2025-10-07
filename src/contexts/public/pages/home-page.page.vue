@@ -210,11 +210,11 @@ function onAction(key) {
 }
 
 function goToNewClaim() {
-  router.push({ name: 'new-claim' })
+  router.push({ path: '/claims/new' })
 }
 
 function goToMyClaims() {
-  router.push({ name: 'myclaims' })
+  router.push({ name: 'claims' })
 }
 
 const svgAttrs = {

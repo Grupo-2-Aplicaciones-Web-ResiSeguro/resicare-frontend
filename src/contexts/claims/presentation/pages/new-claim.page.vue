@@ -8,17 +8,17 @@
     </header>
 
     <div class="form-container">
-      <claim-type-selector v-model="claim.tipo" />
+      <claim-type-selector v-model="claim.type" />
 
-      <incident-date-picker v-model="claim.fechaIncidente" />
+      <incident-date-picker v-model="claim.incidentDate" />
 
-      <brief-description-input v-model="claim.descripcionBreve" />
+      <brief-description-input v-model="claim.description" />
 
       <registered-object-selector
-        v-model="claim.objetoRegistrado"
+        v-model="claim.objectRegistered"
       />
 
-      <file-upload v-model="claim.fotosDocumentos" />
+      <file-upload v-model="claim.documents" />
 
       <div class="action-buttons">
         <pv-button
@@ -57,18 +57,18 @@ const api = new ClaimApiService()
 const showInfoMessage = ref(true)
 
 const claim = reactive({
-  tipo: '',
-  fechaIncidente: '',
-  descripcionBreve: '',
-  objetoRegistrado: '',
-  fotosDocumentos: []
+  type: '',
+  incidentDate: '',
+  description: '',
+  objectRegistered: '',
+  documents: []
 })
 
 const isFormValid = computed(() => {
-  return claim.tipo &&
-         claim.fechaIncidente &&
-         claim.descripcionBreve &&
-         claim.objetoRegistrado
+  return claim.type &&
+         claim.incidentDate &&
+         claim.description &&
+         claim.objectRegistered
 })
 
 async function onSubmit() {
@@ -78,11 +78,20 @@ async function onSubmit() {
   }
 
   try {
-    const filesData = await convertFilesToBase64(claim.fotosDocumentos)
+    const filesData = await convertFilesToBase64(claim.documents)
+
+    // Get current user ID from localStorage
+    const userId = localStorage.getItem('accessToken_v1') || '1'
 
     const claimData = {
-      ...claim,
-      fotosDocumentos: filesData
+      type: claim.type,
+      incidentDate: claim.incidentDate,
+      description: claim.description,
+      objectRegistered: claim.objectRegistered,
+      documents: filesData,
+      userId: userId,
+      status: 'pending',
+      creationDate: new Date().toISOString()
     }
 
     const resource = ClaimAssembler.toResourceFromEntity(claimData)
@@ -90,16 +99,17 @@ async function onSubmit() {
 
     alert(t('claims.claimSubmittedSuccess'))
 
-    claim.tipo = ''
-    claim.fechaIncidente = ''
-    claim.descripcionBreve = ''
-    claim.objetoRegistrado = ''
-    claim.fotosDocumentos = []
+    // Reset form
+    claim.type = ''
+    claim.incidentDate = ''
+    claim.description = ''
+    claim.objectRegistered = ''
+    claim.documents = []
 
-    router.push('/')
+    router.push('/claims')
   } catch (error) {
     alert(t('claims.claimSubmitError'))
-    console.error('Error al enviar el reclamo:', error)
+    console.error('Error submitting claim:', error)
   }
 }
 

@@ -1,21 +1,25 @@
 export class Claim {
-    constructor({
-                    id = '',
-                    tipo = '', // Accidente, Robo, Pérdida, Daños
-                    fechaIncidente = '',
-                    descripcionBreve = '',
-                    objetoRegistrado = '',
-                    fotosDocumentos = [],
-                    estado = 'pendiente', // pendiente, en revisión, aprobado, rechazado
-                    fechaCreacion = new Date().toISOString(),
-                }) {
-        this.id = id
-        this.tipo = tipo
-        this.fechaIncidente = fechaIncidente
-        this.descripcionBreve = descripcionBreve
-        this.objetoRegistrado = objetoRegistrado
-        this.fotosDocumentos = fotosDocumentos
-        this.estado = estado
-        this.fechaCreacion = fechaCreacion
-    }
+  constructor({
+    id = '',
+    number = '',
+    type = '',              // accident, theft, loss, damage
+    status = 'pending',     // pending, in_review, approved, rejected
+    incidentDate = '',
+    creationDate = new Date().toISOString(),
+    description = '',
+    objectRegistered = null,
+    documents = [],
+    userId = ''
+  } = {}) {
+    this.id = id
+    this.number = number
+    this.type = type
+    this.status = status
+    this.incidentDate = incidentDate
+    this.creationDate = creationDate
+    this.description = description
+    this.objectRegistered = objectRegistered
+    this.documents = documents
+    this.userId = userId
+  }
 }

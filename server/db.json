@@ -1,19 +1,6 @@
 {
   "profiles": [
     {
-      "id": "1",
-      "nombre": "Jhonny",
-      "edad": 30,
-      "residencia": "Lima",
-      "correo": "JhonnyKbro@example.com",
-      "telefono": "987654321",
-      "contrasena": "123456",
-      "genero": "Masculino",
-      "nivelInstruccion": "Inicial",
-      "fotoDni": "",
-      "fotoCredencial": ""
-    },
-    {
       "userId": 1,
       "nombre": "1",
       "correo": "1",
@@ -21,11 +8,25 @@
       "residencia": "1",
       "edad": 1,
       "genero": {
+        "label": "Otro",
+        "value": "Otro"
+      },
+      "nivelInstruccion": "1",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "nombre": "2",
+      "correo": "2",
+      "telefono": "2",
+      "residencia": "2",
+      "edad": 2,
+      "genero": {
         "label": "Masculino",
         "value": "Masculino"
       },
-      "nivelInstruccion": "1",
-      "id": "90MbHGs"
+      "nivelInstruccion": "2",
+      "id": 2
     }
   ],
   "consultations": [
@@ -34,123 +35,58 @@
       "date": "2025-10-23T05:00:00.000Z",
       "time": "14:00",
       "description": "Tengo fuertes dolores de cabeza",
-      "userId": "",
+      "userId": "1",
       "id": 1
+    },
+    {
+      "service": "general",
+      "date": "2025-10-21T05:00:00.000Z",
+      "time": "16:00",
+      "description": "hola2",
+      "userId": "1",
+      "id": 2
     }
   ],
   "claims": [
     {
-      "id": "1",
+      "tipo": "perdida",
+      "fechaIncidente": "2025-10-02T05:00:00.000Z",
+      "descripcionBreve": "Lo perdi mientras iba de camino a mis clases",
+      "objetoRegistrado": 1,
+      "fotosDocumentos": [],
+      "id": 1
+    }
+  ],
+  "claimsHistory": [
+    {
+      "id": "c1",
       "number": "CLM-0001",
-      "type": "loss",
-      "status": "pending",
-      "incidentDate": "2025-10-02T05:00:00.000Z",
-      "creationDate": "2025-10-02T05:00:00.000Z",
-      "description": "Lost it while on my way to classes",
-      "objectRegistered": 1,
-      "documents": [],
-      "userId": "1"
-    },
-    {
-      "id": "2",
-      "number": "CLM-0002",
-      "type": "accident",
-      "status": "pending",
-      "incidentDate": "2025-09-15",
-      "creationDate": "2025-10-07T13:00:00.000Z",
-      "description": "Minor collision with another vehicle at the corner of Av. Central.",
-      "objectRegistered": "Vehículo Toyota Corolla 2020",
-      "documents": [
-        "https://example.com/fotos/accidente1.jpg",
-        "https://example.com/documentos/parte-policial.pdf"
-      ],
-      "userId": "1"
-    },
-    {
-      "id": "3",
-      "number": "CLM-0003",
-      "type": "theft",
-      "status": "in_review",
-      "incidentDate": "2025-08-28",
-      "creationDate": "2025-10-05T14:32:00.000Z",
-      "description": "Cell phone theft on public transportation.",
-      "objectRegistered": "Celular Samsung Galaxy S22",
-      "documents": [
-        "https://example.com/fotos/denuncia.jpg"
-      ],
-      "userId": "1"
-    },
-    {
-      "id": "4",
-      "number": "CLM-0004",
-      "type": "loss",
-      "status": "rejected",
-      "incidentDate": "2025-09-02",
-      "creationDate": "2025-10-03T10:10:00.000Z",
-      "description": "Lost my wallet at the shopping center.",
-      "objectRegistered": "Billetera de cuero marrón",
-      "documents": [],
-      "userId": "1"
-    },
-    {
-      "id": "5",
-      "number": "CLM-0005",
-      "type": "damage",
-      "status": "approved",
-      "incidentDate": "2025-07-19",
-      "creationDate": "2025-09-25T17:40:00.000Z",
-      "description": "Moisture damage to TV after storm.",
-      "objectRegistered": "Televisor LG 55 pulgadas",
-      "documents": [
-        "https://example.com/fotos/televisor.jpg"
-      ],
-      "userId": "1"
-    },
-    {
-      "id": "6",
-      "number": "CLM-0006",
-      "type": "accident",
-      "status": "pending",
-      "incidentDate": "2025-09-30",
-      "creationDate": "2025-10-07T12:15:00.000Z",
-      "description": "Bicycle fall causing frame damage.",
-      "objectRegistered": "Bicicleta Trek FX 3",
-      "documents": [],
-      "userId": "1"
-    },
-    {
-      "id": "7",
-      "number": "CLM-0007",
-      "type": "theft",
-      "status": "in_review",
+      "type": "Robo",
+      "status": "En revisión",
       "incidentDate": "2025-09-28",
       "creationDate": "2025-09-29",
-      "description": "Cell phone theft reported during commute to work.",
+      "description": "Se reportó el robo de un celular durante el trayecto al trabajo.",
       "objectRegistered": {
         "id": "obj1",
         "name": "Celular Samsung Galaxy S22",
         "serialNumber": "SNX12345A",
         "value": 3500
-      },
-      "documents": [],
-      "userId": "1"
+      }
     },
     {
-      "id": "8",
-      "number": "CLM-0008",
-      "type": "damage",
-      "status": "approved",
+      "id": "c2",
+      "number": "CLM-0002",
+      "type": "Daño",
+      "status": "Aprobado",
       "incidentDate": "2025-10-01",
       "creationDate": "2025-10-02",
-      "description": "TV screen damage due to electrical surge.",
+      "description": "Daño en la pantalla del televisor debido a una sobrecarga eléctrica.",
       "objectRegistered": {
         "id": "obj2",
         "name": "Televisor LG OLED 55\"",
         "serialNumber": "LGOLED55X9",
         "value": 4200
-      },
-      "documents": [],
-      "userId": "1"
+      }
     }
   ],
   "registeredObjects": [
@@ -166,15 +102,26 @@
   ],
   "reminders": [
     {
-      "id": "5106ca41-7829-49e8-9652-85eef430342e",
-      "title": "Revisar metodo de pago",
-      "type": "pago",
-      "date": "2025-10-08",
-      "time": "17:00",
-      "notes": "Debo revisar el metodo de pago para actualizar a la nueva tarjeta",
-      "createdAt": "2025-10-07T04:54:18.260Z",
-      "updatedAt": "2025-10-07T04:54:18.260Z",
-      "userId": null
+      "id": "8fea58ba-a2b2-4af1-a375-e3296b720994",
+      "title": "usuario1",
+      "type": "medicación",
+      "date": "2025-10-22",
+      "time": "21:30",
+      "notes": "dfdf",
+      "createdAt": "2025-10-07T23:30:25.730Z",
+      "updatedAt": "2025-10-07T23:30:25.730Z",
+      "userId": "1"
+    },
+    {
+      "id": "a3ca2799-e89f-40cc-b234-fd140af912dc",
+      "title": "usuario2",
+      "type": "prevención",
+      "date": "2025-10-07",
+      "time": "18:35",
+      "notes": "dfdfdf",
+      "createdAt": "2025-10-07T23:31:03.313Z",
+      "updatedAt": "2025-10-07T23:31:03.313Z",
+      "userId": "2"
     }
   ],
   "simulators": [
@@ -200,12 +147,77 @@
       "id": "md_mYLZ"
     }
   ],
+  "myclaims": [
+    {
+      "id": "1",
+      "tipo": "Accidente",
+      "fechaIncidente": "2025-09-15",
+      "descripcionBreve": "Colisión menor con otro vehículo en la esquina de Av. Central.",
+      "objetoRegistrado": "Vehículo Toyota Corolla 2020",
+      "fotosDocumentos": [
+        "https://example.com/fotos/accidente1.jpg",
+        "https://example.com/documentos/parte-policial.pdf"
+      ],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-07T13:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "tipo": "Robo",
+      "fechaIncidente": "2025-08-28",
+      "descripcionBreve": "Robo de celular en el transporte público.",
+      "objetoRegistrado": "Celular Samsung Galaxy S22",
+      "fotosDocumentos": [
+        "https://example.com/fotos/denuncia.jpg"
+      ],
+      "estado": "en revisión",
+      "fechaCreacion": "2025-10-05T14:32:00.000Z"
+    },
+    {
+      "id": "3",
+      "tipo": "Pérdida",
+      "fechaIncidente": "2025-09-02",
+      "descripcionBreve": "Extravié mi billetera en el centro comercial.",
+      "objetoRegistrado": "Billetera de cuero marrón",
+      "fotosDocumentos": [],
+      "estado": "rechazado",
+      "fechaCreacion": "2025-10-03T10:10:00.000Z"
+    },
+    {
+      "id": "4",
+      "tipo": "Daños",
+      "fechaIncidente": "2025-07-19",
+      "descripcionBreve": "Daño por humedad en televisor tras tormenta.",
+      "objetoRegistrado": "Televisor LG 55 pulgadas",
+      "fotosDocumentos": [
+        "https://example.com/fotos/televisor.jpg"
+      ],
+      "estado": "aprobado",
+      "fechaCreacion": "2025-09-25T17:40:00.000Z"
+    },
+    {
+      "id": "5",
+      "tipo": "Accidente",
+      "fechaIncidente": "2025-09-30",
+      "descripcionBreve": "Caída de bicicleta provocando daños en el marco.",
+      "objetoRegistrado": "Bicicleta Trek FX 3",
+      "fotosDocumentos": [],
+      "estado": "pendiente",
+      "fechaCreacion": "2025-10-07T12:15:00.000Z"
+    }
+  ],
   "users": [
     {
       "name": "1",
       "email": "1",
       "password": "1",
       "id": 1
+    },
+    {
+      "name": "2",
+      "email": "2",
+      "password": "2",
+      "id": 2
     }
   ]
 }

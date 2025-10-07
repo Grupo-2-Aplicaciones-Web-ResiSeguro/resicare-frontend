@@ -181,6 +181,7 @@
       "object": "Object",
       "date": "Date"
     },
-    "hideDetail": "Hide detail"
+    "hideDetail": "Hide detail",
+    "statusTitle": "Claim Status"
   }
 }

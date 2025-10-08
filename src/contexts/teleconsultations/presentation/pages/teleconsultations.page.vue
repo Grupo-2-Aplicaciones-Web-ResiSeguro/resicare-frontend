@@ -42,7 +42,7 @@ import DescriptionInput from '../components/description-input.component.vue'
 import SubmitButton from '../components/submit-button.component.vue'
 import TeleconsultationList from '../components/teleconsultation-list.component.vue'
 import { TeleconsultationApiService } from '../../infraestructure/teleconsultation-api.service.js'
-import { ConsultationAssembler } from '../../domain/teleconsultation.assembler.js'
+import { ConsultationAssembler } from '../../Domain/teleconsultation.assembler.js'
 
 const { t } = useI18n()
 const router = useRouter()

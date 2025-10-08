@@ -13,7 +13,15 @@
     "simulator": "Reimbursement simulator",
     "teleconsult": "Teleconsultation",
     "welcomeBack": "Welcome back!",
-    "guest": "Guest"
+    "guest": "Guest",
+    "logout": "Logout"
+  },
+
+  "layout": {
+    "header": {
+      "logo": "ResiCare",
+      "logout": "Logout"
+    }
   },
 
 

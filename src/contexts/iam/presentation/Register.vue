@@ -9,7 +9,7 @@
         <pv-input-text v-model="telefono" placeholder="Teléfono" class="input" />
         <pv-input-number v-model="edad" placeholder="Edad" class="input" :min="0" />
         <pv-input-text v-model="residencia" placeholder="Residencia" class="input" />
-        <pv-dropdown v-model="genero" :options="generos" placeholder="Género" class="input" />
+        <pv-dropdown v-model="genero" :options="generos" optionLabel="label" placeholder="Género" class="input" />
         <pv-input-text v-model="nivelInstruccion" placeholder="Nivel de instrucción" class="input" />
         <pv-button type="submit" label="Registrarse" class="w-full mb-2" />
         <pv-button label="¿Ya tienes cuenta? Iniciar sesión" class="w-full p-button-outlined" @click="goLogin" />

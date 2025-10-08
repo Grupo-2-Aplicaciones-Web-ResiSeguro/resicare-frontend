@@ -12,7 +12,15 @@
     "simulator": "Simulador de Reembolso",
     "teleconsult": "Teleconsulta",
     "welcomeBack": "¡Bienvenido de nuevo!",
-    "guest": "Invitado"
+    "guest": "Invitado",
+    "logout": "Cerrar sesión"
+  },
+
+  "layout": {
+    "header": {
+      "logo": "ResiCare",
+      "logout": "Cerrar sesión"
+    }
   },
 
 

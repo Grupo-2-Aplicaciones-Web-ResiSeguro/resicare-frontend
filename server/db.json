@@ -27,6 +27,20 @@
       },
       "nivelInstruccion": "2",
       "id": 2
+    },
+    {
+      "userId": 3,
+      "nombre": "1",
+      "correo": "1",
+      "telefono": "1",
+      "residencia": "1",
+      "edad": 1,
+      "genero": {
+        "label": "Masculino",
+        "value": "Masculino"
+      },
+      "nivelInstruccion": "1",
+      "id": 3
     }
   ],
   "consultations": [
@@ -218,6 +232,12 @@
       "email": "2",
       "password": "2",
       "id": 2
+    },
+    {
+      "name": "1",
+      "email": "1",
+      "password": "1",
+      "id": 3
     }
   ]
 }

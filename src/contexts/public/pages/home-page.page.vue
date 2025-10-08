@@ -17,6 +17,7 @@
 
       <div class="profile-actions">
         <pv-button class="btn-ghost" :label="t('home.viewProfile') || 'Ver perfil'" icon="pi pi-user" />
+        <pv-button class="btn-ghost" :label="t('home.logout') || 'Cerrar sesión'" icon="pi pi-sign-out" @click="handleLogout" />
       </div>
     </section>
 
@@ -55,10 +56,12 @@ import { computed, reactive, h, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ProfileApiService } from '@/contexts/profiles/infraestructure/profile-api.service.js'
+import { AuthService } from '@/contexts/iam/application/auth.service.js'
 
 const { t } = useI18n()
 const router = useRouter()
 const profileApi = new ProfileApiService()
+const authService = new AuthService()
 
 const user = reactive({
   id: '',
@@ -217,6 +220,11 @@ function goToMyClaims() {
   router.push({ name: 'claims' })
 }
 
+function handleLogout() {
+  authService.logout()
+  router.push('/login')
+}
+
 const svgAttrs = {
   xmlns: 'http://www.w3.org/2000/svg',
   width: '24',
@@ -340,8 +348,9 @@ const StethoscopeIcon = (props) =>
 
 .profile-actions {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 .action-buttons {

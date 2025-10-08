@@ -22,7 +22,8 @@ export class RegisteredObjectAssembler {
             precio: registeredObject.precio,
             numeroSerie: registeredObject.numeroSerie,
             foto: registeredObject.foto,
-            fechaRegistro: registeredObject.fechaRegistro
+            fechaRegistro: registeredObject.fechaRegistro,
+            userId: registeredObject.userId // Incluye el userId
         }
     }
 }

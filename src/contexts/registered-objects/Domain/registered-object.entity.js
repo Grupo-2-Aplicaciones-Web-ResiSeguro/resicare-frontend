@@ -8,6 +8,7 @@ export class RegisteredObject {
                     numeroSerie = '',
                     foto = '',
                     fechaRegistro = new Date().toISOString(),
+                    userId = ''
                 }) {
         this.id = id
         this.tipo = tipo
@@ -17,5 +18,6 @@ export class RegisteredObject {
         this.numeroSerie = numeroSerie
         this.foto = foto
         this.fechaRegistro = fechaRegistro
+        this.userId = userId
     }
 }

@@ -11,6 +11,11 @@ export class RegisteredObjectApiService {
         return response
     }
 
+    async getByUserId(userId) {
+        const response = await http.get(`/registeredObjects?userId=${userId}`)
+        return response
+    }
+
     async create(registeredObject) {
         const response = await http.post('/registeredObjects', registeredObject)
         return response

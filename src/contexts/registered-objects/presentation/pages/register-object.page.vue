@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import ObjectTypeSelector from '../components/object-type-selector.component.vue'
@@ -107,10 +107,54 @@ const registeredObject = reactive({
   foto: ''
 })
 
+const userObjects = ref([])
+
 const isFormValid = computed(() => {
   return registeredObject.tipo &&
          registeredObject.nombre &&
          registeredObject.descripcionBreve
+})
+
+function getCurrentUserId() {
+  try {
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    const token = localStorage.getItem('accessToken_v1')
+    if (!token) return null
+    if (token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+            Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    return String(token)
+  } catch {
+    return null
+  }
+}
+
+async function loadUserObjects() {
+  const userId = getCurrentUserId()
+  if (!userId) return
+  const response = await api.getByUserId(userId)
+  userObjects.value = response.data
+}
+
+onMounted(() => {
+  loadUserObjects()
 })
 
 async function onSubmit() {
@@ -121,6 +165,7 @@ async function onSubmit() {
 
   try {
     const resource = RegisteredObjectAssembler.toResourceFromEntity(registeredObject)
+    resource.userId = getCurrentUserId()
     await api.create(resource)
 
     alert(t('registerObject.objectRegisteredSuccess'))
@@ -132,6 +177,7 @@ async function onSubmit() {
     registeredObject.numeroSerie = ''
     registeredObject.foto = ''
 
+    await loadUserObjects()
     router.back()
   } catch (error) {
     alert(t('registerObject.objectRegisteredError'))

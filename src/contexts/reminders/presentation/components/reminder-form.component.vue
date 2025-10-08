@@ -46,7 +46,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Reminder } from '../../domain/reminder.entity.js'
+import { Reminder } from '../../Domain/reminder.entity.js'
 import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js'
 import { useRouter } from 'vue-router'
 import { http } from '@/shared-kernel/infrastructure/http/http.js'

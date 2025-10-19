@@ -17,9 +17,7 @@
 
     <p v-else>{{ t('reminders.noReminders') }}</p>
 
-    <button class="add-btn" @click="$router.push('/reminders/new')">
-      {{ t('reminders.addReminder') }}
-    </button>
+    <pv-button class="add-btn" @click="$router.push('/reminders/new')" :label="t('reminders.addReminder')" />
   </section>
 </template>
 
@@ -27,10 +25,11 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ReminderItem from './reminder-item.component.vue'
-import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js'
-import { http } from '@/shared-kernel/infrastructure/http/http.js'
+import { ReminderApiService } from '../../infrastructure/reminder-api.service.js'
 
-const { t } = useI18n() // ✅ Importante: define t() para las traducciones
+const api = new ReminderApiService()
+
+const { t } = useI18n()
 
 const reminders = ref([])
 const loading = ref(true)
@@ -69,21 +68,30 @@ function getCurrentUserId() {
 async function loadReminders() {
   loading.value = true
   try {
-    const res = await http.get('/reminders')
     const userId = getCurrentUserId()
-    reminders.value = res.data.filter(r => r.userId && String(r.userId) === String(userId))
+    if (!userId) {
+      reminders.value = []
+      loading.value = false
+      return
+    }
+    const res = await api.getByUserId(userId)
+    reminders.value = (res && res.data) ? res.data.filter(r => r.userId && String(r.userId) === String(userId)) : []
   } catch (e) {
-    const userId = getCurrentUserId()
-    reminders.value = ReminderStorageService.getAll().filter(r => r.userId && String(r.userId) === String(userId))
+    // Si falla la API dejamos la lista vacía (no se usa storage local)
+    reminders.value = []
   }
   loading.value = false
 }
 
-function deleteReminder(id) {
-  if (confirm(t('reminders.confirmDelete') || '¿Estás seguro de eliminar este recordatorio?')) {
-    http.delete(`/reminders/${id}`).catch(() => {})
-    ReminderStorageService.delete(id)
-    loadReminders()
+async function deleteReminder(id) {
+  if (!confirm(t('reminders.confirmDelete') || '¿Estás seguro de eliminar este recordatorio?')) return
+  try {
+    await api.delete(id)
+  } catch (e) {
+    // mínimo manejo de error: mostrar alerta traducida si existe
+    alert(t('reminders.errors.deleteFailed') || 'Error eliminando recordatorio')
+  } finally {
+    await loadReminders()
   }
 }
 

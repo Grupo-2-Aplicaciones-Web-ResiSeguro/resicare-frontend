@@ -1,12 +1,12 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h1 class="app-title">ResiCare</h1>
+      <h1 class="app-title">{{ t('iam.common.appName') }}</h1>
       <form @submit.prevent="onSubmit" class="login-form">
-        <pv-input-text v-model="email" placeholder="Correo electrónico" class="input" required autofocus />
-        <pv-input-text v-model="password" type="password" placeholder="Contraseña" class="input" required />
-        <pv-button type="submit" label="Iniciar sesión" class="w-full mb-2" />
-        <pv-button label="¿No tienes cuenta? Registrarse" class="w-full p-button-outlined" @click="goRegister" />
+        <pv-input-text v-model="email" :placeholder="t('iam.login.emailPlaceholder')" class="input" required autofocus />
+        <pv-input-text v-model="password" type="password" :placeholder="t('iam.login.passwordPlaceholder')" class="input" required />
+        <pv-button type="submit" :label="t('iam.login.submit')" class="w-full mb-2" />
+        <pv-button :label="t('iam.login.noAccount')" class="w-full p-button-outlined" @click="goRegister" />
         <pv-message v-if="error" severity="error" :closable="false">{{ error }}</pv-message>
       </form>
     </div>
@@ -18,9 +18,11 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { AuthService } from '../application/auth.service.js'
 import { TokenService } from '../infraestructure/token.service.js'
+import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
 const auth = new AuthService()
+const { t } = useI18n()
 
 const email = ref('')
 const password = ref('')
@@ -35,10 +37,10 @@ async function onSubmit() {
       localStorage.setItem('currentUser', JSON.stringify(res.user))
       router.push('/home')
     } else {
-      error.value = 'Credenciales inválidas'
+      error.value = t('iam.login.invalidCredentials')
     }
   } catch (e) {
-    error.value = 'Error de conexión'
+    error.value = t('iam.login.connectionError')
   }
 }
 

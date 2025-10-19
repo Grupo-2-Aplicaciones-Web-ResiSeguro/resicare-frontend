@@ -8,18 +8,6 @@
     </header>
 
     <div class="form-container">
-      <div class="search-bar">
-        <pv-input-text
-          v-model="searchQuery"
-          :placeholder="$t('registerObject.searchPlaceholder')"
-          class="search-input"
-        >
-          <template #suffix>
-            <i class="pi pi-search"></i>
-          </template>
-        </pv-input-text>
-      </div>
-
       <object-type-selector v-model="registeredObject.tipo" />
 
       <div class="form-group">
@@ -95,8 +83,6 @@ import { RegisteredObjectAssembler } from '../../Domain/registered-object.assemb
 const { t } = useI18n()
 const router = useRouter()
 const api = new RegisteredObjectApiService()
-
-const searchQuery = ref('')
 
 const registeredObject = reactive({
   tipo: '',
@@ -225,14 +211,6 @@ function goBack() {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.search-bar {
-  margin-bottom: 1rem;
-}
-
-.search-input {
-  width: 100%;
 }
 
 .form-group {

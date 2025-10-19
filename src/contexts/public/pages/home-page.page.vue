@@ -16,7 +16,7 @@
       </div>
 
       <div class="profile-actions">
-        <pv-button class="btn-ghost" :label="t('home.viewProfile') || 'Ver perfil'" icon="pi pi-user" />
+        <pv-button class="btn-ghost" :label="t('home.viewProfile') || 'Ver perfil'" icon="pi pi-user" @click="goToProfile" />
         <pv-button class="btn-ghost" :label="t('home.logout') || 'Cerrar sesión'" icon="pi pi-sign-out" @click="handleLogout" />
       </div>
     </section>
@@ -202,7 +202,7 @@ function onAction(key) {
     return
   }
   if (key === 'history') {
-    router.push({ name: 'claims' })
+    router.push({ name: 'claims-history' })
     return
   }
 
@@ -223,6 +223,20 @@ function goToMyClaims() {
 function handleLogout() {
   authService.logout()
   router.push('/login')
+}
+
+function goToProfile() {
+  try {
+    const userId = getCurrentUserId()
+    if (userId) {
+      router.push({ path: `/profile/${userId}` })
+    } else {
+      // si no hay id conocido, navegar a perfil genérico (la página resolverá user actual)
+      router.push({ path: '/profile' })
+    }
+  } catch (e) {
+    router.push({ path: '/profile' })
+  }
 }
 
 const svgAttrs = {

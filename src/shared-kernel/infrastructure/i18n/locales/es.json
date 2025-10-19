@@ -43,39 +43,48 @@
 
 
   "reminders": {
-    "title": "Prevenciones y Recordatorios",
-    "newTitle": "Nuevo Recordatorio",
-    "activeReminders": "Recordatorios activos",
-    "noReminders": "No tienes recordatorios activos",
+    "title": "Recordatorios",
+    "newTitle": "Nuevo recordatorio",
     "addReminder": "Agregar recordatorio",
-    "safetyTips": "Prevenciones y sugerencias de seguridad",
-    "tip1": "Guarda números de emergencia a la mano",
-    "tip2": "Verifica las salidas de emergencia en tu edificio",
-    "tip3": "Usa casco y cinturón de seguridad siempre",
-    "form": {
-      "name": "Nombre del recordatorio",
-      "type": "Tipo de recordatorio",
-      "date": "Fecha",
-      "time": "Hora",
-      "notes": "Notas adicionales",
-      "save": "Guardar recordatorio"
+    "activeReminders": "Recordatorios activos",
+    "loading": "Cargando recordatorios...",
+    "noReminders": "No hay recordatorios",
+    "confirmDelete": "¿Estás seguro de eliminar este recordatorio?",
+    "messages": {
+      "created": "Recordatorio creado correctamente"
     },
     "errors": {
-      "requiredFields": "Por favor completa todos los campos obligatorios.",
-      "invalidDate": "Formato de fecha inválido.",
-      "invalidTime": "Formato de hora inválido.",
-      "serverSave": "No se pudo guardar en el servidor, solo local."
+      "requiredFields": "Por favor completa todos los campos obligatorios",
+      "invalidTime": "Formato de hora inválido",
+      "invalidDateTime": "Fecha u hora inválida",
+      "pastDate": "No puedes crear recordatorios en el pasado",
+      "loginRequired": "Debes iniciar sesión para crear un recordatorio",
+      "serverSave": "Error guardando el recordatorio en el servidor",
+      "deleteFailed": "No se pudo eliminar el recordatorio"
     },
-    "messages": {
-      "created": "Recordatorio creado correctamente."
+    "form": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "date": "Fecha",
+      "time": "Hora",
+      "notes": "Notas",
+      "save": "Guardar",
+      "placeholderName": "Ej. Tomar medicamento",
+      "placeholderNotes": "Detalles adicionales...",
+      "placeholderDate": "Selecciona una fecha"
     },
     "types": {
-      "medicación": "Medicación",
+      "medicación": "Medicaci\u00f3n",
       "chequeo": "Chequeo",
       "pago": "Pago",
-      "prevención": "Prevención",
+      "prevención": "Prevenci\u00f3n",
       "seguridad": "Seguridad"
-    }
+    },
+    "deleteBtnAria": "Eliminar recordatorio",
+    "safetyTips": "Consejos de seguridad",
+    "tip1": "Ten a mano números de emergencia",
+    "tip2": "Comparte tu plan de seguridad con alguien de confianza",
+    "tip3": "Sigue las instrucciones médicas"
   },
 
 "claims": {
@@ -273,5 +282,70 @@
     },
     "hideDetail": "Ocultar detalle",
     "statusTitle": "Estado del Reclamo"
+  },
+  "iam": {
+    "common": {
+      "appName": "ResiCare"
+    },
+    "register": {
+      "namePlaceholder": "Nombre completo",
+      "emailPlaceholder": "Correo electrónico",
+      "passwordPlaceholder": "Contraseña",
+      "phonePlaceholder": "Teléfono",
+      "agePlaceholder": "Edad",
+      "residencePlaceholder": "Residencia",
+      "genderPlaceholder": "Género",
+      "educationPlaceholder": "Nivel de instrucción",
+      "submit": "Registrarse",
+      "haveAccount": "¿Ya tienes cuenta? Iniciar sesión",
+      "success": "Registrado con éxito. Por favor inicia sesión.",
+      "endpoint404": "Error: El endpoint de registro no existe (404). Contacta al administrador.",
+      "genericError": "Error registrando usuario",
+      "errorWithMsg": "Error: {msg}",
+      "connectionError": "Error de conexión: {msg}",
+      "gender": {
+        "male": "Masculino",
+        "female": "Femenino",
+        "other": "Otro"
+      }
+    },
+    "login": {
+      "emailPlaceholder": "Correo electrónico",
+      "passwordPlaceholder": "Contraseña",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿No tienes cuenta? Registrarse",
+      "invalidCredentials": "Credenciales inválidas",
+      "connectionError": "Error de conexión"
+    },
+    "profile": {
+      "viewTitle": "Mi perfil",
+      "editTitle": "Editar perfil",
+      "save": "Guardar",
+      "saveSuccess": "Perfil guardado correctamente",
+      "saveError": "Error al guardar el perfil",
+      "placeholderBio": "Información adicional sobre ti...",
+      "validationRequired": "Por favor completa los campos requeridos",
+      "welcome": "Bienvenido",
+      "loading": "Cargando perfil...",
+      "notFound": "Perfil no encontrado",
+      "errorWithMsg": "Error: {msg}",
+      "name": "Nombre",
+      "email": "Correo",
+      "age": "Edad",
+      "residence": "Residencia",
+      "phone": "Teléfono",
+      "gender": "Género",
+      "education": "Nivel de instrucción",
+      "edit": "Editar Perfil",
+      "photoDniAlt": "Foto DNI",
+      "photoCredAlt": "Foto Credencial",
+      "invalidEmail": "Correo electrónico inválido"
+    },
+    "education": {
+      "nivelInstruccion": "Nivel de instrucción",
+      "universitario": "Universitario",
+      "preUniversitario": "Preuniversitario",
+      "postgrado": "Postgrado"
+    }
   }
 }

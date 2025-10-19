@@ -43,39 +43,48 @@
   },
   
   "reminders": {
-    "title": "Reminders & Alerts",
-    "newTitle": "New Reminder",
-    "activeReminders": "Active reminders",
-    "noReminders": "No active reminders",
+    "title": "Reminders",
+    "newTitle": "New reminder",
     "addReminder": "Add reminder",
-    "safetyTips": "Safety and Prevention Tips",
-    "tip1": "Keep emergency numbers handy",
-    "tip2": "Check emergency exits in your building",
-    "tip3": "Always wear a helmet and seatbelt",
-    "form": {
-      "name": "Reminder name",
-      "type": "Reminder type",
-      "date": "Date",
-      "time": "Time",
-      "notes": "Additional notes",
-      "save": "Save reminder"
+    "activeReminders": "Active reminders",
+    "loading": "Loading reminders...",
+    "noReminders": "No reminders",
+    "confirmDelete": "Are you sure you want to delete this reminder?",
+    "messages": {
+      "created": "Reminder created successfully"
     },
     "errors": {
-      "requiredFields": "Please complete all required fields.",
-      "invalidDate": "Invalid date format.",
-      "invalidTime": "Invalid time format.",
-      "serverSave": "Could not save to the server, only locally."
+      "requiredFields": "Please fill required fields",
+      "invalidTime": "Invalid time format",
+      "invalidDateTime": "Invalid date/time",
+      "pastDate": "You can't create reminders in the past",
+      "loginRequired": "You must be logged in to create a reminder",
+      "serverSave": "Error saving reminder to server",
+      "deleteFailed": "Failed to delete reminder"
     },
-    "messages": {
-      "created": "Reminder created successfully."
+    "form": {
+      "name": "Name",
+      "type": "Type",
+      "date": "Date",
+      "time": "Time",
+      "notes": "Notes",
+      "save": "Save",
+      "placeholderName": "e.g. Take medication",
+      "placeholderNotes": "Additional details...",
+      "placeholderDate": "Select a date"
     },
     "types": {
       "medicación": "Medication",
-      "chequeo": "Check-up",
+      "chequeo": "Checkup",
       "pago": "Payment",
       "prevención": "Prevention",
-      "seguridad": "Safety"
-    }
+      "seguridad": "Security"
+    },
+    "deleteBtnAria": "Delete reminder",
+    "safetyTips": "Safety tips",
+    "tip1": "Keep emergency numbers handy",
+    "tip2": "Share your safety plan with a trusted person",
+    "tip3": "Follow medical instructions"
   },
 
 "claims": {
@@ -246,5 +255,70 @@
     },
     "hideDetail": "Hide detail",
     "statusTitle": "Claim Status"
+  },
+  "iam": {
+    "common": {
+      "appName": "ResiCare"
+    },
+    "register": {
+      "namePlaceholder": "Full name",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "phonePlaceholder": "Phone",
+      "agePlaceholder": "Age",
+      "residencePlaceholder": "Residence",
+      "genderPlaceholder": "Gender",
+      "educationPlaceholder": "Education level",
+      "submit": "Register",
+      "haveAccount": "Already have an account? Sign in",
+      "success": "Successfully registered. Please sign in.",
+      "endpoint404": "Error: Registration endpoint not found (404). Contact admin.",
+      "genericError": "Error registering user",
+      "errorWithMsg": "Error: {msg}",
+      "connectionError": "Connection error: {msg}",
+      "gender": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      }
+    },
+    "login": {
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account? Register",
+      "invalidCredentials": "Invalid credentials",
+      "connectionError": "Connection error"
+    },
+    "profile": {
+      "viewTitle": "My profile",
+      "editTitle": "Edit profile",
+      "save": "Save",
+      "saveSuccess": "Profile saved successfully",
+      "saveError": "Error saving profile",
+      "placeholderBio": "Additional information about you...",
+      "validationRequired": "Please complete required fields",
+      "welcome": "Welcome",
+      "loading": "Loading profile...",
+      "notFound": "Profile not found",
+      "errorWithMsg": "Error: {msg}",
+      "name": "Name",
+      "email": "Email",
+      "age": "Age",
+      "residence": "Residence",
+      "phone": "Phone",
+      "gender": "Gender",
+      "education": "Education level",
+      "edit": "Edit Profile",
+      "photoDniAlt": "ID Photo",
+      "photoCredAlt": "Credential Photo",
+      "invalidEmail": "Invalid email address"
+    },
+    "education": {
+      "nivelInstruccion": "Education level",
+      "universitario": "University",
+      "preUniversitario": "Pre-university",
+      "postgrado": "Postgraduate"
+    }
   }
 }

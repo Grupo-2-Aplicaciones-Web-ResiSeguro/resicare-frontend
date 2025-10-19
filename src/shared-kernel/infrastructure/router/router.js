@@ -14,7 +14,8 @@ import RegisterObjectPage from '@/contexts/registered-objects/presentation/pages
 import ReimbursementSimulatorPage from '@/contexts/reimbursement-simulator/presentation/pages/reimbursement-simulator.page.vue'
 import LoginPage from '@/contexts/iam/presentation/Login.vue'
 import RegisterPage from '@/contexts/iam/presentation/Register.vue'
-import ProfilePage from '@/contexts/iam/presentation/profile.page.vue'
+import ProfilePage from '@/contexts/profiles/presentation/pages/profile.page.vue'
+import ProfileEditPage from '@/contexts/profiles/presentation/pages/profile-edit.page.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
@@ -31,13 +32,19 @@ const routes = [
   { path: '/login', name: 'login', component: LoginPage },
   { path: '/register', name: 'register', component: RegisterPage },
 
+  // ruta para ver el perfil del usuario autenticado sin pasar userId
+  { path: '/profile', name: 'profile-self', component: ProfilePage, meta: { requiresAuth: true } },
+
   { path: '/profile/:userId', name: 'profile', component: ProfilePage, meta: { requiresAuth: true }, props: true },
+
+  { path: '/profile/edit', name: 'profile-edit-self', component: ProfileEditPage, meta: { requiresAuth: true } },
+  { path: '/profile/:userId/edit', name: 'profile-edit', component: ProfileEditPage, meta: { requiresAuth: true }, props: true },
 
   { path: '/reminders', name: 'reminders', component: RemindersPage, meta: { requiresAuth: true } },
   { path: '/reminders/new', name: 'new-reminder', component: NewReminderPage, meta: { requiresAuth: true } },
 
   // Claims routes (unified)
-  { path: '/claims', name: 'claims', component: ClaimsListPage, meta: { requiresAuth: true } },
+  { path: '/claims/history', name: 'claims-history', component: ClaimsListPage, meta: { requiresAuth: true } },
   { path: '/claims/new', name: 'new-claim', component: NewClaimPage, meta: { requiresAuth: true } },
   { path: '/claims/:id', name: 'claim-detail', component: ClaimDetailPage, props: true, meta: { requiresAuth: true } },
   { path: '/claims/:id/download', name: 'claim-download', component: ClaimDownloadPage, props: true, meta: { requiresAuth: true } },

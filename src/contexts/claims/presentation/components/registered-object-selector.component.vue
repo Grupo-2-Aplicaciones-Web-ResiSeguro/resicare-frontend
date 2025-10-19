@@ -57,10 +57,15 @@ const registeredObjects = computed(() => {
 
 onMounted(async () => {
   try {
-    const response = await api.getAll()
+    const userId = getCurrentUserId()
+    if (!userId) {
+      objectsList.value = []
+      return
+    }
+    const response = await api.getByUserId(userId)
     objectsList.value = RegisteredObjectAssembler.toEntitiesFromResponse(response)
   } catch (error) {
-    console.error('Error al cargar objetos registrados:', error)
+    console.error('Error al cargar objetos registrados del usuario:', error)
   }
 })
 
@@ -70,6 +75,37 @@ const selectObject = (value) => {
 
 const showRegisterDialog = () => {
   router.push({ name: 'register-object' })
+}
+
+function getCurrentUserId() {
+  try {
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    const token = localStorage.getItem('accessToken_v1')
+    if (!token) return null
+    if (token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+          Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    return String(token)
+  } catch {
+    return null
+  }
 }
 </script>
 

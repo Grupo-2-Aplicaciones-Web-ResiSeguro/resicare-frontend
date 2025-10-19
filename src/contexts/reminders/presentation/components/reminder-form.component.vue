@@ -2,66 +2,73 @@
   <form @submit.prevent="saveReminder" class="reminder-form">
     <div class="form-group">
       <label>{{ t('reminders.form.name') }}</label>
-      <input v-model="title" required :placeholder="t('reminders.form.placeholderName')" />
+      <pv-input-text v-model="title" required :placeholder="t('reminders.form.placeholderName')" />
     </div>
 
     <div class="form-group">
       <label>{{ t('reminders.form.type') }}</label>
       <div class="types">
-        <button
-            v-for="tItem in types"
-            :key="tItem"
-            type="button"
-            :class="{ active: type === tItem }"
-            @click="type = tItem"
-            :aria-pressed="type === tItem"
-        >
-          {{ t(`reminders.types.${tItem}`) }}
-        </button>
+        <pv-button
+          v-for="tItem in types"
+          :key="tItem"
+          type="button"
+          :class="{ active: type === tItem }"
+          @click="type = tItem"
+          :aria-pressed="type === tItem"
+          :label="t(`reminders.types.${tItem}`)"
+        />
       </div>
     </div>
 
     <div class="form-group">
       <label>{{ t('reminders.form.date') }}</label>
-      <input type="date" v-model="date" required />
+      <pv-date-picker v-model="date" :minDate="minDate" :showIcon="true" :placeholder="t('reminders.form.placeholderDate')" />
     </div>
 
     <div class="form-group">
       <label>{{ t('reminders.form.time') }}</label>
-      <input type="time" v-model="time" required />
+      <pv-input-text type="time" v-model="time" required />
     </div>
 
     <div class="form-group">
       <label>{{ t('reminders.form.notes') }}</label>
-      <textarea v-model="notes" :placeholder="t('reminders.form.placeholderNotes')"></textarea>
+      <pv-textarea v-model="notes" :placeholder="t('reminders.form.placeholderNotes')" />
     </div>
 
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     <p v-if="infoMessage" class="info-message">{{ infoMessage }}</p>
 
-    <button type="submit" class="save-btn">{{ t('reminders.form.save') }}</button>
+    <pv-button type="submit" class="save-btn" :label="t('reminders.form.save')" />
   </form>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Reminder } from '../../Domain/reminder.entity.js'
-import { ReminderStorageService } from '../../infrastructure/reminder-storage.service.js'
+import { ReminderApiService } from '../../infrastructure/reminder-api.service.js'
 import { useRouter } from 'vue-router'
-import { http } from '@/shared-kernel/infrastructure/http/http.js'
 
 const router = useRouter()
 const { t } = useI18n()
 
 const title = ref('')
 const type = ref('')
-const date = ref('')
+// date now holds a Date object from pv-date-picker
+const date = ref(null)
 const time = ref('')
 const notes = ref('')
 const types = ['medicación', 'chequeo', 'pago', 'prevención', 'seguridad']
 const errorMessage = ref('')
 const infoMessage = ref('')
+const api = new ReminderApiService()
+
+// minDate: hoy (inicio del día)
+const minDate = computed(() => {
+  const d = new Date()
+  d.setHours(0,0,0,0)
+  return d
+})
 
 function createId() {
   try {
@@ -70,19 +77,45 @@ function createId() {
   return `r-${Date.now()}`
 }
 
+function formatDateToYYYYMMDD(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 function validate() {
   if (!title.value || !type.value || !date.value || !time.value) {
-    errorMessage.value = t('reminders.errors.requiredFields')
+    errorMessage.value = t('reminders.errors.requiredFields') || 'Faltan campos requeridos'
     return false
   }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date.value)) {
-    errorMessage.value = t('reminders.errors.invalidDate')
-    return false
-  }
+
+  // time validation HH:MM
   if (!/^\d{2}:\d{2}$/.test(time.value)) {
-    errorMessage.value = t('reminders.errors.invalidTime')
+    errorMessage.value = t('reminders.errors.invalidTime') || 'Formato de hora inválido'
     return false
   }
+
+  // Construir datetime con la fecha elegida y la hora
+  try {
+    const chosenDate = new Date(date.value)
+    const [hh, mm] = time.value.split(':').map(n => parseInt(n, 10))
+    chosenDate.setHours(hh, mm, 0, 0)
+
+    const now = new Date()
+    if (isNaN(chosenDate.getTime())) {
+      errorMessage.value = t('reminders.errors.invalidDateTime') || 'Fecha u hora inválida'
+      return false
+    }
+    if (chosenDate < now) {
+      errorMessage.value = t('reminders.errors.pastDate') || 'No puedes crear recordatorios en el pasado'
+      return false
+    }
+  } catch (e) {
+    errorMessage.value = t('reminders.errors.invalidDateTime') || 'Fecha u hora inválida'
+    return false
+  }
+
   errorMessage.value = ''
   return true
 }
@@ -99,7 +132,7 @@ function getCurrentUserId() {
     }
     const token = localStorage.getItem('accessToken_v1')
     if (!token) return null
-    if (token.split('.').length === 3) {
+    if (token.split && token.split('.').length === 3) {
       try {
         const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
         const pad = payloadB64.length % 4
@@ -123,26 +156,32 @@ async function saveReminder() {
 
   const id = createId()
   const userId = getCurrentUserId()
+  if (!userId) {
+    errorMessage.value = t('reminders.errors.loginRequired') || 'Debes iniciar sesión para crear un recordatorio'
+    return
+  }
+
+  const dateStr = formatDateToYYYYMMDD(new Date(date.value))
+
   const reminderObj = new Reminder({
     id,
     title: title.value.trim(),
     type: type.value,
-    date: date.value,
+    date: dateStr,
     time: time.value,
     notes: notes.value.trim(),
     createdAt: new Date().toISOString(),
     userId // Asigna el userId del usuario logueado
   })
 
-  ReminderStorageService.create(reminderObj)
-
   try {
-    await http.post('/reminders', reminderObj)
+    await api.create(reminderObj)
   } catch (e) {
-    errorMessage.value = t('reminders.errors.serverSave')
+    errorMessage.value = t('reminders.errors.serverSave') || 'Error guardando en el servidor'
+    return
   }
 
-  infoMessage.value = t('reminders.messages.created')
+  infoMessage.value = t('reminders.messages.created') || 'Recordatorio creado'
   setTimeout(() => {
     router.push('/reminders')
   }, 250)
@@ -155,19 +194,28 @@ async function saveReminder() {
   display: flex;
   flex-direction: column;
 }
-.types button {
+
+/* for native p-button (pv-button) inside .types: make them visible by default */
+.types .p-button {
   margin-right: 8px;
   margin-top: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
-  padding: 4px 8px;
-  background: none;
+  padding: 6px 10px;
+  background-color: #f8fafc;
+  color: #0f172a;
   cursor: pointer;
+  box-shadow: none;
 }
-.active {
-  background-color: #16a34a;
-  color: white;
+.types .p-button:hover {
+  background-color: #eef2ff;
 }
+.types .p-button.active {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+}
+
 .save-btn {
   width: 100%;
   padding: 10px;

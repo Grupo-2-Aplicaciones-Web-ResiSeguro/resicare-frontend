@@ -8,14 +8,16 @@
       <p v-if="reminder.notes" class="notes">{{ reminder.notes }}</p>
     </div>
 
-    <button class="delete-btn" @click="$emit('delete', reminder.id)" aria-label="Eliminar recordatorio">
+    <pv-button class="delete-btn" @click="$emit('delete', reminder.id)" :aria-label="t('reminders.deleteBtnAria') || 'Eliminar recordatorio'">
       🗑️
-    </button>
+    </pv-button>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const props = defineProps({ reminder: Object });
 
 const emoji = computed(() => {

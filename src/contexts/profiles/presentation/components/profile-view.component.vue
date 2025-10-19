@@ -51,9 +51,6 @@
           <small class="muted">
             {{ createdAtLabel }} {{ formattedCreatedAt }}
           </small>
-          <small class="muted" v-if="profile.lastSyncedAt">
-            • {{ lastSyncedLabel }} {{ formattedLastSynced }}
-          </small>
         </div>
       </section>
 
@@ -145,13 +142,6 @@ const formattedCreatedAt = computed(() => {
   }
 })
 
-const formattedLastSynced = computed(() => {
-  try {
-    const d = props.profile?.lastSyncedAt ? new Date(props.profile.lastSyncedAt) : null
-    return d && !isNaN(d.getTime()) ? d.toLocaleString() : '-'
-  } catch { return '-' }
-})
-
 // display helpers: si vienen objetos, mostrar label o value; si vienen strings, mostrar directamente
 const displayGenero = computed(() => {
   const g = props.profile?.genero
@@ -185,10 +175,6 @@ const bioLabel = computed(() => {
 
 const createdAtLabel = computed(() => {
   return safeTranslation('iam.profile.createdAt', 'Creado:')
-})
-
-const lastSyncedLabel = computed(() => {
-  return safeTranslation('iam.profile.lastSyncedAt', 'Última sincronización:')
 })
 </script>
 

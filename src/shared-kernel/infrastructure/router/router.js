@@ -9,6 +9,7 @@ import ClaimsListPage from '@/contexts/claims/presentation/pages/claims-list.pag
 import NewClaimPage from '@/contexts/claims/presentation/pages/new-claim.page.vue'
 import ClaimDetailPage from '@/contexts/claims/presentation/pages/claim-detail.page.vue'
 import ClaimDownloadPage from '@/contexts/claims/presentation/pages/claim-download.page.vue'
+import ClaimsHistoryPage from '@/contexts/claims/presentation/pages/claims-history.page.vue'
 
 import RegisterObjectPage from '@/contexts/registered-objects/presentation/pages/register-object.page.vue'
 import ReimbursementSimulatorPage from '@/contexts/reimbursement-simulator/presentation/pages/reimbursement-simulator.page.vue'
@@ -32,9 +33,16 @@ const routes = [
   { path: '/login', name: 'login', component: LoginPage },
   { path: '/register', name: 'register', component: RegisterPage },
 
-  // ruta para ver el perfil del usuario autenticado sin pasar userId
-  { path: '/profile', name: 'profile-self', component: ProfilePage, meta: { requiresAuth: true } },
+  // My Claims (pendientes/in_review)
+  { path: '/claims', name: 'claims', component: ClaimsListPage, meta: { requiresAuth: true } },
+  // ruta para ver el historial de claims resueltos
+  { path: '/claims/history', name: 'claims-history', component: ClaimsHistoryPage, meta: { requiresAuth: true } },
 
+  { path: '/claims/new', name: 'new-claim', component: NewClaimPage, meta: { requiresAuth: true } },
+  { path: '/claims/:id', name: 'claim-detail', component: ClaimDetailPage, props: true, meta: { requiresAuth: true } },
+  { path: '/claims/:id/download', name: 'claim-download', component: ClaimDownloadPage, props: true, meta: { requiresAuth: true } },
+
+  { path: '/profile', name: 'profile-self', component: ProfilePage, meta: { requiresAuth: true } },
   { path: '/profile/:userId', name: 'profile', component: ProfilePage, meta: { requiresAuth: true }, props: true },
 
   { path: '/profile/edit', name: 'profile-edit-self', component: ProfileEditPage, meta: { requiresAuth: true } },
@@ -42,12 +50,6 @@ const routes = [
 
   { path: '/reminders', name: 'reminders', component: RemindersPage, meta: { requiresAuth: true } },
   { path: '/reminders/new', name: 'new-reminder', component: NewReminderPage, meta: { requiresAuth: true } },
-
-  // Claims routes (unified)
-  { path: '/claims/history', name: 'claims-history', component: ClaimsListPage, meta: { requiresAuth: true } },
-  { path: '/claims/new', name: 'new-claim', component: NewClaimPage, meta: { requiresAuth: true } },
-  { path: '/claims/:id', name: 'claim-detail', component: ClaimDetailPage, props: true, meta: { requiresAuth: true } },
-  { path: '/claims/:id/download', name: 'claim-download', component: ClaimDownloadPage, props: true, meta: { requiresAuth: true } },
 
   { path: '/register-object', name: 'register-object', component: RegisterObjectPage, meta: { requiresAuth: true } },
   { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, meta: { requiresAuth: true } },

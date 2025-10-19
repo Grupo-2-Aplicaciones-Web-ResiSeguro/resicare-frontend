@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <header class="page-header">
-      <button class="back-btn" @click="$router.push('/reminders')">← Back</button>
-      <h1>Nuevo Recordatorio</h1>
+      <pv-button class="back-btn" @click="$router.push('/reminders')" icon="pi pi-arrow-left" :label="t('common.back')" />
+      <h1>{{ t('reminders.newTitle') || 'Nuevo Recordatorio' }}</h1>
     </header>
 
     <reminder-form />
@@ -11,6 +11,9 @@
 
 <script setup>
 import ReminderForm from '../components/reminder-form.component.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>
@@ -47,4 +50,3 @@ h1 {
   margin: 0;
 }
 </style>
-

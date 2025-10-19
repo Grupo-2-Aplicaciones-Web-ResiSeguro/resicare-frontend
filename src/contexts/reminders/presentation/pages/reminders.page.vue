@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <header class="page-header">
-      <button class="back-btn" @click="$router.push('/')">
-        ← {{ t('common.back') }}
-      </button>
+      <pv-button class="back-btn" @click="$router.push('/')" icon="pi pi-arrow-left" :label="t('common.back')" />
       <h1>{{ t('reminders.title') }}</h1>
     </header>
 

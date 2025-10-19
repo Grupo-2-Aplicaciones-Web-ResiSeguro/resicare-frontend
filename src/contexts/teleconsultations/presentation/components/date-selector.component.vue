@@ -7,6 +7,7 @@
       class="form-control"
       :placeholder="t('teleconsultations.selectTime')"
       date-format="yy-mm-dd"
+      :minDate="minDate"
     />
   </div>
 </template>
@@ -26,8 +27,45 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
+// minDate = hoy (inicio del día)
+const minDate = computed(() => {
+  const d = new Date()
+  d.setHours(0, 0, 0, 0)
+  return d
+})
+
+function parseToDate(v) {
+  if (!v) return null
+  if (v instanceof Date) return v
+  // aceptar strings tipo "YYYY-MM-DD" o ISO
+  const parsed = new Date(v)
+  return isNaN(parsed.getTime()) ? null : parsed
+}
+
+function formatDateToYYYYMMDD(d) {
+  if (!(d instanceof Date) || isNaN(d.getTime())) return ''
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 const localValue = computed({
-  get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
+  get: () => {
+    return parseToDate(props.modelValue)
+  },
+  set: (val) => {
+    // normalizar: si val es anterior a minDate, usar minDate
+    let chosen = parseToDate(val)
+    if (!chosen) {
+      emit('update:modelValue', '')
+      return
+    }
+    if (chosen < minDate.value) {
+      chosen = new Date(minDate.value)
+    }
+    // emitir en formato YYYY-MM-DD para consistencia
+    emit('update:modelValue', formatDateToYYYYMMDD(chosen))
+  }
 })
 </script>

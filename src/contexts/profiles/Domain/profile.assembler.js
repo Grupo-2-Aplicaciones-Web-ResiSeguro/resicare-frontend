@@ -1,17 +1,41 @@
 import { Profile } from './profile.entity'
 
+function optToString(opt) {
+    if (opt == null) return ''
+    if (typeof opt === 'string') return opt
+    if (typeof opt === 'object') return (opt.value ?? opt.label ?? '')
+    return String(opt)
+}
+
 export class ProfileAssembler {
     static toEntitiesFromResponse(response) {
-        if (response.status !== 200) {
-            console.error(`${response.status}, ${response.code}, ${response.message}`)
+        // aceptar cualquier 2xx
+        if (!response || typeof response.status !== 'number' || response.status < 200 || response.status >= 300) {
+            console.error(`${response?.status}, ${response?.code}, ${response?.message}`)
             return []
         }
         const profilesResponse = response.data
+        if (!Array.isArray(profilesResponse)) return []
         return profilesResponse.map((profile) => this.toEntityFromResource(profile))
     }
 
-    static toEntityFromResource(resource) {
-        return new Profile(resource)
+    static toEntityFromResource(resource = {}) {
+        // normalizar campos que pueden venir como {label,value} o string
+        return new Profile({
+            id: resource.id ?? resource._id ?? '',
+            userId: resource.userId ?? resource.user_id ?? '',
+            nombre: resource.nombre ?? resource.name ?? '',
+            correo: resource.correo ?? resource.email ?? '',
+            edad: resource.edad ?? resource.age ?? 0,
+            residencia: resource.residencia ?? resource.residence ?? '',
+            telefono: resource.telefono ?? resource.phone ?? '',
+            genero: optToString(resource.genero),
+            nivelInstruccion: optToString(resource.nivelInstruccion),
+            fotoDni: resource.fotoDni ?? resource.foto_dni ?? '',
+            fotoCredencial: resource.fotoCredencial ?? resource.foto_credencial ?? '',
+            createdAt: resource.createdAt ?? resource.created_at ?? null,
+            lastSyncedAt: resource.lastSyncedAt ?? resource.last_synced_at ?? null
+        })
     }
 
     static fromUserRegisteredEvent(evt) {

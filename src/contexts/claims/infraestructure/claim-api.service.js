@@ -30,4 +30,9 @@ export class ClaimApiService {
     const response = await http.delete(`/claims/${id}`)
     return response
   }
+
+  async rate(id, rating) {
+    const response = await http.patch(`/claims/${id}`, { rating })
+    return response
+  }
 }

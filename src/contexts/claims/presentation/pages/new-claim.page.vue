@@ -71,6 +71,37 @@ const isFormValid = computed(() => {
          claim.objectRegistered
 })
 
+function getCurrentUserId() {
+  try {
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    const token = localStorage.getItem('accessToken_v1') || localStorage.getItem('token')
+    if (!token) return null
+    if (token.split && token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+          Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
 async function onSubmit() {
   if (!isFormValid.value) {
     alert(t('claims.pleaseCompleteForm'))
@@ -80,8 +111,7 @@ async function onSubmit() {
   try {
     const filesData = await convertFilesToBase64(claim.documents)
 
-    // Get current user ID from localStorage
-    const userId = localStorage.getItem('accessToken_v1') || '1'
+    const userId = getCurrentUserId() || '1'
 
     const claimData = {
       type: claim.type,
@@ -95,7 +125,20 @@ async function onSubmit() {
     }
 
     const resource = ClaimAssembler.toResourceFromEntity(claimData)
-    await api.create(resource)
+    const resp = await api.create(resource)
+    // opcional: si backend devuelve el recurso creado, podríamos usarlo
+    // aseguramos que el reclamo quede en "My claims" (pendiente). Luego redirigimos.
+    if (resp && (resp.status >= 200 && resp.status < 300)) {
+      // redirigir al home (requerido)
+      router.push('/home')
+      // reset form
+      claim.type = ''
+      claim.incidentDate = ''
+      claim.description = ''
+      claim.objectRegistered = ''
+      claim.documents = []
+      return
+    }
 
     alert(t('claims.claimSubmittedSuccess'))
 
@@ -106,7 +149,8 @@ async function onSubmit() {
     claim.objectRegistered = ''
     claim.documents = []
 
-    router.push('/claims')
+    // redirigir al home por defecto
+    router.push('/home')
   } catch (error) {
     alert(t('claims.claimSubmitError'))
     console.error('Error submitting claim:', error)
@@ -134,7 +178,7 @@ async function convertFilesToBase64(files) {
 }
 
 function goBack() {
-  router.back()
+  router.push('/home')
 }
 </script>
 

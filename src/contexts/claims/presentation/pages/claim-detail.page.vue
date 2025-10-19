@@ -2,18 +2,19 @@
   <section class="claim-detail-page">
     <header class="page-header">
       <button class="back-btn" type="button" @click="goBack">← {{ t('common.back') }}</button>
-      <h1>{{ t('claims.detailTitle') || 'Claim Details' }}</h1>
+      <h1>{{ t('claims.detailTitle') }}</h1>
     </header>
 
     <div v-if="loading" class="loading">
-      {{ t('common.loading') || 'Loading' }}...
+      {{ t('common.loading') }}...
     </div>
 
     <div v-else-if="claim.id" class="detail-card">
       <div class="row">
         <img src="/images/NOTA.png" alt="nota" class="row-icon"/>
         <div class="label">{{ t('claims.number') }}</div>
-        <div class="value">{{ claim.number }}</div>
+        <!-- mostrar number si existe, sino id -->
+        <div class="value">{{ claim.number || claim.id }}</div>
       </div>
 
       <div class="row">
@@ -43,17 +44,24 @@
         <div class="value">{{ claim.description }}</div>
       </div>
 
-      <h3 class="section-title">{{ t('claims.objectRegistered') || 'Registered Object' }}</h3>
+      <h3 class="section-title">{{ t('claims.objectRegistered') }}</h3>
       <div class="object-card">
         <img :src="getObjectImage(claim.objectRegistered)" alt="obj"/>
         <div class="obj-info">
           <div class="obj-title">{{ getObjectTitle(claim.objectRegistered) }}</div>
-          <div class="obj-sub">{{ getObjectSubtitle(claim.objectRegistered) }}</div>
+          <div class="obj-sub">
+            <div v-if="claim.objectRegistered && typeof claim.objectRegistered === 'object'">
+              <div v-if="claim.objectRegistered.price"><strong>{{ t('claims.price') }}:</strong> {{ claim.objectRegistered.price }}</div>
+              <div v-if="claim.objectRegistered.serialNumber"><strong>S/N:</strong> {{ claim.objectRegistered.serialNumber }}</div>
+              <div v-if="claim.objectRegistered.description"><strong>{{ t('claims.description') }}:</strong> {{ claim.objectRegistered.description }}</div>
+            </div>
+            <div v-else>{{ getObjectSubtitle(claim.objectRegistered) }}</div>
+          </div>
         </div>
       </div>
 
       <div v-if="claim.documents && claim.documents.length > 0" class="documents-section">
-        <h3 class="section-title">{{ t('claims.documents') || 'Documents' }}</h3>
+        <h3 class="section-title">{{ t('claims.documents') }}</h3>
         <div class="documents-list">
           <div v-for="(doc, idx) in claim.documents" :key="idx" class="document-item">
             📄 {{ doc.name || `Document ${idx + 1}` }}
@@ -63,16 +71,22 @@
 
       <div class="download-row">
         <pv-button
-          :label="t('claims.downloadProof') || 'Download Proof'"
+          :label="t('claims.downloadProof')"
           icon="pi pi-download"
           class="btn-primary"
           @click="downloadProof(claim.id)"
+        />
+        <pv-button
+          :label="t('claims.advisor')"
+          icon="pi pi-user"
+          class="btn-outline"
+          @click="openAdvisor()"
         />
       </div>
     </div>
 
     <pv-message v-else severity="error">
-      {{ t('claims.notFound') || 'Claim not found' }}
+      {{ t('claims.notFound') }}
     </pv-message>
   </section>
 </template>
@@ -83,6 +97,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ClaimApiService } from '../../infraestructure/claim-api.service.js'
 import { ClaimAssembler } from '../../Domain/claim.assembler.js'
+import { RegisteredObjectApiService } from '@/contexts/registered-objects/infraestructure/registered-object-api.service.js'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -90,12 +105,33 @@ const router = useRouter()
 const claim = ref({})
 const loading = ref(true)
 const api = new ClaimApiService()
+const regApi = new RegisteredObjectApiService()
+const registeredObjectDetails = ref(null)
 
 async function loadClaim() {
   try {
     const response = await api.getById(route.params.id)
-    if (response.status === 200) {
-      claim.value = ClaimAssembler.toEntityFromResource(response.data)
+    if (response && response.status >= 200 && response.status < 300) {
+      // response.data puede ser objeto o array
+      const resData = response.data ?? response
+      const resource = Array.isArray(resData) ? resData[0] : resData
+      claim.value = ClaimAssembler.toEntityFromResource(resource)
+
+      // Si objectRegistered es un id (string/number), intentar cargar el objeto registrado
+      const obj = resource.objectRegistered
+      if (obj && (typeof obj === 'string' || typeof obj === 'number')) {
+        try {
+          const r = await regApi.getById(String(obj))
+          registeredObjectDetails.value = (r && r.data) ? (Array.isArray(r.data) ? r.data[0] : r.data) : r
+        } catch (e) {
+          // noop: dejamos registeredObjectDetails en null si falla
+          console.warn('No se pudo cargar registered object:', e)
+        }
+      } else if (obj && typeof obj === 'object') {
+        registeredObjectDetails.value = obj
+      } else {
+        registeredObjectDetails.value = null
+      }
     }
   } catch (error) {
     console.error('Error loading claim:', error)
@@ -108,8 +144,15 @@ function downloadProof(id) {
   router.push({ path: `/claims/${id}/download` })
 }
 
+function openAdvisor() {
+  // acción simple: abrir modal o navegar a página de asesoría.
+  // Aquí por ahora mostramos alerta y dejamos espacio para integrar un flujo real.
+  alert(t('claims.advisorContact'))
+}
+
 function goBack() {
-  router.back()
+  // volver a My Claims (seguro)
+  router.push({ path: '/claims' })
 }
 
 function formatDate(dateString) {
@@ -120,41 +163,59 @@ function formatDate(dateString) {
 
 function getTypeLabel(type) {
   const types = {
-    accident: t('claims.accident') || 'Accident',
-    theft: t('claims.theft') || 'Theft',
-    loss: t('claims.loss') || 'Loss',
-    damage: t('claims.damage') || 'Damage'
+    accident: t('claims.accident'),
+    theft: t('claims.theft'),
+    loss: t('claims.loss'),
+    damage: t('claims.damage')
   }
   return types[type] || type
 }
 
 function getStatusLabel(status) {
   const statuses = {
-    pending: t('claims.statusPending') || 'Pending',
-    in_review: t('claims.statusInReview') || 'In Review',
-    approved: t('claims.statusApproved') || 'Approved',
-    rejected: t('claims.statusRejected') || 'Rejected'
+    pending: t('claims.statusPending'),
+    in_review: t('claims.statusInReview'),
+    approved: t('claims.statusApproved'),
+    rejected: t('claims.statusRejected')
   }
   return statuses[status] || status
 }
 
 function getObjectImage(obj) {
+  const det = registeredObjectDetails.value
+  if (det && det.foto) return det.foto
+  if (det && det.image) return det.image
   if (!obj) return '/images/placeholder.png'
   if (typeof obj === 'object' && obj.image) return obj.image
   return '/images/placeholder.png'
 }
 
 function getObjectTitle(obj) {
+  const det = registeredObjectDetails.value
+  if (det) {
+    return det.nombre || det.name || det.title || (det.id ? `Object: ${det.id}` : 'N/A')
+  }
   if (!obj) return 'N/A'
-  if (typeof obj === 'object' && obj.name) return obj.name
+  if (typeof obj === 'object' && (obj.name || obj.title || obj.nombre)) return obj.name || obj.title || obj.nombre
   if (typeof obj === 'string') return obj
   return `Object ID: ${obj}`
 }
 
 function getObjectSubtitle(obj) {
+  const det = registeredObjectDetails.value
+  if (det && (det.price || det.numeroSerie || det.serialNumber || det.descripcion || det.description)) {
+    const parts = []
+    if (det.price) parts.push(`${t('claims.price')}: ${det.price}`)
+    if (det.numeroSerie || det.serialNumber) parts.push(`S/N: ${det.numeroSerie || det.serialNumber}`)
+    if (det.descripcion || det.description) parts.push(`${t('claims.description')}: ${det.descripcion || det.description}`)
+    return parts.join(' • ')
+  }
   if (!obj) return ''
   if (typeof obj === 'object') {
-    return obj.serialNumber ? `S/N: ${obj.serialNumber}` : ''
+    const parts = []
+    if (obj.serialNumber) parts.push(`S/N: ${obj.serialNumber}`)
+    if (obj.price) parts.push(`Price: ${obj.price}`)
+    return parts.join(' • ')
   }
   return ''
 }
@@ -306,6 +367,22 @@ onMounted(() => {
 
 .btn-primary:hover {
   opacity: 0.9;
+}
+
+.btn-outline {
+  background: none;
+  color: var(--vt-c-indigo);
+  border: 2px solid var(--vt-c-indigo);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-outline:hover {
+  background: var(--vt-c-indigo);
+  color: #fff;
 }
 
 @media (max-width: 768px) {

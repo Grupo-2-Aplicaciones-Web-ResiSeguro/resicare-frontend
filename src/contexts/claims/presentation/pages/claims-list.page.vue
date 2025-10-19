@@ -4,11 +4,11 @@
       <button class="back-btn" type="button" @click="goBack">
         ← {{ $t('common.back') }}
       </button>
-      <h1>{{ $t('claims.title') || 'My Claims' }}</h1>
+      <h1>{{ $t('claims.title') }}</h1>
     </header>
 
     <div v-if="loading" class="loading">
-      {{ $t('common.loading') || 'Loading' }}...
+      {{ $t('common.loading') }}...
     </div>
 
     <div v-else>
@@ -38,7 +38,7 @@
 
           <div class="claim-actions">
             <pv-button
-              :label="$t('claims.viewDetails') || 'View Details'"
+              :label="$t('claims.viewDetails')"
               icon="pi pi-eye"
               class="btn-outline"
               @click="viewDetails(claim.id)"
@@ -48,7 +48,7 @@
       </div>
 
       <pv-message v-else severity="info" class="no-claims-message">
-        {{ $t('myclaims.noClaims') || 'No claims found' }}
+        {{ $t('myclaims.noClaims') }}
       </pv-message>
     </div>
   </section>
@@ -67,13 +67,53 @@ const claims = ref([])
 const loading = ref(true)
 const api = new ClaimApiService()
 
-async function loadClaims() {
+function getCurrentUserId() {
   try {
-    const userId = localStorage.getItem('accessToken_v1') || '1'
-    const response = await api.getByUserId(userId)
+    const currentUserRaw = localStorage.getItem('currentUser')
+    if (currentUserRaw) {
+      try {
+        const parsed = JSON.parse(currentUserRaw)
+        const candidate = parsed.id ?? parsed.userId ?? parsed.sub ?? parsed.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    const token = localStorage.getItem('accessToken_v1') || localStorage.getItem('token')
+    if (!token) return null
+    if (token.split && token.split('.').length === 3) {
+      try {
+        const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+        const pad = payloadB64.length % 4
+        const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
+        const payloadJson = decodeURIComponent(
+            Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        )
+        const payload = JSON.parse(payloadJson)
+        const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null
+        if (candidate) return String(candidate)
+      } catch {}
+    }
+    return null
+  } catch {
+    return null
+  }
+}
 
-    if (response.status === 200) {
-      claims.value = ClaimAssembler.toEntitiesFromResponse(response)
+async function loadClaims() {
+  loading.value = true
+  try {
+    const userId = getCurrentUserId()
+    if (!userId) {
+      claims.value = []
+      loading.value = false
+      return
+    }
+    const response = await api.getByUserId(userId)
+    if (response && response.status >= 200 && response.status < 300) {
+      const all = ClaimAssembler.toEntitiesFromResponse(response)
+      // mostrar solo reclamos pendientes / en revisión en "My claims"
+      claims.value = (all || []).filter(c => c.status === 'pending' || c.status === 'in_review')
+    } else {
+      claims.value = []
     }
   } catch (error) {
     console.error('Error loading claims:', error)
@@ -87,7 +127,7 @@ function viewDetails(id) {
 }
 
 function goBack() {
-  router.back()
+  router.push('/home')
 }
 
 function formatDate(dateString) {
@@ -98,20 +138,20 @@ function formatDate(dateString) {
 
 function getTypeLabel(type) {
   const types = {
-    accident: t('claims.accident') || 'Accident',
-    theft: t('claims.theft') || 'Theft',
-    loss: t('claims.loss') || 'Loss',
-    damage: t('claims.damage') || 'Damage'
+    accident: t('claims.accident'),
+    theft: t('claims.theft'),
+    loss: t('claims.loss'),
+    damage: t('claims.damage')
   }
   return types[type] || type
 }
 
 function getStatusLabel(status) {
   const statuses = {
-    pending: t('claims.statusPending') || 'Pending',
-    in_review: t('claims.statusInReview') || 'In Review',
-    approved: t('claims.statusApproved') || 'Approved',
-    rejected: t('claims.statusRejected') || 'Rejected'
+    pending: t('claims.statusPending'),
+    in_review: t('claims.statusInReview'),
+    approved: t('claims.statusApproved'),
+    rejected: t('claims.statusRejected')
   }
   return statuses[status] || status
 }

@@ -34,7 +34,7 @@ export class ProfileAssembler {
             fotoDni: resource.fotoDni ?? resource.foto_dni ?? '',
             fotoCredencial: resource.fotoCredencial ?? resource.foto_credencial ?? '',
             createdAt: resource.createdAt ?? resource.created_at ?? null,
-            lastSyncedAt: resource.lastSyncedAt ?? resource.last_synced_at ?? null
+            bio: resource.bio ?? resource.biography ?? ''
         })
     }
 
@@ -49,7 +49,7 @@ export class ProfileAssembler {
             fotoDni: '',
             fotoCredencial: '',
             createdAt: evt.data.createdAt || new Date().toISOString(),
-            lastSyncedAt: new Date().toISOString()
+            bio: ''
         })
     }
 }

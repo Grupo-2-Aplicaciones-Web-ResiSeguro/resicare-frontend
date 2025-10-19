@@ -12,7 +12,7 @@ export class Profile {
         fotoDni = '',
         fotoCredencial = '',
         createdAt = null,
-        lastSyncedAt = null
+        bio = ''
     } = {}) {
         this.id = id
         this.userId = userId
@@ -26,7 +26,6 @@ export class Profile {
         this.fotoDni = fotoDni
         this.fotoCredencial = fotoCredencial
         this.createdAt = createdAt
-        this.lastSyncedAt = lastSyncedAt
+        this.bio = bio
     }
 }
-

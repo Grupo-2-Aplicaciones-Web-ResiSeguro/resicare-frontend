@@ -9,7 +9,8 @@ export class Claim {
     description = '',
     objectRegistered = null,
     documents = [],
-    userId = ''
+    userId = '',
+    rating = null
   } = {}) {
     this.id = id
     this.number = number
@@ -21,5 +22,6 @@ export class Claim {
     this.objectRegistered = objectRegistered
     this.documents = documents
     this.userId = userId
+    this.rating = rating
   }
 }

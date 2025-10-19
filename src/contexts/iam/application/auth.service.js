@@ -31,7 +31,11 @@ export class AuthService {
         const signupPayload = {
             name: formData.nombre,
             email: formData.correo,
-            password: formData.password
+            password: formData.password,
+            // Asignar rol por defecto al registrarse desde el frontend
+            rol: 'cliente',
+            // Guardar fecha de creación del usuario
+            createdAt: new Date().toISOString()
         }
         let resp
         try {
@@ -56,6 +60,8 @@ export class AuthService {
             edad: formData.edad || 0,
             genero: formData.genero || '',
             nivelInstruccion: formData.nivelInstruccion || '',
+            // Registrar fecha de creación del profile
+            createdAt: new Date().toISOString(),
         }
 
         try {

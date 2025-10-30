@@ -18,8 +18,13 @@ import RegisterPage from '@/contexts/iam/presentation/Register.vue'
 import ProfilePage from '@/contexts/profiles/presentation/pages/profile.page.vue'
 import ProfileEditPage from '@/contexts/profiles/presentation/pages/profile-edit.page.vue'
 
+// Chat context
+import ChatPage from '@/contexts/chat/presentation/pages/chat.page.vue'
+import AdviserDashboardPage from '@/contexts/chat/presentation/pages/adviser-dashboard.page.vue'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { TokenService } from '@/contexts/iam/infraestructure/token.service.js'
+import { isAdviser } from '@/shared-kernel/infrastructure/auth/auth.guards.js'
 
 
 const routes = [
@@ -54,6 +59,10 @@ const routes = [
   { path: '/register-object', name: 'register-object', component: RegisterObjectPage, meta: { requiresAuth: true } },
   { path: '/reimbursement-simulator', name: 'reimbursement-simulator', component: ReimbursementSimulatorPage, meta: { requiresAuth: true } },
 
+  // Chat routes
+  { path: '/chat/:claimId', name: 'chat', component: ChatPage, props: true, meta: { requiresAuth: true } },
+  { path: '/adviser/dashboard', name: 'adviser-dashboard', component: AdviserDashboardPage, meta: { requiresAuth: true, requiresAdviser: true } },
+
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent },
 ]
 
@@ -74,11 +83,25 @@ router.beforeEach((to, from, next) => {
   }
 
   if (token && isAuthRoute) {
+    if (isAdviser()) {
+      return next({ path: '/adviser/dashboard' })
+    }
     return next({ path: '/home' })
   }
 
   if (to.meta?.requiresAuth && !token) {
     return next({ path: '/login', query: { redirect: to.fullPath } })
+  }
+  if (to.path === '/home' && isAdviser()) {
+    return next({ path: '/adviser/dashboard' })
+  }
+
+  if (to.meta?.requiresAdviser && !isAdviser()) {
+    console.warn('Access denied: User is not an adviser')
+    return next({
+      path: '/home',
+      query: { error: 'unauthorized' }
+    })
   }
 
   next()

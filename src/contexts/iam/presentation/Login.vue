@@ -35,7 +35,13 @@ async function onSubmit() {
     if (res.status === 200 && res.token) {
       TokenService.save(res.token)
       localStorage.setItem('currentUser', JSON.stringify(res.user))
-      router.push('/home')
+
+      const userRole = res.user.role || res.user.rol
+      if (userRole === 'adviser' || userRole === 'asesor') {
+        router.push('/adviser/dashboard')
+      } else {
+        router.push('/home')
+      }
     } else {
       error.value = t('iam.login.invalidCredentials')
     }

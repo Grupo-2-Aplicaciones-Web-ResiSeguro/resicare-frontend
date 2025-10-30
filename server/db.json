@@ -225,19 +225,104 @@
       "name": "1",
       "email": "1",
       "password": "1",
+      "role": "client",
       "id": 1
     },
     {
       "name": "2",
       "email": "2",
       "password": "2",
+      "role": "adviser",
       "id": 2
     },
     {
       "name": "1",
       "email": "1",
       "password": "1",
+      "role": "client",
       "id": 3
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv1",
+      "claimId": "1",
+      "clientId": "1",
+      "clientName": "Usuario Demo",
+      "adviserId": "2",
+      "adviserName": "Asesor Juan",
+      "status": "active",
+      "createdAt": "2025-10-20T10:00:00.000Z",
+      "updatedAt": "2025-10-30T06:59:36.722Z",
+      "unreadCount": 1,
+      "lastMessageContent": "Entiendo tu situación. Voy a revisar tu caso.",
+      "lastMessageAt": "2025-10-29T14:30:00.000Z"
+    },
+    {
+      "id": "conv2",
+      "claimId": "2",
+      "clientId": "1",
+      "clientName": "Usuario Demo",
+      "adviserId": null,
+      "adviserName": null,
+      "status": "pending",
+      "createdAt": "2025-10-28T09:00:00.000Z",
+      "updatedAt": "2025-10-28T09:00:00.000Z",
+      "unreadCount": 0,
+      "lastMessageContent": "Necesito ayuda con mi reclamo de robo",
+      "lastMessageAt": "2025-10-28T09:00:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg1",
+      "conversationId": "conv1",
+      "senderId": "1",
+      "senderName": "Usuario Demo",
+      "senderRole": "cliente",
+      "content": "Hola, necesito ayuda con mi reclamo de pérdida",
+      "timestamp": "2025-10-20T10:00:00.000Z",
+      "isRead": true
+    },
+    {
+      "id": "msg2",
+      "conversationId": "conv1",
+      "senderId": "2",
+      "senderName": "Asesor Juan",
+      "senderRole": "adviser",
+      "content": "Hola! Claro, con gusto te ayudo. ¿Puedes darme más detalles sobre lo que sucedió?",
+      "timestamp": "2025-10-20T10:05:00.000Z",
+      "isRead": true
+    },
+    {
+      "id": "msg3",
+      "conversationId": "conv1",
+      "senderId": "1",
+      "senderName": "Usuario Demo",
+      "senderRole": "cliente",
+      "content": "Perdí mi celular mientras iba camino a mis clases. Ya presenté la denuncia policial.",
+      "timestamp": "2025-10-20T10:10:00.000Z",
+      "isRead": true
+    },
+    {
+      "id": "msg4",
+      "conversationId": "conv1",
+      "senderId": "2",
+      "senderName": "Asesor Juan",
+      "senderRole": "adviser",
+      "content": "Entiendo tu situación. Voy a revisar tu caso.",
+      "timestamp": "2025-10-29T14:30:00.000Z",
+      "isRead": false
+    },
+    {
+      "id": "msg5",
+      "conversationId": "conv2",
+      "senderId": "1",
+      "senderName": "Usuario Demo",
+      "senderRole": "cliente",
+      "content": "Necesito ayuda con mi reclamo de robo",
+      "timestamp": "2025-10-28T09:00:00.000Z",
+      "isRead": false
     }
   ]
 }

@@ -192,7 +192,8 @@
     "selectLanguage": "Select Language",
     "submit": "Submit",
     "back": "Back",
-    "hideDetail": "Hide detail"
+    "hideDetail": "Hide detail",
+    "loading": "Loading"
   },
 
   "aria": {
@@ -259,6 +260,36 @@
     },
     "hideDetail": "Hide detail",
     "statusTitle": "Claim Status"
+  },
+  "chat": {
+    "conversations": "Conversations",
+    "typePlaceholder": "Type a message...",
+    "send": "Send",
+    "loadingMessages": "Loading messages...",
+    "noMessages": "No messages",
+    "startConversation": "Start the conversation by writing a message",
+    "loadingConversations": "Loading conversations...",
+    "noConversations": "No conversations",
+    "claim": "Claim",
+    "status": {
+      "active": "Active",
+      "pending": "Pending",
+      "closed": "Closed"
+    },
+    "chatWith": "Chat with",
+    "aboutClaim": "About claim",
+    "adviserDashboard": "Adviser Dashboard",
+    "selectConversation": "Select a conversation to start",
+    "unassignedChats": "Unassigned Chats",
+    "myChats": "My Chats",
+    "selectToAssign": "Select a chat to assign it to yourself",
+    "selectToView": "Select a chat to view the conversation",
+    "assignToMe": "Assign this chat",
+    "assignPrompt": "This chat hasn't been assigned yet. Do you want to assign it to yourself and start handling it?",
+    "assignAndOpen": "Assign and open",
+    "closeConversation": "Close conversation",
+    "reopenConversation": "Reopen conversation",
+    "conversationClosed": "This conversation is closed"
   },
   "iam": {
     "common": {

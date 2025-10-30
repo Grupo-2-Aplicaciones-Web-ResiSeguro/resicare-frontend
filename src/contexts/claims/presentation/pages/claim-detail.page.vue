@@ -13,7 +13,6 @@
       <div class="row">
         <img src="/images/NOTA.png" alt="nota" class="row-icon"/>
         <div class="label">{{ t('claims.number') }}</div>
-        <!-- mostrar number si existe, sino id -->
         <div class="value">{{ claim.number || claim.id }}</div>
       </div>
 
@@ -145,9 +144,9 @@ function downloadProof(id) {
 }
 
 function openAdvisor() {
-  // acción simple: abrir modal o navegar a página de asesoría.
-  // Aquí por ahora mostramos alerta y dejamos espacio para integrar un flujo real.
-  alert(t('claims.advisorContact'))
+  // Navegar al chat para este reclamo
+  const claimId = claim.value.id || route.params.id
+  router.push({ name: 'chat', params: { claimId } })
 }
 
 function goBack() {

@@ -12,7 +12,6 @@ export class AuthService {
     async login({ email, password }) {
         const resp = await this.authApi.signin({ email, password })
         if (resp.status === 200 && Array.isArray(resp.data) && resp.data.length > 0) {
-            // json-server: resp.data es un array de usuarios
             const userData = resp.data[0]
             TokenService.save(userData.id)
             const user = UserAssembler.fromAuthResponse(userData)
@@ -32,9 +31,7 @@ export class AuthService {
             name: formData.nombre,
             email: formData.correo,
             password: formData.password,
-            // Asignar rol por defecto al registrarse desde el frontend
             rol: 'cliente',
-            // Guardar fecha de creación del usuario
             createdAt: new Date().toISOString()
         }
         let resp
@@ -60,7 +57,6 @@ export class AuthService {
             edad: formData.edad || 0,
             genero: formData.genero || '',
             nivelInstruccion: formData.nivelInstruccion || '',
-            // Registrar fecha de creación del profile
             createdAt: new Date().toISOString(),
         }
 
@@ -75,5 +71,6 @@ export class AuthService {
 
     logout() {
         TokenService.clear()
+        localStorage.removeItem('currentUser')
     }
 }

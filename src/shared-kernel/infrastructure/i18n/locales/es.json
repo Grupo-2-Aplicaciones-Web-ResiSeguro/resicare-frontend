@@ -194,7 +194,8 @@
     "selectLanguage": "Seleccionar Idioma",
     "submit": "Enviar",
     "back": "Volver",
-    "hideDetail": "Ocultar detalle"
+    "hideDetail": "Ocultar detalle",
+    "loading": "Cargando"
   },
   "tutorial": {
     "list": {
@@ -286,6 +287,36 @@
     },
     "hideDetail": "Ocultar detalle",
     "statusTitle": "Estado del Reclamo"
+  },
+  "chat": {
+    "conversations": "Conversaciones",
+    "typePlaceholder": "Escribe un mensaje...",
+    "send": "Enviar",
+    "loadingMessages": "Cargando mensajes...",
+    "noMessages": "No hay mensajes",
+    "startConversation": "Inicia la conversación escribiendo un mensaje",
+    "loadingConversations": "Cargando conversaciones...",
+    "noConversations": "No hay conversaciones",
+    "claim": "Reclamo",
+    "status": {
+      "active": "Activa",
+      "pending": "Pendiente",
+      "closed": "Cerrada"
+    },
+    "chatWith": "Chat con",
+    "aboutClaim": "Sobre reclamo",
+    "adviserDashboard": "Panel de Asesor",
+    "selectConversation": "Selecciona una conversación para comenzar",
+    "unassignedChats": "Chats sin asignar",
+    "myChats": "Mis chats",
+    "selectToAssign": "Selecciona un chat para asignártelo",
+    "selectToView": "Selecciona un chat para ver la conversación",
+    "assignToMe": "Asignar este chat",
+    "assignPrompt": "Este chat aún no ha sido asignado. ¿Quieres asignártelo y comenzar a atenderlo?",
+    "assignAndOpen": "Asignar y abrir",
+    "closeConversation": "Cerrar conversación",
+    "reopenConversation": "Reabrir conversación",
+    "conversationClosed": "Esta conversación está cerrada"
   },
   "iam": {
     "common": {

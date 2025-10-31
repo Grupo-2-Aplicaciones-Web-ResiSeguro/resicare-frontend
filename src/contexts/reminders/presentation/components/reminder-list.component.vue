@@ -68,16 +68,23 @@ function getCurrentUserId() {
 async function loadReminders() {
   loading.value = true
   try {
-    const userId = getCurrentUserId()
-    if (!userId) {
+    const userIdRaw = getCurrentUserId()
+    if (!userIdRaw) {
       reminders.value = []
       loading.value = false
       return
     }
-    const res = await api.getByUserId(userId)
-    reminders.value = (res && res.data) ? res.data.filter(r => r.userId && String(r.userId) === String(userId)) : []
+    const userIdNum = Number(userIdRaw)
+    if (Number.isNaN(userIdNum)) {
+      reminders.value = []
+      loading.value = false
+      return
+    }
+
+    const res = await api.getByUserId(userIdNum)
+    const data = (res && res.data) ? res.data : []
+    reminders.value = Array.isArray(data) ? data.filter(r => Number(r.userId) === userIdNum) : []
   } catch (e) {
-    // Si falla la API dejamos la lista vacía (no se usa storage local)
     reminders.value = []
   }
   loading.value = false
@@ -88,7 +95,6 @@ async function deleteReminder(id) {
   try {
     await api.delete(id)
   } catch (e) {
-    // mínimo manejo de error: mostrar alerta traducida si existe
     alert(t('reminders.errors.deleteFailed') || 'Error eliminando recordatorio')
   } finally {
     await loadReminders()

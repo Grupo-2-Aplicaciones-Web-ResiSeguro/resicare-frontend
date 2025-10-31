@@ -3,7 +3,7 @@ import { Reminder } from './reminder.entity'
 export class ReminderAssembler {
     static toEntitiesFromResponse(response) {
         const data = (response && response.data) ? response.data : response
-        if (response && response.status && response.status !== 200) {
+        if (response && response.status && !(response.status >= 200 && response.status < 300)) {
             console.error(`${response.status}, ${response.code || ''}, ${response.message || ''}`)
             return []
         }
@@ -12,8 +12,14 @@ export class ReminderAssembler {
     }
 
     static toEntityFromResource(resource = {}) {
+        const parseNumber = (v) => {
+            if (v === null || v === undefined) return null
+            const n = Number(v)
+            return Number.isNaN(n) ? null : n
+        }
+
         return new Reminder({
-            id: resource.id ?? null,
+            id: parseNumber(resource.id),
             title: resource.title ?? '',
             type: resource.type ?? '',
             date: resource.date ?? '',
@@ -21,13 +27,20 @@ export class ReminderAssembler {
             notes: resource.notes ?? '',
             createdAt: resource.createdAt ?? null,
             updatedAt: resource.updatedAt ?? null,
-            userId: resource.userId ?? null
+            userId: parseNumber(resource.userId)
         })
     }
 
     static toResourceFromEntity(reminder) {
+        const toNumOrNull = (v) => {
+            if (v === null || v === undefined) return null
+            const n = Number(v)
+            return Number.isNaN(n) ? null : n
+        }
+
         return {
-            id: reminder.id ?? null,
+            // si id existe y es numérico lo enviamos como número; si no, lo omitimos (servidor asignará)
+            ...(reminder.id != null ? { id: toNumOrNull(reminder.id) } : {}),
             title: reminder.title ?? '',
             type: reminder.type ?? '',
             date: reminder.date ?? '',
@@ -35,8 +48,7 @@ export class ReminderAssembler {
             notes: reminder.notes ?? '',
             createdAt: reminder.createdAt ?? null,
             updatedAt: reminder.updatedAt ?? null,
-            userId: reminder.userId ?? null
+            userId: toNumOrNull(reminder.userId)
         }
     }
 }
-

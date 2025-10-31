@@ -54,7 +54,6 @@ const { t } = useI18n()
 
 const title = ref('')
 const type = ref('')
-// date now holds a Date object from pv-date-picker
 const date = ref(null)
 const time = ref('')
 const notes = ref('')
@@ -63,19 +62,11 @@ const errorMessage = ref('')
 const infoMessage = ref('')
 const api = new ReminderApiService()
 
-// minDate: hoy (inicio del día)
 const minDate = computed(() => {
   const d = new Date()
   d.setHours(0,0,0,0)
   return d
 })
-
-function createId() {
-  try {
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID()
-  } catch (e) {}
-  return `r-${Date.now()}`
-}
 
 function formatDateToYYYYMMDD(d) {
   const y = d.getFullYear()
@@ -154,25 +145,32 @@ function getCurrentUserId() {
 async function saveReminder() {
   if (!validate()) return
 
-  const id = createId()
-  const userId = getCurrentUserId()
-  if (!userId) {
+  const userIdRaw = getCurrentUserId()
+  if (!userIdRaw) {
     errorMessage.value = t('reminders.errors.loginRequired') || 'Debes iniciar sesión para crear un recordatorio'
     return
   }
 
+  const userIdNum = Number(userIdRaw)
+  if (Number.isNaN(userIdNum)) {
+    errorMessage.value = t('reminders.errors.invalidUserId') || 'UserId inválido'
+    return
+  }
+
+  // No forzar id en cliente: omitimos id para que json-server genere un id numérico
   const dateStr = formatDateToYYYYMMDD(new Date(date.value))
 
-  const reminderObj = new Reminder({
-    id,
+  const reminderObj = {
+    // id: omitido a propósito para que DB asigne id numérico
     title: title.value.trim(),
     type: type.value,
     date: dateStr,
     time: time.value,
     notes: notes.value.trim(),
     createdAt: new Date().toISOString(),
-    userId // Asigna el userId del usuario logueado
-  })
+    updatedAt: new Date().toISOString(),
+    userId: userIdNum // envío como número
+  }
 
   try {
     await api.create(reminderObj)

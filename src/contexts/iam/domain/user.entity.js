@@ -4,11 +4,13 @@ export class User {
                     email = '',
                     name = '',
                     rol = '',
-                    createdAt = null
+                    createdAt = null,
+                    password = ''
                 } = {}) {
         this.id = id
         this.email = email
         this.name = name
+        this.password = password
         this.rol = rol
         this.createdAt = createdAt
     }

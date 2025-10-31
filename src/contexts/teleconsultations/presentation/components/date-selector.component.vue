@@ -55,7 +55,6 @@ const localValue = computed({
     return parseToDate(props.modelValue)
   },
   set: (val) => {
-    // normalizar: si val es anterior a minDate, usar minDate
     let chosen = parseToDate(val)
     if (!chosen) {
       emit('update:modelValue', '')
@@ -64,7 +63,6 @@ const localValue = computed({
     if (chosen < minDate.value) {
       chosen = new Date(minDate.value)
     }
-    // emitir en formato YYYY-MM-DD para consistencia
     emit('update:modelValue', formatDateToYYYYMMDD(chosen))
   }
 })

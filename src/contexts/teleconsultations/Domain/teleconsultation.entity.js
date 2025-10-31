@@ -11,7 +11,7 @@ export class Teleconsultation {
         this.service = service
         this.date = date
         this.time = time
-        this.description = description // Motivo de la consulta
+        this.description = description
         this.userId = userId
     }
 }

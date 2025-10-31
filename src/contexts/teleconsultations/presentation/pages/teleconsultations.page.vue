@@ -90,7 +90,21 @@ function getCurrentUserId() {
 
 async function onSubmit(consultationData) {
   try {
-    consultationData.userId = getCurrentUserId()
+    const userIdRaw = getCurrentUserId()
+    if (!userIdRaw) {
+      alert('Debes iniciar sesión para agendar una consulta')
+      return
+    }
+
+    // Convertir userId a número
+    const userId = parseInt(userIdRaw, 10)
+    if (isNaN(userId)) {
+      alert('Error: Usuario inválido')
+      return
+    }
+
+    consultationData.userId = userId
+
     await api.create(consultationData)
     consultation.service = ''
     consultation.date = ''
@@ -142,23 +156,25 @@ async function loadConsultations() {
 
 onMounted(loadConsultations)
 
-// Filtra solo las consultas del usuario actual
 const scheduled = computed(() => {
   const today = todayISO()
   const userId = getCurrentUserId()
+  const userIdNum = parseInt(userId, 10)
+
+  if (isNaN(userIdNum)) return []
+
   return consultations.value
-    .filter(c => c && c.userId && String(c.userId) === String(userId))
-    .filter(c => c.date && String(c.date) >= String(today))
-    .sort((a, b) => {
-      if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
-      return String(a.date).localeCompare(String(b.date))
-    })
+      .filter(c => c && c.userId && Number(c.userId) === userIdNum)
+      .filter(c => c.date && String(c.date) >= String(today))
+      .sort((a, b) => {
+        if (a.date === b.date) return (a.time || '').localeCompare(b.time || '')
+        return String(a.date).localeCompare(String(b.date))
+      })
 })
 
 function formatDateTime(date, time) {
   if (!date) return ''
   let dt
-  // Si es un string tipo ISO, conviértelo a Date
   if (typeof date === 'string' && date.includes('T')) {
     dt = new Date(date)
   } else if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {

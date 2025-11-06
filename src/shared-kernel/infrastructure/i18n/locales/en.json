@@ -333,6 +333,7 @@
       "saveError": "Error saving profile",
       "placeholderBio": "Additional information about you...",
       "validationRequired": "Please complete required fields",
+      "passwordPlaceholder": "Edit your password",
       "welcome": "Welcome",
       "loading": "Loading profile...",
       "notFound": "Profile not found",

@@ -362,6 +362,7 @@
       "validationRequired": "Por favor completa los campos requeridos",
       "welcome": "Bienvenido",
       "loading": "Cargando perfil...",
+      "passwordPlaceholder": "Edita tu contraseña",
       "notFound": "Perfil no encontrado",
       "errorWithMsg": "Error: {msg}",
       "name": "Nombre",

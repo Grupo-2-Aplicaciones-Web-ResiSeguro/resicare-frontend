@@ -1,14 +1,27 @@
 <template>
   <div class="form-group">
-    <label for="claim-type">{{ $t('claims.claimType') }}</label>
-    <div class="type-buttons">
+    <label
+        id="claim-type-label"
+        for="claim-type"
+    >
+      {{ $t('claims.claimType') }}
+    </label>
+    <div
+        class="type-buttons"
+        role="radiogroup"
+        aria-labelledby="claim-type-label"
+        aria-required="true"
+    >
       <pv-button
-        v-for="type in claimTypes"
-        :key="type.value"
-        :label="type.label"
-        :class="['type-button', { 'p-button-outlined': localValue !== type.value }]"
-        :severity="localValue === type.value ? 'primary' : 'secondary'"
-        @click="selectType(type.value)"
+          v-for="type in claimTypes"
+          :key="type.value"
+          :label="type.label"
+          :class="['type-button', { 'p-button-outlined': localValue !== type.value }]"
+          :severity="localValue === type.value ? 'primary' : 'secondary'"
+          role="radio"
+          :aria-checked="localValue === type.value ? 'true' : 'false'"
+          :aria-label="`${type.label} claim type`"
+          @click="selectType(type.value)"
       />
     </div>
   </div>
@@ -34,6 +47,10 @@ const localValue = computed({
   set: (val) => emit('update:modelValue', val)
 })
 
+/**
+ * Available claim types with i18n labels.
+ * Maps to backend claim type values.
+ */
 const claimTypes = computed(() => [
   { label: t('claims.accident'), value: 'accident' },
   { label: t('claims.theft'), value: 'theft' },

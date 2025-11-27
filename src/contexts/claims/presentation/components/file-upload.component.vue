@@ -1,36 +1,55 @@
 <template>
   <div class="file-upload-section">
-    <label class="section-label">{{ $t('claims.attachPhotos') }}</label>
+    <label
+        id="file-upload-label"
+        class="section-label"
+    >
+      {{ $t('claims.attachPhotos') }}
+    </label>
 
-    <div class="upload-area">
+    <div
+        class="upload-area"
+        role="region"
+        aria-labelledby="file-upload-label"
+    >
       <input
-        ref="fileInput"
-        type="file"
-        multiple
-        accept="image/*,.pdf,.doc,.docx"
-        class="file-input"
-        @change="handleFileSelect"
+          ref="fileInput"
+          type="file"
+          multiple
+          accept="image/*,.pdf,.doc,.docx"
+          class="file-input"
+          aria-describedby="upload-hint"
+          @change="handleFileSelect"
       />
 
       <pv-button
-        :label="$t('claims.selectFiles')"
-        icon="pi pi-upload"
-        severity="secondary"
-        outlined
-        @click="triggerFileInput"
+          :label="$t('claims.selectFiles')"
+          icon="pi pi-upload"
+          severity="secondary"
+          outlined
+          aria-label="Select files to upload"
+          @click="triggerFileInput"
       />
 
-      <p class="upload-hint">{{ $t('claims.uploadHint') }}</p>
+      <p id="upload-hint" class="upload-hint">
+        {{ $t('claims.uploadHint') }}
+      </p>
     </div>
 
-    <div v-if="fileList.length > 0" class="file-list">
+    <div
+        v-if="fileList.length > 0"
+        class="file-list"
+        role="list"
+        aria-label="Uploaded files"
+    >
       <div
-        v-for="(file, index) in fileList"
-        :key="index"
-        class="file-item"
+          v-for="(file, index) in fileList"
+          :key="index"
+          class="file-item"
+          role="listitem"
       >
         <div class="file-info">
-          <i :class="getFileIcon(file.type)" class="file-icon"></i>
+          <i :class="getFileIcon(file.type)" class="file-icon" aria-hidden="true"></i>
           <div class="file-details">
             <span class="file-name">{{ file.name }}</span>
             <span class="file-size">{{ formatFileSize(file.size) }}</span>
@@ -39,42 +58,46 @@
 
         <div class="file-actions">
           <pv-button
-            v-if="isImage(file.type)"
-            icon="pi pi-eye"
-            severity="info"
-            text
-            rounded
-            @click="previewFile(file, index)"
+              v-if="isImage(file.type)"
+              icon="pi pi-eye"
+              severity="info"
+              text
+              rounded
+              :aria-label="`Preview ${file.name}`"
+              @click="previewFile(file, index)"
           />
           <pv-button
-            icon="pi pi-times"
-            severity="danger"
-            text
-            rounded
-            @click="removeFile(index)"
+              icon="pi pi-times"
+              severity="danger"
+              text
+              rounded
+              :aria-label="`Remove ${file.name}`"
+              @click="removeFile(index)"
           />
         </div>
       </div>
     </div>
 
     <pv-dialog
-      v-model:visible="showPreview"
-      :header="previewFileName"
-      :modal="true"
-      :style="{ width: '80vw', maxWidth: '800px' }"
+        v-model:visible="showPreview"
+        :header="previewFileName"
+        :modal="true"
+        :style="{ width: '80vw', maxWidth: '800px' }"
+        role="dialog"
+        aria-modal="true"
     >
       <img
-        v-if="previewUrl"
-        :src="previewUrl"
-        :alt="previewFileName"
-        class="preview-image"
+          v-if="previewUrl"
+          :src="previewUrl"
+          :alt="previewFileName"
+          class="preview-image"
       />
     </pv-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -87,7 +110,7 @@ const props = defineProps({
   },
   maxFileSize: {
     type: Number,
-    default: 5 * 1024 * 1024
+    default: 5 * 1024 * 1024 // 5MB default limit
   }
 })
 
@@ -121,7 +144,6 @@ const handleFileSelect = (event) => {
   })
 
   emit('update:modelValue', fileList.value)
-
   event.target.value = ''
 }
 

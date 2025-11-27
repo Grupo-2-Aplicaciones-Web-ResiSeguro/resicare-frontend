@@ -1,25 +1,42 @@
 <template>
   <div class="form-group">
-    <label for="registered-object">{{ $t('claims.registeredObject') }}</label>
-    <div class="object-buttons">
+    <label
+        id="registered-object-label"
+        for="registered-object"
+    >
+      {{ $t('claims.registeredObject') }}
+    </label>
+    <div
+        class="object-buttons"
+        role="radiogroup"
+        aria-labelledby="registered-object-label"
+        aria-required="true"
+        aria-describedby="object-help-text"
+    >
       <pv-button
-        v-for="obj in registeredObjects"
-        :key="obj.value"
-        :label="obj.label"
-        :class="['object-button', { 'p-button-outlined': localValue !== obj.value }]"
-        :severity="localValue === obj.value ? 'primary' : 'secondary'"
-        @click="selectObject(obj.value)"
+          v-for="obj in registeredObjects"
+          :key="obj.value"
+          :label="obj.label"
+          :class="['object-button', { 'p-button-outlined': localValue !== obj.value }]"
+          :severity="localValue === obj.value ? 'primary' : 'secondary'"
+          role="radio"
+          :aria-checked="localValue === obj.value ? 'true' : 'false'"
+          :aria-label="`Select ${obj.label}`"
+          @click="selectObject(obj.value)"
       />
       <pv-button
-        :label="$t('claims.registerObject')"
-        icon="pi pi-plus"
-        class="object-button"
-        severity="info"
-        outlined
-        @click="showRegisterDialog"
+          :label="$t('claims.registerObject')"
+          icon="pi pi-plus"
+          class="object-button"
+          severity="info"
+          outlined
+          aria-label="Register a new object"
+          @click="showRegisterDialog"
       />
     </div>
-    <p class="help-text">{{ $t('claims.selectPreviouslyRegistered') }}</p>
+    <p id="object-help-text" class="help-text">
+      {{ $t('claims.selectPreviouslyRegistered') }}
+    </p>
   </div>
 </template>
 
@@ -55,6 +72,9 @@ const registeredObjects = computed(() => {
   }))
 })
 
+/**
+ * Filters by current authenticated user ID
+ */
 onMounted(async () => {
   try {
     const userId = getCurrentUserId()
@@ -65,7 +85,7 @@ onMounted(async () => {
     const response = await api.getByUserId(userId)
     objectsList.value = RegisteredObjectAssembler.toEntitiesFromResponse(response)
   } catch (error) {
-    console.error('Error al cargar objetos registrados del usuario:', error)
+    console.error('Error loading user registered objects:', error)
   }
 })
 
@@ -87,15 +107,17 @@ function getCurrentUserId() {
         if (candidate) return String(candidate)
       } catch {}
     }
+
     const token = localStorage.getItem('accessToken_v1')
     if (!token) return null
+
     if (token.split('.').length === 3) {
       try {
         const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
         const pad = payloadB64.length % 4
         const padded = pad ? payloadB64 + '='.repeat(4 - pad) : payloadB64
         const payloadJson = decodeURIComponent(
-          Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+            Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
         )
         const payload = JSON.parse(payloadJson)
         const candidate = payload.sub ?? payload.id ?? payload.userId ?? payload.uid ?? null

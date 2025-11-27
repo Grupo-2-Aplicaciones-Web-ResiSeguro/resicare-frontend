@@ -38,7 +38,14 @@
     "description": "Descripción",
     "submit": "Enviar Consulta",
     "success": "¡Tu consulta ha sido reservada con éxito!",
-    "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente."
+    "error": "Hubo un error al reservar tu consulta. Por favor, intenta nuevamente.",
+    "serviceDescription": "Selecciona el tipo de servicio médico que necesitas",
+    "dateDescription": "Elige la fecha para tu cita. Solo se permiten fechas futuras",
+    "timeDescription": "Selecciona una hora disponible para tu consulta",
+    "descriptionHint": "Describe tus síntomas o el motivo de la consulta",
+    "descriptionPlaceholder": "Ingresa los detalles de tu consulta...",
+    "serviceRequired": "Por favor selecciona un tipo de servicio"
+
   },
 
 

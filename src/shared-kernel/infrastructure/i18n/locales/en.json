@@ -39,7 +39,13 @@
     "description": "Description",
     "submit": "Submit Consultation",
     "success": "Your consultation has been booked successfully!",
-    "error": "There was an error booking your consultation. Please try again."
+    "error": "There was an error booking your consultation. Please try again.",
+    "serviceDescription": "Select the type of medical service you need",
+    "dateDescription": "Choose the date for your appointment. Only future dates are allowed",
+    "timeDescription": "Select an available time slot for your consultation",
+    "descriptionHint": "Describe your symptoms or reason for consultation",
+    "descriptionPlaceholder": "Enter details about your consultation...",
+    "serviceRequired": "Please select a service type"
   },
   
   "reminders": {

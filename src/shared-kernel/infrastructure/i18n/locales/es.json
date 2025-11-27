@@ -341,6 +341,7 @@
       "namePlaceholder": "Nombre completo",
       "emailPlaceholder": "Correo electrónico",
       "passwordPlaceholder": "Contraseña",
+      "passwordHint": "Debe tener al menos 8 caracteres",
       "phonePlaceholder": "Teléfono",
       "agePlaceholder": "Edad",
       "residencePlaceholder": "Residencia",
@@ -362,6 +363,8 @@
     "login": {
       "emailPlaceholder": "Correo electrónico",
       "passwordPlaceholder": "Contraseña",
+      "emailHint": "Ingresa tu correo electrónico registrado",
+      "passwordHint": "Ingresa la contraseña de tu cuenta",
       "submit": "Iniciar sesión",
       "noAccount": "¿No tienes cuenta? Registrarse",
       "invalidCredentials": "Credenciales inválidas",

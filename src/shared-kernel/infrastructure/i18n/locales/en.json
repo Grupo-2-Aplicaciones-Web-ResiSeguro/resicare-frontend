@@ -309,9 +309,12 @@
     "common": {
       "appName": "ResiCare"
     },
+
+
     "register": {
       "namePlaceholder": "Full name",
       "emailPlaceholder": "Email",
+      "passwordHint": "Must be at least 8 characters long",
       "passwordPlaceholder": "Password",
       "phonePlaceholder": "Phone",
       "agePlaceholder": "Age",
@@ -337,7 +340,9 @@
       "submit": "Sign in",
       "noAccount": "Don't have an account? Register",
       "invalidCredentials": "Invalid credentials",
-      "connectionError": "Connection error"
+      "connectionError": "Connection error",
+      "emailHint": "Enter your registered email address",
+      "passwordHint": "Enter your account password"
     },
     "profile": {
       "viewTitle": "My profile",

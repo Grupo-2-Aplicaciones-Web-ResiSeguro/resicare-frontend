@@ -1,14 +1,29 @@
 <template>
   <div class="form-group">
-    <label for="date">{{ t('teleconsultations.date') }}</label>
+    <label
+        id="date-label"
+        for="date"
+    >
+      {{ t('teleconsultations.date') }}
+    </label>
     <pv-date-picker
-      id="date"
-      v-model="localValue"
-      class="form-control"
-      :placeholder="t('teleconsultations.selectTime')"
-      date-format="yy-mm-dd"
-      :minDate="minDate"
+        id="date"
+        v-model="localValue"
+        class="form-control"
+        :placeholder="t('teleconsultations.selectTime')"
+        date-format="yy-mm-dd"
+        :minDate="minDate"
+        aria-labelledby="date-label"
+        aria-required="true"
+        aria-describedby="date-description"
+        :aria-invalid="!localValue ? 'true' : 'false'"
     />
+    <span
+        id="date-description"
+        class="sr-only"
+    >
+      {{ t('teleconsultations.dateDescription') }}
+    </span>
   </div>
 </template>
 
@@ -27,21 +42,32 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-// minDate = hoy (inicio del día)
+/**
+ * Minimum selectable date (today at midnight)
+ * Prevents users from selecting past dates for appointments
+ */
 const minDate = computed(() => {
   const d = new Date()
   d.setHours(0, 0, 0, 0)
   return d
 })
 
+/**
+ * @param {string|Date} v - Date value to parse
+ * @returns {Date|null} Parsed date or null if invalid
+ */
 function parseToDate(v) {
   if (!v) return null
   if (v instanceof Date) return v
-  // aceptar strings tipo "YYYY-MM-DD" o ISO
   const parsed = new Date(v)
   return isNaN(parsed.getTime()) ? null : parsed
 }
 
+/**
+ * Formats Date object to YYYY-MM-DD string
+ * @param {Date} d - Date to format
+ * @returns {string} Formatted date string or empty string
+ */
 function formatDateToYYYYMMDD(d) {
   if (!(d instanceof Date) || isNaN(d.getTime())) return ''
   const y = d.getFullYear()
@@ -60,6 +86,7 @@ const localValue = computed({
       emit('update:modelValue', '')
       return
     }
+    // Enforce minimum date constraint
     if (chosen < minDate.value) {
       chosen = new Date(minDate.value)
     }
@@ -67,3 +94,17 @@ const localValue = computed({
   }
 })
 </script>
+
+<style scoped>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+</style>

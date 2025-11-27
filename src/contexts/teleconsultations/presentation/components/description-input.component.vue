@@ -1,14 +1,29 @@
 <template>
   <div class="form-group">
-    <label for="description">{{ t('teleconsultations.description') }}</label>
+    <label
+        id="description-label"
+        for="description"
+    >
+      {{ t('teleconsultations.description') }}
+    </label>
     <pv-input-text
-      id="description"
-      v-model="localValue"
-      class="form-control"
-
-      textarea
-      rows="4"
+        id="description"
+        v-model="localValue"
+        class="form-control"
+        textarea
+        rows="4"
+        :placeholder="t('teleconsultations.descriptionPlaceholder')"
+        aria-labelledby="description-label"
+        aria-describedby="description-hint"
+        :maxlength="500"
+        :aria-invalid="localValue.length > 500 ? 'true' : 'false'"
     />
+    <span
+        id="description-hint"
+        class="hint-text"
+    >
+      {{ t('teleconsultations.descriptionHint') }} ({{ localValue.length }}/500)
+    </span>
   </div>
 </template>
 
@@ -32,3 +47,12 @@ const localValue = computed({
   set: (val) => emit('update:modelValue', val)
 })
 </script>
+
+<style scoped>
+.hint-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  display: block;
+}
+</style>

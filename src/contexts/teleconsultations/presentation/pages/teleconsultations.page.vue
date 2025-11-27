@@ -27,6 +27,7 @@
         :error="error"
         :formatService="formatService"
         :formatDateTime="formatDateTime"
+        @delete="onDelete"
     />
   </section>
 </template>
@@ -113,8 +114,38 @@ async function onSubmit(consultationData) {
     alert('Consulta enviada correctamente')
     await loadConsultations()
   } catch (error) {
-    alert('Error al enviar la consulta')
+    // Manejar errores específicos del backend
+    if (error.response && error.response.data) {
+      const errorData = error.response.data
+      const errorMessage = errorData.message || 'Error al enviar la consulta'
+      alert(errorMessage)
+    } else {
+      alert('Error al enviar la consulta')
+    }
     console.error('Error al enviar la consulta:', error)
+  }
+}
+
+async function onDelete(consultationId) {
+  try {
+    const response = await api.delete(consultationId)
+
+    if (response && response.status === 204) {
+      alert('Teleconsulta cancelada exitosamente')
+      await loadConsultations()
+    } else {
+      alert('Error al cancelar la teleconsulta')
+    }
+  } catch (error) {
+    // Manejar errores del back
+    if (error.response && error.response.data) {
+      const errorData = error.response.data
+      const errorMessage = errorData.message || 'Error al cancelar la teleconsulta'
+      alert(errorMessage)
+    } else {
+      alert('Error al cancelar la teleconsulta')
+    }
+    console.error('Error al eliminar la teleconsulta:', error)
   }
 }
 

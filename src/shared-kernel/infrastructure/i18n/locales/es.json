@@ -138,7 +138,9 @@
   "statusInReview": "En revisión",
   "statusApproved": "Aprobado",
   "statusRejected": "Rechazado",
-  "viewDetails": "Ver detalle"
+  "viewDetails": "Ver detalle",
+  "incidentDateHint": "Selecciona la fecha del incidente (no puede ser futura)",
+  "descriptionHint": "Describe lo ocurrido en detalle"
   },
 
   "registerObject": {

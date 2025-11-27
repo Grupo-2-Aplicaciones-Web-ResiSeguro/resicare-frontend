@@ -1,73 +1,121 @@
 <template>
   <section class="register-object-page">
     <header class="page-header">
-      <button class="back-btn" type="button" @click="goBack">
+      <button
+          class="back-btn"
+          type="button"
+          aria-label="Go back to previous page"
+          @click="goBack"
+      >
         ← {{ $t('common.back') }}
       </button>
       <h1>{{ $t('registerObject.title') }}</h1>
     </header>
 
-    <div class="form-container">
+    <form
+        class="form-container"
+        @submit.prevent="onSubmit"
+    >
       <object-type-selector v-model="registeredObject.tipo" />
 
       <div class="form-group">
-        <label for="object-name">{{ $t('registerObject.objectName') }}</label>
+        <label
+            id="object-name-label"
+            for="object-name"
+        >
+          {{ $t('registerObject.objectName') }}
+        </label>
         <pv-input-text
-          id="object-name"
-          v-model="registeredObject.nombre"
-          :placeholder="$t('registerObject.namePlaceholder')"
-          class="form-control"
+            id="object-name"
+            v-model="registeredObject.nombre"
+            :placeholder="$t('registerObject.namePlaceholder')"
+            class="form-control"
+            aria-labelledby="object-name-label"
+            aria-required="true"
+            :maxlength="100"
         />
       </div>
 
       <div class="form-group">
-        <label for="description">{{ $t('registerObject.briefDescription') }}</label>
+        <label
+            id="description-label"
+            for="description"
+        >
+          {{ $t('registerObject.briefDescription') }}
+        </label>
         <pv-textarea
-          id="description"
-          v-model="registeredObject.descripcionBreve"
-          :placeholder="$t('registerObject.descriptionPlaceholder')"
-          rows="3"
-          auto-resize
-          class="form-control"
+            id="description"
+            v-model="registeredObject.descripcionBreve"
+            :placeholder="$t('registerObject.descriptionPlaceholder')"
+            rows="3"
+            auto-resize
+            class="form-control"
+            aria-labelledby="description-label"
+            aria-required="true"
+            :maxlength="500"
         />
       </div>
 
       <div class="form-group">
-        <label for="price">{{ $t('registerObject.price') }}</label>
+        <label
+            id="price-label"
+            for="price"
+        >
+          {{ $t('registerObject.price') }}
+        </label>
         <pv-input-number
-          id="price"
-          v-model="registeredObject.precio"
-          :placeholder="$t('registerObject.pricePlaceholder')"
-          mode="currency"
-          currency="USD"
-          locale="en-US"
-          class="form-control"
+            id="price"
+            v-model="registeredObject.precio"
+            :placeholder="$t('registerObject.pricePlaceholder')"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+            class="form-control"
+            aria-labelledby="price-label"
+            aria-describedby="price-hint"
+            :min="0"
+            :max="1000000"
         />
+        <span id="price-hint" class="hint-text">
+          {{ $t('registerObject.priceHint') }}
+        </span>
       </div>
 
       <div class="form-group">
-        <label for="serial">{{ $t('registerObject.serialNumber') }}</label>
+        <label
+            id="serial-label"
+            for="serial"
+        >
+          {{ $t('registerObject.serialNumber') }}
+        </label>
         <pv-input-text
-          id="serial"
-          v-model="registeredObject.numeroSerie"
-          :placeholder="$t('registerObject.serialPlaceholder')"
-          class="form-control"
+            id="serial"
+            v-model="registeredObject.numeroSerie"
+            :placeholder="$t('registerObject.serialPlaceholder')"
+            class="form-control"
+            aria-labelledby="serial-label"
+            aria-describedby="serial-hint"
         />
+        <span id="serial-hint" class="hint-text">
+          {{ $t('registerObject.serialHint') }}
+        </span>
       </div>
 
       <object-photo-upload v-model="registeredObject.foto" />
 
       <div class="action-buttons">
         <pv-button
-          :label="$t('registerObject.addToList')"
-          icon="pi pi-plus"
-          severity="primary"
-          class="submit-btn"
-          :disabled="!isFormValid"
-          @click="onSubmit"
+            type="submit"
+            :label="$t('registerObject.addToList')"
+            icon="pi pi-plus"
+            severity="primary"
+            class="submit-btn"
+            :disabled="!isFormValid"
+            :aria-disabled="!isFormValid ? 'true' : 'false'"
+            aria-label="Register new object"
         />
       </div>
-    </div>
+    </form>
   </section>
 </template>
 
@@ -97,10 +145,14 @@ const userObjects = ref([])
 
 const isFormValid = computed(() => {
   return registeredObject.tipo &&
-         registeredObject.nombre &&
-         registeredObject.descripcionBreve
+      registeredObject.nombre &&
+      registeredObject.descripcionBreve
 })
 
+/**
+ * Extracts user ID from JWT token or localStorage.
+ * Supports multiple authentication token formats.
+ */
 function getCurrentUserId() {
   try {
     const currentUserRaw = localStorage.getItem('currentUser')
@@ -111,8 +163,10 @@ function getCurrentUserId() {
         if (candidate) return String(candidate)
       } catch {}
     }
+
     const token = localStorage.getItem('accessToken_v1')
     if (!token) return null
+
     if (token.split('.').length === 3) {
       try {
         const payloadB64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
@@ -143,6 +197,10 @@ onMounted(() => {
   loadUserObjects()
 })
 
+/**
+ * Submits object registration with backend validation.
+ * Resets form and reloads user objects on success.
+ */
 async function onSubmit() {
   if (!isFormValid.value) {
     alert(t('registerObject.pleaseCompleteForm'))
@@ -156,6 +214,7 @@ async function onSubmit() {
 
     alert(t('registerObject.objectRegisteredSuccess'))
 
+    // Reset form fields
     registeredObject.tipo = ''
     registeredObject.nombre = ''
     registeredObject.descripcionBreve = ''
@@ -166,8 +225,14 @@ async function onSubmit() {
     await loadUserObjects()
     router.back()
   } catch (error) {
-    alert(t('registerObject.objectRegisteredError'))
-    console.error('Error al registrar el objeto:', error)
+    // Handle backend validation errors
+    if (error.response && error.response.data) {
+      const errorData = error.response.data
+      alert(errorData.message || t('registerObject.objectRegisteredError'))
+    } else {
+      alert(t('registerObject.objectRegisteredError'))
+    }
+    console.error('Error registering object:', error)
   }
 }
 
@@ -207,6 +272,11 @@ function goBack() {
   text-decoration: underline;
 }
 
+.back-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -227,6 +297,13 @@ label {
   font-weight: 600;
 }
 
+.hint-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
 .action-buttons {
   display: flex;
   flex-direction: column;
@@ -238,6 +315,11 @@ label {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

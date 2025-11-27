@@ -1,17 +1,33 @@
 <template>
   <div class="form-group">
-    <label for="object-type">{{ $t('registerObject.objectType') }}</label>
-    <div class="type-buttons">
+    <label
+        id="object-type-label"
+        for="object-type"
+    >
+      {{ $t('registerObject.objectType') }}
+    </label>
+    <div
+        class="type-buttons"
+        role="radiogroup"
+        aria-labelledby="object-type-label"
+        aria-required="true"
+        aria-describedby="object-type-help"
+    >
       <pv-button
-        v-for="type in objectTypes"
-        :key="type.value"
-        :label="type.label"
-        :class="['type-button', { 'p-button-outlined': localValue !== type.value }]"
-        :severity="localValue === type.value ? 'primary' : 'secondary'"
-        @click="selectType(type.value)"
+          v-for="type in objectTypes"
+          :key="type.value"
+          :label="type.label"
+          :class="['type-button', { 'p-button-outlined': localValue !== type.value }]"
+          :severity="localValue === type.value ? 'primary' : 'secondary'"
+          role="radio"
+          :aria-checked="localValue === type.value ? 'true' : 'false'"
+          :aria-label="`${type.label} object type`"
+          @click="selectType(type.value)"
       />
     </div>
-    <p class="help-text">{{ $t('registerObject.selectObjectType') }}</p>
+    <p id="object-type-help" class="help-text">
+      {{ $t('registerObject.selectObjectType') }}
+    </p>
   </div>
 </template>
 
@@ -35,6 +51,10 @@ const localValue = computed({
   set: (val) => emit('update:modelValue', val)
 })
 
+/**
+ * Maps frontend labels to backend database values.
+ * Frontend: "Electronic", Backend: "electronico"
+ */
 const objectTypes = computed(() => [
   { label: t('registerObject.electronic'), value: 'electronico' },
   { label: t('registerObject.suitcase'), value: 'maleta' },

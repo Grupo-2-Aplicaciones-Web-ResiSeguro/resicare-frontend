@@ -12,13 +12,11 @@ export class ProfileApiService {
     }
 
     async getByUserId(userId) {
-        // permite consultar por userId; backend puede devolver array o recurso
         const response = await http.get(`/api/profiles?userId=${userId}`)
         return response
     }
 
     async create(profile) {
-        // profile es una instancia de Profile
         const response = await http.post('/api/profiles', profile)
         return response
     }

@@ -175,32 +175,63 @@
     "others": "Otros"
   },
   "simulator": {
-    "chooseRegisteredObject": "Elige un objeto registrado",
-    "title": "Prueba Nuestra Calculadora",
-    "selectedPlan": "Plan Elegido",
+    "title": "Simulador de Seguros",
+    "chooseRegisteredObject": "Selecciona el objeto asegurado",
+    "objectPlaceholder": "Selecciona un objeto",
+    "selectedPlan": "Plan Seleccionado",
     "noPlanSelected": "Ningún plan seleccionado",
+    "basicPlan": "Plan Básico",
+    "premiumPlan": "Plan Premium",
     "change": "Cambiar",
     "selectPlan": "Seleccionar Plan",
+
     "coverageDuration": "Duración de la Cobertura",
     "month": "mes",
     "semester": "semestre",
     "year": "año",
     "career": "Carrera",
+
+    "durationLegend": "Duración de Cobertura",
+    "duration_a": "1 Mes",
+    "duration_b": "6 Meses",
+    "duration_c": "1 Año",
+    "duration_d": "Carrera Completa",
+
     "paymentFrequency": "Frecuencia de Pago",
-    "monthly": "Mensual",
-    "annual": "Anual (-10%)",
+    "paymentFrequencyLegend": "Frecuencia de Pago",
+    "payment_variant1": "Mensual",
+    "payment_variant2": "Anual (10% descuento)",
+
     "insureRegisteredObject": "Asegurar objeto registrado",
-    "objectPlaceholder": "Selecciona un objeto",
     "calculateInsurance": "Calcular Seguro",
     "skip": "Omitir",
-    "pleaseCompleteForm": "Por favor completa todos los campos requeridos",
+    "pleaseCompleteForm": "Por favor, completa todos los campos del formulario",
+    "objectNotFound": "Objeto no encontrado",
+    "objectPriceRequired": "El objeto debe tener un precio válido",
+
     "calculationSuccess": "¡Cálculo realizado exitosamente!",
-    "calculationError": "Error al calcular el seguro. Por favor, intenta nuevamente."
+    "calculationError": "Error al calcular el seguro. Por favor, intenta nuevamente.",
+
+    "resultTitle": "Resultado del Cálculo",
+    "objectDetails": "Detalles del Objeto",
+    "selectedObject": "Objeto Seleccionado",
+    "objectValue": "Valor del Objeto",
+    "insuranceCalculation": "Cálculo del Seguro",
+    "monthlyRate": "Tarifa mensual",
+    "duration": "Duración",
+    "months": "meses",
+    "discount": "Descuento",
+    "finalAmount": "Monto Final",
+
+    "noObjectsFound": "No se encontraron objetos",
+    "registerObjectPrompt": "Necesitas registrar objetos primero.",
+    "registerNow": "Registrar ahora"
   },
 
 
 
-"layout": {
+
+  "layout": {
     "header": {
       "logo": "ResiCare"
     }

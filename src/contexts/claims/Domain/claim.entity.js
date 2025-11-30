@@ -2,8 +2,8 @@ export class Claim {
   constructor({
     id = '',
     number = '',
-    type = '',              // accident, theft, loss, damage
-    status = 'pending',     // pending, in_review, approved, rejected
+    type = '',
+    status = 'pending',
     incidentDate = '',
     creationDate = new Date().toISOString(),
     description = '',

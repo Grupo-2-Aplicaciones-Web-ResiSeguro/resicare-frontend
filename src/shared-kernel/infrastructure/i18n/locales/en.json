@@ -174,30 +174,61 @@
     "others": "Others"
   },
   "simulator": {
-    "chooseRegisteredObject": "Choose a registered object",
-    "title": "Try Our Calculator",
+    "title": "Insurance Simulator",
+    "chooseRegisteredObject": "Choose insured object",
+    "objectPlaceholder": "Select an object",
     "selectedPlan": "Selected Plan",
     "noPlanSelected": "No plan selected",
+    "basicPlan": "Basic Plan",
+    "premiumPlan": "Premium Plan",
     "change": "Change",
     "selectPlan": "Select Plan",
+
     "coverageDuration": "Coverage Duration",
     "month": "month",
     "semester": "semester",
     "year": "year",
     "career": "Career",
+
+    "durationLegend": "Coverage Duration",
+    "duration_a": "1 Month",
+    "duration_b": "6 Months",
+    "duration_c": "1 Year",
+    "duration_d": "Full Career",
+
     "paymentFrequency": "Payment Frequency",
-    "monthly": "Monthly",
-    "annual": "Annual (-10%)",
+    "paymentFrequencyLegend": "Payment Frequency",
+    "payment_variant1": "Monthly",
+    "payment_variant2": "Annual (10% discount)",
+
     "insureRegisteredObject": "Insure registered object",
-    "objectPlaceholder": "Select an object",
     "calculateInsurance": "Calculate Insurance",
     "skip": "Skip",
-    "pleaseCompleteForm": "Please complete all required fields",
+    "pleaseCompleteForm": "Please complete all form fields",
+    "objectNotFound": "Object not found",
+    "objectPriceRequired": "Selected object must have a valid price",
+
     "calculationSuccess": "Calculation completed successfully!",
-    "calculationError": "Error calculating insurance. Please try again."
+    "calculationError": "Error calculating insurance. Please try again.",
+
+    "resultTitle": "Calculation Result",
+    "objectDetails": "Object Details",
+    "selectedObject": "Selected object",
+    "objectValue": "Object value",
+    "insuranceCalculation": "Insurance Calculation",
+    "monthlyRate": "Monthly rate",
+    "duration": "Duration",
+    "months": "months",
+    "discount": "Discount",
+    "finalAmount": "Final Amount",
+
+    "noObjectsFound": "No objects found",
+    "registerObjectPrompt": "You need to register objects first.",
+    "registerNow": "Register now"
   },
 
-"layout": {
+
+  "layout": {
     "header": {
       "logo": "ResiCare"
     }

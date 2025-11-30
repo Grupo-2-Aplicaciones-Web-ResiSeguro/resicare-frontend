@@ -15,7 +15,6 @@ export class ClaimAssembler {
   }
 
   static toEntityFromResource(resource) {
-    // Incluir todos los campos presentes en db.json (rating, number, etc.)
     return new Claim({
       id: resource.id ?? resource._id ?? '',
       number: resource.number ?? '',
@@ -32,7 +31,6 @@ export class ClaimAssembler {
   }
 
   static toResourceFromEntity(claim) {
-    // serializar todos los campos que deben persistir en db.json
     return {
       id: claim.id,
       number: claim.number,

@@ -9,7 +9,6 @@ function optToString(opt) {
 
 export class ProfileAssembler {
     static toEntitiesFromResponse(response) {
-        // aceptar cualquier 2xx
         if (!response || typeof response.status !== 'number' || response.status < 200 || response.status >= 300) {
             console.error(`${response?.status}, ${response?.code}, ${response?.message}`)
             return []
@@ -20,7 +19,6 @@ export class ProfileAssembler {
     }
 
     static toEntityFromResource(resource = {}) {
-        // normalizar campos que pueden venir como {label,value} o string
         return new Profile({
             id: resource.id ?? resource._id ?? '',
             userId: resource.userId ?? resource.user_id ?? '',

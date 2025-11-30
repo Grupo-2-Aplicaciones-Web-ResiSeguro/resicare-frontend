@@ -8,7 +8,6 @@ export class UserAssembler {
             id,
             email: data.email || '',
             name,
-            // Si el backend no devuelve rol, asumimos 'cliente' por registros desde frontend
             rol: data.rol || data.role || 'cliente',
             createdAt: data.createdAt || null
         })

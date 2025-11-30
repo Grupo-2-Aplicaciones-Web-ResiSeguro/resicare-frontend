@@ -1,19 +1,35 @@
 <template>
-  <div class="plan-selector">
-    <label>{{ t('simulator.selectedPlan') }}</label>
-    <div class="plan-display">
-      <span>{{ modelValue || t('simulator.noPlanSelected') }}</span>
-      <pv-button
-        :label="t('simulator.change')"
-        class="btn-change"
-        @click="$emit('change')"
-      />
+  <fieldset class="plan-selector">
+    <legend id="plan-legend">{{ t('simulator.selectedPlan') }}</legend>
+    <div
+        class="plan-options"
+        role="radiogroup"
+        aria-labelledby="plan-legend"
+        aria-required="true"
+    >
+      <label
+          v-for="plan in planOptions"
+          :key="plan.value"
+          class="plan-option"
+      >
+        <input
+            type="radio"
+            name="plan"
+            :value="plan.value"
+            :checked="modelValue === plan.value"
+            :aria-label="`${plan.label} plan`"
+            @change="$emit('update:modelValue', plan.value)"
+        />
+        <span class="plan-label">{{ plan.label }}</span>
+      </label>
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script setup>
+// English comment: plan selector for available insurance plans
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
@@ -24,40 +40,62 @@ defineProps({
   }
 })
 
-defineEmits(['change'])
+defineEmits(['update:modelValue'])
+
+// Available insurance plan options
+const planOptions = computed(() => [
+  { value: 'basico', label: t('simulator.basicPlan') },
+  { value: 'premium', label: t('simulator.premiumPlan') }
+])
 </script>
 
 <style scoped>
 .plan-selector {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
 }
 
-label {
+legend {
   font-weight: 600;
   color: var(--color-heading);
   font-size: 0.95rem;
+  padding: 0 0.5rem;
 }
 
-.plan-display {
+.plan-options {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.plan-option {
+  display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  background: var(--color-background-soft);
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-.plan-display span {
+.plan-option:hover {
+  background: var(--color-background-soft);
+  border-color: var(--vt-c-indigo);
+}
+
+.plan-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--vt-c-indigo);
+}
+
+.plan-label {
+  font-size: 0.95rem;
   color: var(--color-text);
-}
-
-.btn-change {
-  background: var(--vt-c-indigo);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border: none;
+  font-weight: 500;
 }
 </style>

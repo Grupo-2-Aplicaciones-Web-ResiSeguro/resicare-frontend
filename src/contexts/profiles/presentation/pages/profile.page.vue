@@ -1,7 +1,6 @@
 <template>
   <section class="profile-page">
     <header class="page-header">
-      <!-- usar mismo estilo/back-btn que reminders.page.vue y navegar a /home -->
       <pv-button icon="pi pi-arrow-left" class="back-btn" @click="$router.push('/home')" :label="t('common.back')" />
       <h1 class="page-title">{{ t('iam.profile.viewTitle') || t('iam.common.appName') }}</h1>
     </header>

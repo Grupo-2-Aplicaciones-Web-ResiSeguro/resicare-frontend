@@ -1,7 +1,7 @@
 export class RegisteredObject {
     constructor({
                     id = '',
-                    tipo = '', // Electrónico, Maleta, Libros, Útiles, Otros
+                    tipo = '',
                     nombre = '',
                     descripcionBreve = '',
                     precio = 0,

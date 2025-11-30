@@ -28,7 +28,6 @@ const emit = defineEmits(['saved'])
 
 const api = new ProfileApiService()
 
-// helper para normalizar opción (puede venir string o {label,value})
 function optToString(opt) {
   if (opt == null) return ''
   if (typeof opt === 'string') return opt
@@ -90,7 +89,6 @@ async function onSubmit() {
   if (!validate()) return
   error.value = null
 
-  // construir payload con strings (no objetos)
   const payload = new Profile({
     id: id.value,
     userId: id.value || undefined,
